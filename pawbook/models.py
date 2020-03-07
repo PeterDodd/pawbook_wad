@@ -1,18 +1,15 @@
 from django.db import models
-
-# Create your models here.
-from django.db import models
 from django.contrib.auth.models import User
 
 
 class UserProfile(models.Model):   # User model
     user = models.OneToOneField(User, on_delete = models.CASCADE)   # Link UserProfile to User model instance
 
-    dateJoined = models.DateField("Date Joined")
-    age = models.IntegerField()
-    bio = models.CharField(max_length = 500)
-    location = models.CharField(max_length = 200)
-    sellCount = models.IntegerField(default=0)
+    dateJoined = models.DateField(auto_now_add = True)
+    age = models.IntegerField(blank = True)
+    bio = models.CharField(max_length = 500, blank = True)
+    location = models.CharField(max_length = 200, blank = True)
+    sellCount = models.IntegerField(default = 0, blank = True)
     profilePicture = models.ImageField(upload_to = "profile_image", blank = True)
 
     def __str__(self):
@@ -22,7 +19,7 @@ class UserProfile(models.Model):   # User model
 class Post(models.Model):           # Image posts model
     poster = models.ForeignKey(UserProfile, on_delete = models.CASCADE)     # Foreign key for user profile
     postTitle = models.CharField(max_length = 128)
-    datePosted = models.DateField("Date Posted")
+    datePosted = models.DateField(auto_now_add = True)
     postImage = models.ImageField(upload_to = "post_image")
     postDescription = models.CharField(max_length = 300)
     likes = models.IntegerField(default = 0)
@@ -39,7 +36,7 @@ class PetPedia(models.Model):       # Pet-O-Pedia model
 class Listing(models.Model):        # Listing model
     poster = models.ForeignKey(UserProfile, on_delete = models.CASCADE)
     breed = models.ForeignKey(PetPedia, on_delete = models.CASCADE)
-    datePosted = models.DateField("Date Posted")
+    datePosted = models.DateField(auto_now_add = True)
     petName = models.CharField(max_length = 128)
     petAge = models.IntegerField()
     cost = models.IntegerField()
