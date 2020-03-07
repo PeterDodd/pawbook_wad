@@ -1,8 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 
 from pawbook.models import Post, Listing, PetPedia, UserProfile
 from pawbook.forms import UserProfileForm, UserForm, PostForm, ListingForm
+
+from django.contrib.auth import authenticate, login, logout
+
 
 def posts(request):
     context_dict = {
@@ -61,11 +66,33 @@ def register(request):
 
 
 def login(request):
-    return
+    if request.method == "POST":
+        username = request.POST.get("username")  # Retrieve username
+        password = request.POST.get("password")  # and password
+
+        user = authenticate(username = username, password = password)   # Check all is well with authentication
+
+        if user:
+            if user.is_active:
+                login(request, user)
+                return redirect(reverse("pawbook:home"))
+
+            else:
+                return HttpResponse("Account disabled.")
+        else:
+            print(f"Invalid login details: {username}, {password}")
+
+    else:
+        return render(request, "pawbook/login.html")
 
 
 def home(request):
-    return
+    context_dict = {
+        "trendingPosts":    Post.objects.order_by("-likes")[:6],
+        "latestListings":   Listing.objects.order_by("-datePosted")[:6]
+    }
+
+    return render(request, "pawbook/home.html", context = context_dict)
 
 
 def petPedia(request):
@@ -76,17 +103,39 @@ def petPedia(request):
 
 @login_required
 def add_post(request):
-    return
+    postForm = PostForm()
+
+    if request.method == "POST":
+        form = PostForm(request.POST)
+
+        if form.is_valid():
+            form.save(commit = True)
+
+            return redirect("/pawbook/")
+
+        else:
+            print(form.errors)
 
 
 @login_required
 def add_listing(request):
+    listingForm = ListingForm()
+
+    if request.method == "POST":
+        form = ListingForm(request.POST)
+
+        if form.is_valid():
+            form.save(commit = True)
+
+            return redirect("/pawbook/")
+
     return
 
 
 @login_required
 def logout(request):
-    return
+    logout(request)
+    return redirect(reverse("pawbook:home"))
 
 
 @login_required
