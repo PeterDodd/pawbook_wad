@@ -1,9 +1,8 @@
 from django.contrib import admin
+
+# Register your models here.
+from django.contrib import admin
 from pawbook.models import UserProfile, Post, PetPedia, Listing
-
-
-class UserAdmin(admin.ModelAdmin):
-    list_display = ("username", "dateJoined")
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -11,14 +10,14 @@ class PostAdmin(admin.ModelAdmin):
 
 
 class PetPediaAdmin(admin.ModelAdmin):
-    list_display = ("breed", "species")
+    list_display = ("species", "breed")
 
 
 class ListingAdmin(admin.ModelAdmin):
-    list_display = ("poster", "petName", "breed", "datePosted")
+    list_display = ("poster", "petName", "breed", "cost")
 
 
-admin.site.register(UserProfile, UserAdmin)
+admin.site.register(UserProfile)
 admin.site.register(Post, PostAdmin)
 admin.site.register(PetPedia, PetPediaAdmin)
 admin.site.register(Listing, ListingAdmin)

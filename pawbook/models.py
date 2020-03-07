@@ -1,15 +1,17 @@
 from django.db import models
+
+# Create your models here.
+from django.db import models
 from django.contrib.auth.models import User
-from datetime import datetime
 
 
 class UserProfile(models.Model):   # User model
     user = models.OneToOneField(User, on_delete = models.CASCADE)   # Link UserProfile to User model instance
 
-    dateJoined = models.DateField(default = datetime.now())
+    dateJoined = models.DateField("Date Joined")
     age = models.IntegerField()
-    bio = models.CharField()
-    location = models.CharField()
+    bio = models.CharField(max_length = 500)
+    location = models.CharField(max_length = 200)
     sellCount = models.IntegerField(default=0)
     profilePicture = models.ImageField(upload_to = "profile_image", blank = True)
 
@@ -20,7 +22,7 @@ class UserProfile(models.Model):   # User model
 class Post(models.Model):           # Image posts model
     poster = models.ForeignKey(UserProfile, on_delete = models.CASCADE)     # Foreign key for user profile
     postTitle = models.CharField(max_length = 128)
-    datePosted = models.DateField(default = datetime.now())
+    datePosted = models.DateField("Date Posted")
     postImage = models.ImageField(upload_to = "post_image")
     postDescription = models.CharField(max_length = 300)
     likes = models.IntegerField(default = 0)
@@ -37,11 +39,10 @@ class PetPedia(models.Model):       # Pet-O-Pedia model
 class Listing(models.Model):        # Listing model
     poster = models.ForeignKey(UserProfile, on_delete = models.CASCADE)
     breed = models.ForeignKey(PetPedia, on_delete = models.CASCADE)
-    datePosted = models.DateField(default = datetime.now())
+    datePosted = models.DateField("Date Posted")
     petName = models.CharField(max_length = 128)
     petAge = models.IntegerField()
     cost = models.IntegerField()
     petImage = models.ImageField(upload_to = "listing_image")
-
 
 
