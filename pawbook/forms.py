@@ -14,28 +14,34 @@ class UserForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ("age", "bio", "location", "profilePicture")
+        fields = ("firstName", "lastName", "age", "bio", "location", "profilePicture")
 
 
 class PostForm(forms.ModelForm):
     postTitle = forms.CharField(max_length = 128, help_text = "Enter post title")
-    postImage = forms.ImageField()
     postDescription = forms.CharField(max_length = 128, help_text = "Enter post description")
+
     likes = forms.IntegerField(widget = forms.HiddenInput(), initial = 0)
     dislikes = forms.IntegerField(widget = forms.HiddenInput(), initial = 0)
 
+    postImage = forms.ImageField()
+
     class Meta:
         model = Post
-        fields = ("postTitle", "postImage", "postDescription")
+        fields = ("postTitle", "postDescription", "postImage")
 
 
 class ListingForm(forms.ModelForm):
+    breed = forms.ChoiceField(queryset=PetPedia.breed)
+
     petName = forms.CharField(max_length = 128, help_text = "Enter the name of the pet for sale")
-    breed = forms.ChoiceField(queryset = PetPedia.breed)
+    description = forms.CharField(max_length = 500, help_text = "Enter a description")
     petAge = forms.IntegerField(help_text = "How old is your pet?")
+
     cost = forms.IntegerField(help_text = "How much does the pet cost?")
     petImage = forms.ImageField()
 
     class Meta:
         model = Listing
-        fields = ("breed", "petName", "petAge", "cost", "petImage")
+        fields = ("breed", "petName", "description", "petaAge", "cost", "petImage")
+

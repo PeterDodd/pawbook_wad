@@ -100,6 +100,8 @@ def petPedia(request):
         "allPosts": PetPedia.objects.all(),
     }
 
+    return render(request, "pawbook/pet-o-pedia.html", context = context_dict)
+
 
 @login_required
 def add_post(request):
@@ -129,7 +131,10 @@ def add_listing(request):
 
             return redirect("/pawbook/")
 
-    return
+        else:
+            print(form.errors)
+
+    return render(request, "pawbook/add_listing.html", {"form": form})
 
 
 @login_required
@@ -141,3 +146,4 @@ def logout(request):
 @login_required
 def profile(request):
     return
+
