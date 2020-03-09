@@ -32,7 +32,7 @@ class PostForm(forms.ModelForm):
 
 
 class ListingForm(forms.ModelForm):
-    breed = forms.ChoiceField(queryset=PetPedia.breed)
+    #breed = forms.ChoiceField(queryset=PetPedia.breed)
 
     petName = forms.CharField(max_length = 128, help_text = "Enter the name of the pet for sale")
     description = forms.CharField(max_length = 500, help_text = "Enter a description")
@@ -43,5 +43,5 @@ class ListingForm(forms.ModelForm):
 
     class Meta:
         model = Listing
-        fields = ("breed", "petName", "description", "petaAge", "cost", "petImage")
+        fields = ("breed", "petName", "description", "petAge", "cost", "petImage")
 
