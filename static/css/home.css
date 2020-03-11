@@ -1,0 +1,48 @@
+.pets_new {
+	flex-grow: 1;
+	max-height: 100px;
+	background-color: grey;
+	margin: 5px;
+	align-items: center;
+}
+
+.pet_box {
+	min-height: 100px;
+	min-width: 100px;
+	background-color: white;
+}
+
+.pet_info_column {
+	width: 250px;
+	height: 100px;
+	background-color: grey;
+	margin: 5px;
+	position: sticky;
+}
+
+.market_column {
+	width: 250px;
+	height: 100px;
+	background-color: grey;
+	margin: 5px;
+	position: sticky;
+}
+
+.posts_column {
+	flex-grow: 1;
+	height: 100px;
+	min-width:300px;
+	margin: 5px;
+}
+
+.post {
+	
+}
+
+.sub_holder {
+	display: flex;
+	flex-direction: row;
+	max-width: 1500px;
+	width: 100%;
+}
+	

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+	<head>
+		<title>
+		Pawbook - 
+		{% block title_block %}
+			Welcome!
+		{% endblock %}
+		</title>
+		<link rel="stylesheet" href="{% static 'css/base.css' %}" />
+		{% block css_block %}
+		{% endblock %}
+	</head>
+	
+	<body>	
+		<div class="top_bar">
+			<div class="top_bar_content">
+				<div class="element">
+					<h1>pawbook</h1>
+				</div>
+				
+				<div class="element">
+					<p>MARKETPLACE</p>
+				</div>
+				
+				<div class="element">
+					<p>POSTS</p>
+				</div>
+				
+				<div class="element">
+					<p>PET-O-PEDIA</p>
+				</div>
+				
+				<div class="spacer">
+				
+				</div>
+				
+				<div class="element">
+					<p>LOGIN</p>
+				</div>
+				
+				<div class="element">
+					<p>REGISTER</p>
+				</div>
+				
+				<div class="element">
+					<p>SEARCH</p>
+				</div>
+			</div>			
+		</div>
+		
+		<div class="content_body">
+			<div class="content_holder">
+				{% block body_block %}
+				{% endblock %}
+			</div>
+			
+		</div>
+		
+		<div class="footer_bar">
+			<div class="element"> 
+				<p>CONTACT</p>
+			</div>
+			
+			<div class="element"> 
+				<p>FAQ</p>
+			</div>
+			
+			<div class="element"> 
+				<p>ABOUT</p>
+			</div>
+		</div>
+	</body>
+</html>
