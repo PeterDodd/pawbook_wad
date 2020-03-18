@@ -13,18 +13,18 @@
 }
 
 .pet_info_column {
-	width: 250px;
-	height: 100px;
+	width: 230px;
 	background-color: grey;
 	margin: 5px;
+	padding: 10px;
 	position: sticky;
 }
 
 .market_column {
-	width: 250px;
-	height: 100px;
+	width: 230px;
 	background-color: grey;
 	margin: 5px;
+	padding: 10px;
 	position: sticky;
 }
 

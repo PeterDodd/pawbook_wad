@@ -13,6 +13,33 @@ body {
 
 h1 {
 	margin: 0;
+	font-family: 'Roboto';
+}
+
+h2 {
+	margin: 5px;
+	font-family: 'Roboto';
+	font-size: 30px;
+}
+
+h3 {
+	margin: 0;
+	font-family: 'Roboto';
+	font-size: 20px;
+}
+
+p {
+	font-family: 'Montserrat';
+	font-size: 15px;
+	margin: 5px 0px 5px 0px;
+}
+
+ul {
+	margin: 0px;
+}
+
+img {
+	border: 2px solid black;
 }
 
 .top_bar {
@@ -20,6 +47,25 @@ h1 {
 	height: 100px;
 	display: flex;
 	justify-content: center;
+	position: fixed;
+	width: 100%;
+}
+
+input {
+	padding: 6px;
+	font-size: 15px;
+	width: 215px;
+	border: 1px solid black;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	margin: 5px;
+}
+
+form input {
+	margin-top: 10px;
 }
 
 .top_bar_content {
@@ -28,6 +74,24 @@ h1 {
 	align-items: center;
 	max-width: 1500px;
 	flex-direction: row;
+}
+
+a {
+	font-family: 'Montserrat';
+	font-size: 15px;
+	text-decoration: none;
+	color: black;
+}
+
+a:hover {
+	font-family: 'Montserrat';
+	font-size: 15px;
+	text-decoration: none;
+	color: white;
+}
+
+.top_bar h1:hover {
+	color: black;
 }
 
 .element {
@@ -44,6 +108,7 @@ h1 {
 	flex-wrap: wrap;
 	justify-content: center;
 	flex-grow: 1;
+	margin-top: 100px;
 }
 
 .content_holder {
@@ -58,12 +123,9 @@ h1 {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
+	align-items: center;
 	background-color: grey;
 	min-height: 100px;
 	height: 100%;
 	width: 100%;
-}
-
-#element {
-	background-color: yellow;
 }

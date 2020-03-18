@@ -80,7 +80,7 @@ def login(request):
             else:
                 return HttpResponse("Account disabled.")
         else:
-            print(f"Invalid login details: {username}, {password}")
+            print("Invalid login details: {username}, {password}")
 
     else:
         return render(request, "pawbook/login.html")
@@ -95,12 +95,27 @@ def home(request):
     return render(request, "pawbook/home.html", context = context_dict)
 
 
-def petPedia(request):
+def pet_pedia(request):
     context_dict = {
         "allPosts": PetPedia.objects.all(),
     }
 
     return render(request, "pawbook/pet-o-pedia.html", context = context_dict)
+
+
+def about(request):
+
+    return render(request, "pawbook/about.html")
+
+
+def faq(request):
+
+    return render(request, "pawbook/faq.html")
+
+
+def contact(request):
+
+    return render(request, "pawbook/contact.html")
 
 
 @login_required

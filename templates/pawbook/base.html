@@ -8,6 +8,7 @@
 			Welcome!
 		{% endblock %}
 		</title>
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Roboto:300,400,500,700&display=swap" rel="stylesheet">
 		<link rel="stylesheet" href="{% static 'css/base.css' %}" />
 		{% block css_block %}
 		{% endblock %}
@@ -16,20 +17,20 @@
 	<body>	
 		<div class="top_bar">
 			<div class="top_bar_content">
-				<div class="element">
-					<h1>pawbook</h1>
+				<div href="/pawbook/" class="element">
+					<a href="/pawbook/"><h1>pawbook</h1></a>
 				</div>
 				
 				<div class="element">
-					<p>MARKETPLACE</p>
+					<a href="/pawbook/marketplace/">MARKETPLACE</a>
 				</div>
 				
 				<div class="element">
-					<p>POSTS</p>
+					<a href="/pawbook/posts/">POSTS</a>
 				</div>
 				
 				<div class="element">
-					<p>PET-O-PEDIA</p>
+					<a href="/pawbook/pet-o-pedia/">PET-O-PEDIA</a>
 				</div>
 				
 				<div class="spacer">
@@ -37,15 +38,15 @@
 				</div>
 				
 				<div class="element">
-					<p>LOGIN</p>
+					<a href="/pawbook/login/">LOGIN</a>
 				</div>
 				
 				<div class="element">
-					<p>REGISTER</p>
+					<a href="/pawbook/register/">REGISTER</a>
 				</div>
 				
 				<div class="element">
-					<p>SEARCH</p>
+					<input type="text" placeholder="SEARCH">
 				</div>
 			</div>			
 		</div>
@@ -60,15 +61,15 @@
 		
 		<div class="footer_bar">
 			<div class="element"> 
-				<p>CONTACT</p>
+				<a href="/pawbook/contact/">CONTACT</a>
 			</div>
 			
 			<div class="element"> 
-				<p>FAQ</p>
+				<a href="/pawbook/faq/">FAQ</a>
 			</div>
 			
 			<div class="element"> 
-				<p>ABOUT</p>
+				<a href="/pawbook/about/">ABOUT</a>
 			</div>
 		</div>
 	</body>
