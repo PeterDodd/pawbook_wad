@@ -12,9 +12,9 @@ from django.contrib.auth.models import User
 
 def populate():
     testUsers = [
-        ("John", "I'm interested in LOLcats and stuff"),
-        ("Adam69", "I sell puppies for decent prices hmu"),
-        ("coolkid1337", "Exotic pet trafficker")
+        ("John123", "John", "Smith", "I'm interested in LOLcats and stuff", "London"),
+        ("Adam69", "Adam", "", "I sell puppies for decent prices hmu", ""),
+        ("coolkid1337", "", "", "Exotic pet trafficker", "")
     ]
 
     testPosts = [
@@ -40,7 +40,7 @@ def populate():
         ("Cat", "Tabby", "Cats are made of yoghurt inside")
     ]
 
-    userList = [add_user(user[0], user[1])
+    userList = [add_user(user[0], user[1], user[2], user[3], user[4])
                 for user in testUsers]
 
     petPages = [add_pet(pet[0], pet[1], pet[2])
@@ -53,24 +53,28 @@ def populate():
              for post in testPosts]
 
 
-def add_user(username, bio):
+def add_user(username, firstName, lastName, bio, location):
     newUser = User.objects.get_or_create(
         username = username,
         password = "Test",
         email = "test@test.com"
     )[0]
 
+    newUser.save()
+
     newUserProfile = UserProfile.objects.get_or_create(
         user = newUser,
-        username = newUser.username,
+        firstName = firstName,
+        lastName = lastName,
         bio = bio,
+        location = location,
+        age = random.randint(0, 80),
         sellCount = random.randint(0, 50)
     )[0]
 
-    newUser.save()
     newUserProfile.save()
 
-    return newUser
+    return newUserProfile
 
 
 def add_pet(species, breed, info):
@@ -102,7 +106,7 @@ def add_post(allUsers, title, description):
 def add_listing(allUsers, allBreeds, name, description):
     newListing = Listing.objects.get_or_create(
         poster = random.choice(allUsers),
-        breed = random.choice(allBreeds),
+        breed = random.choice(allBreeds).breed,
         petName = name,
         description = description,
         petAge = random.randint(0, 10),

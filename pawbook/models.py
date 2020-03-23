@@ -21,7 +21,7 @@ class UserProfile(models.Model):   # User model
 
 
 class Post(models.Model):           # Image posts model
-    poster = models.ForeignKey(User, on_delete = models.CASCADE)     # Foreign key for user profile
+    poster = models.ForeignKey(UserProfile, on_delete = models.CASCADE)     # Foreign key for user profile
     datePosted = models.DateField(auto_now_add=True)
 
     postTitle = models.CharField(max_length = 128)
@@ -42,8 +42,8 @@ class PetPedia(models.Model):       # Pet-O-Pedia model
 
 
 class Listing(models.Model):        # Listing model
-    poster = models.ForeignKey(User, on_delete = models.CASCADE)
-    breed = models.ForeignKey(PetPedia, on_delete = models.CASCADE)
+    poster = models.ForeignKey(UserProfile, on_delete = models.CASCADE)
+    breed = models.CharField(max_length = 128)
 
     datePosted = models.DateField(auto_now_add = True)
 
@@ -54,4 +54,3 @@ class Listing(models.Model):        # Listing model
     cost = models.IntegerField(default = 0)
 
     petImage = models.ImageField(upload_to = "listing_image", default = None, blank = True)
-
