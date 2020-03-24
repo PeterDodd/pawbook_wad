@@ -1,34 +1,66 @@
 .pets_new {
+	display: flex;
 	flex-grow: 1;
 	max-height: 100px;
-	background-color: grey;
 	margin: 5px;
 	align-items: center;
+	justify-content: space-between;
 }
 
 .pet_box {
+	position: relative;
 	min-height: 100px;
 	min-width: 100px;
-	background-color: white;
+	border: 2px solid black;
 }
 
-.pet_info_column {
+.pet_box_overlay {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 100%;
+	width: 100%;
+	opacity: 0;
+	transition: .5s ease;
+	background-color: #008CBA;
+}
+
+.pet_box:hover .pet_box_overlay{
+	opacity: 1;
+}
+
+.pet_box img {
+	display: block;
+	clip: rect(0px,100px,100px,0px);
+	border: 0px;
+	height: 100px;
+	object-fit: cover;
+}
+
+.pet_box_text {
+	color: white;
+	font-size: 20px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+.side_bar {
 	width: 230px;
 	background-color: grey;
 	margin: 5px;
 	padding: 10px;
-	position: sticky;
-}
-
-.market_column {
-	width: 230px;
-	background-color: grey;
-	margin: 5px;
-	padding: 10px;
-	position: sticky;
 }
 
 .posts_column {
+	display: flex;
+	flex-direction: column;
 	flex-grow: 1;
 	height: 100px;
 	min-width:300px;
@@ -36,7 +68,23 @@
 }
 
 .post {
-	
+	display: flex;
+	flex-direction: row;
+	background-color: grey;
+	width: 100%;
+	margin: 5px 0px 5px 0px;
+}
+
+.post img {
+	height: 200px;
+	margin: 5px;
+}
+
+.post_content {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	margin: 5px;
 }
 
 .sub_holder {

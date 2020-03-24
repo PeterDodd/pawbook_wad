@@ -36,7 +36,15 @@
 				<div class="spacer">
 				
 				</div>
+				{% if user.is_authenticated %}
+				<div class="element">
+					<a><img src="{% static 'images/dog smiling.jpg' %}" alt="User's Profile Picture" class="porfile_image"></a>
+				</div>
 				
+				<div class="element">
+					<a href="/pawbook/register/">USER'S PROFILE</a>
+				</div>
+				{% else %}
 				<div class="element">
 					<a href="/pawbook/login/">LOGIN</a>
 				</div>
@@ -44,6 +52,8 @@
 				<div class="element">
 					<a href="/pawbook/register/">REGISTER</a>
 				</div>
+				{% endif %}
+				
 				
 				<div class="element">
 					<input type="text" placeholder="SEARCH">

@@ -6,7 +6,7 @@ body {
 	margin: 0px;
 	padding: 0px;
 	min-height: 100%;
-	background-color: blue;
+	background-color: white;
 	display: flex;
 	flex-direction: column;
 }
@@ -28,9 +28,15 @@ h3 {
 	font-size: 20px;
 }
 
+h4 {
+	margin: 5px 0px 5px 0px;
+	font-family: 'Roboto';
+	font-size: 12px;
+}
+
 p {
 	font-family: 'Montserrat';
-	font-size: 15px;
+	font-size: 12px;
 	margin: 5px 0px 5px 0px;
 }
 
@@ -68,6 +74,24 @@ form input {
 	margin-top: 10px;
 }
 
+ul {
+	font-size: 12px;
+}
+
+a {
+	font-family: 'Montserrat';
+	text-decoration: none;
+	color: black;
+}
+
+a:hover {
+	color: white;
+}
+
+.top_bar a {
+	font-size: 15px;
+}
+
 .top_bar_content {
 	display: flex;
 	flex-grow: 1;
@@ -76,19 +100,6 @@ form input {
 	flex-direction: row;
 }
 
-a {
-	font-family: 'Montserrat';
-	font-size: 15px;
-	text-decoration: none;
-	color: black;
-}
-
-a:hover {
-	font-family: 'Montserrat';
-	font-size: 15px;
-	text-decoration: none;
-	color: white;
-}
 
 .top_bar h1:hover {
 	color: black;
@@ -103,11 +114,10 @@ a:hover {
 }
 
 .content_body {
-	background-color: white;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	flex-grow: 1;
+	height: 100%;
 	margin-top: 100px;
 }
 
@@ -115,17 +125,26 @@ a:hover {
 	display: flex;
 	flex-direction: column;
 	max-width: 1500px;
-	flex-grow: 1;
+	width: 1000%;
 	margin: 5px;
 }
 
 .footer_bar { 
 	display: flex;
+	position: absolute;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 	background-color: grey;
-	min-height: 100px;
-	height: 100%;
+	height: 100px;
 	width: 100%;
+	bottom: 0px;
+}
+
+.profile_image img {
+	clip: rect(0px,100px,100px,0px);
+	border: 1px solid black;
+	height: 50px;
+	object-fit: cover;
+	border-radius:50%;
 }
