@@ -32,8 +32,7 @@ class PostForm(forms.ModelForm):
 
 
 class ListingForm(forms.ModelForm):
-    #breed = forms.ChoiceField(queryset=PetPedia.breed)
-
+    breed = forms.CharField(max_length = 128, help_text = "Enter the breed of the animal")
     petName = forms.CharField(max_length = 128, help_text = "Enter the name of the pet for sale")
     description = forms.CharField(max_length = 500, help_text = "Enter a description")
     petAge = forms.IntegerField(help_text = "How old is your pet?")

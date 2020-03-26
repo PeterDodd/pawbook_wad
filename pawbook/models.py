@@ -18,12 +18,12 @@ class UserProfile(models.Model):   # User model
     profilePicture = models.ImageField(upload_to = "profile_image", default = None, blank = True)
 
     def __str__(self):
-        return self.user.username
+        return self.user
 
 
 class Post(models.Model):           # Image posts model
     poster = models.ForeignKey(UserProfile, on_delete = models.CASCADE)     # Foreign key for user profile
-    datePosted = models.DateField(auto_now_add=True)
+    datePosted = models.DateField(auto_now_add = True)
 
     postTitle = models.CharField(max_length = 128)
     postDescription = models.CharField(max_length = 300, default = "", blank = True)
@@ -56,10 +56,9 @@ class PetPedia(models.Model):       # Pet-O-Pedia model
 
 class Listing(models.Model):        # Listing model
     poster = models.ForeignKey(UserProfile, on_delete = models.CASCADE)
+    datePosted = models.DateField(auto_now_add=True)
+
     breed = models.CharField(max_length = 128)
-
-    datePosted = models.DateField(auto_now_add = True)
-
     petName = models.CharField(max_length = 128)
     description = models.CharField(max_length = 500, default = "", blank = True)
     petAge = models.IntegerField(default = 0)

@@ -2,12 +2,20 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	Home
+
+	{% if page %}
+		{{ page.breed }}
+	{% else %}
+		Home
+	{% endif %}
+
 {% endblock %}
+
 
 {% block css_block %}
 	<link rel="stylesheet" href="{% static 'css/home.css' %}" />
 {% endblock %}
+
 
 {% block body_block %}
     <div class="sub_holder">
@@ -19,4 +27,5 @@
             {% endif %}
 		</div>
     </div>
+
 {% endblock %}

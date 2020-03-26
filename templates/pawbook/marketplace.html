@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	Home
+	Marketplace
 {% endblock %}
 
 {% block css_block %}
@@ -11,6 +11,7 @@
 
 {% block body_block %}
 	<div class="sub_holder">
+
 		<div class="pets_info_column">
 			<h3>LISTINGS</h3>
 			{% if newest_listings %}
@@ -24,24 +25,12 @@
 				<strong>There are no new pets!</strong>
 			{% endif %}
 		</div>
-	</div>
 
-	<div class="sub_holder">
 		<div class="posts_column">
 			<h3>TRENDING POSTS</h3>
 		</div>
-		
-		<div class="market_column">
-			<h3>MARKET SEARCH</h3>
-			<form>
-				<input type="number" name="quantity" min="1" max="10000">
-				<input type="number" name="quantity" min="1" max="10000">
-				<input type="text" placeholder="SEARCH">
-			</form>
-		</div>
 	</div>
 
-	<div class="spacer">
+	<div class="spacer"></div>
 
-	</div>
 {% endblock %}

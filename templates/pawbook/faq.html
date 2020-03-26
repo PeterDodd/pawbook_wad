@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	Home
+	FAQ
 {% endblock %}
 
 {% block css_block %}
@@ -10,19 +10,8 @@
 {% endblock %}
 
 {% block body_block %}
-	<div class="pets_new">
-		{% if pets_new %}
-			{% for pet in pets_new %}
-				<div class="pet_box"> 
-					{{ pet.url }}
-				</div>
-			{% endfor %}
-		{% else %}
-			<strong>There are no new pets!</strong>
-		{% endif %}
-	</div>
-
 	<div class="sub_holder">
+
 		<div class="posts_column">
 			<h3>TRENDING POSTS</h3>
 		</div>
@@ -35,9 +24,9 @@
 				<input type="text" placeholder="SEARCH">
 			</form>
 		</div>
-	</div>
-
-	<div class="spacer">
 
 	</div>
+
+	<div class="spacer"></div>
+
 {% endblock %}

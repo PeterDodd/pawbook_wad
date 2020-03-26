@@ -63,8 +63,8 @@
 
 		<div class="content_body">
 			<div class="content_holder">
-				<div class = "sub_holder">
 
+				<div class = "sub_holder">
 					<div class="side_bar">
 						<h3>PET INFO</h3>
 						<p>A list of quick links to find out keeping information for the following pets:</p>
@@ -79,6 +79,15 @@
 
 					{% block body_block %}
 					{% endblock %}
+
+					<div class="market_column">
+						<h3>MARKET SEARCH</h3>
+						<form>
+							<input type="number" name="quantity" min="1" max="10000">
+							<input type="number" name="quantity" min="1" max="10000">
+							<input type="text" placeholder="SEARCH">
+						</form>
+					</div>
 
 				</div>
 

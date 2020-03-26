@@ -10,25 +10,25 @@
 {% endblock %}
 
 {% block body_block %}
-	<h3 class="element">new pets</h3>
-	<div class="pets_new">
-		<div class="pet_box"> 
-			<a><img src="{% static 'images/dog smiling.jpg' %}" alt="Dog Smiling"></a>
-			<div class="pet_box_overlay">
-				<div class="pet_box_text"><h3>£500</h3></div>
+	<div class = "sub_holder">
+		<h3 class="element">NEW PETS</h3>
+		<div class="pets_new">
+			<div class="pet_box">
+				<a><img src="{% static 'images/dog smiling.jpg' %}" alt="Dog Smiling"></a>
+				<div class="pet_box_overlay">
+					<div class="pet_box_text"><h3>£500</h3></div>
+				</div>
 			</div>
 		</div>
-	</div>
-	
-	<hr>
-	
-	<div class="sub_holder">
+
+
 		<div class="posts_column">
 			<h3>trending posts</h3>
 			<div class="post">
 				<div>
 					<img src="{% static 'images/dog smiling.jpg' %}" alt="Dog Smiling">
 				</div>
+
 				<div class="post_content">
 					<h2>Post Title</h2>
 					<h4>Username - Date Posted</h4>
@@ -38,19 +38,9 @@
 				</div>
 			</div>
 		</div>
-		
-		<div class="side_bar">
-			<h3>quick market search</h3>
-			<form style="margin: 0px;">
-				<input type="number" name="quantity" min="1" max="10000" placeholder="MIN PRICE">
-				<input type="number" name="quantity" min="1" max="10000" placeholder="MAX PRICE">
-				<input type="text" placeholder="BREED">
-				<input type="submit" value="SUBMIT">
-			</form>
-		</div>
-	</div>
-
-	<div class="spacer">
 
 	</div>
+
+	<div class="spacer"></div>
+
 {% endblock %}

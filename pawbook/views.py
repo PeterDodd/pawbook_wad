@@ -9,18 +9,23 @@ from pawbook.forms import UserProfileForm, UserForm, PostForm, ListingForm
 from django.contrib.auth import authenticate, login, logout
 
 
-def posts(request):
-    context_dict = {
-        "newest_posts": Post.objects.all(),
-        "allPosts":     PetPedia.objects.all(),
-    }
+def home(request):
+    return render(request, "pawbook/home.html", context = {
+        "trendingPosts": Post.objects.order_by("-likes")[:6],
+        "latestListings": Listing.objects.order_by("-datePosted")[:6],
+        "allPosts": PetPedia.objects.all(),
+    })
 
-    return render(request, "pawbook/posts.html", context = context_dict)
+
+def posts(request):
+    return render(request, "pawbook/posts.html", context = {
+        "newest_posts": Post.objects.all(),
+        "allPosts": PetPedia.objects.all(),
+    })
 
 
 def show_post(request, name_slug):
     context_dict = {}
-
     try:
         post = Post.objects.get(slug = name_slug)
         context_dict["post"] = post
@@ -32,17 +37,14 @@ def show_post(request, name_slug):
 
 
 def listings(request):
-    context_dict = {
+    return render(request, "pawbook/marketplace.html", context = {
         "newest_listings": Listing.objects.all(),
-        "allPosts":        PetPedia.objects.all(),
-    }
-
-    return render(request, "pawbook/marketplace.html", context = context_dict)
+        "allPosts": PetPedia.objects.all(),
+    })
 
 
 def show_listing(request, name_slug):
     context_dict = {}
-
     try:
         listing = Listing.objects.get(slug = name_slug)
         context_dict["listing"] = listing
@@ -51,6 +53,26 @@ def show_listing(request, name_slug):
         context_dict["listing"] = None
 
     return render(request, "pawbook/listingPage.html", context = context_dict)
+
+
+def pet_pedia(request):
+    return render(request, "pawbook/pet-o-pedia.html", context = {
+        "allPosts": PetPedia.objects.all(),
+    })
+
+
+def show_petPedia(request, name_slug):
+    context_dict = {
+        "allPosts": PetPedia.objects.all(),
+    }
+    try:
+        page = PetPedia.objects.get(slug = name_slug)
+        context_dict["page"] = page
+
+    except PetPedia.DoesNotExist:
+        context_dict["page"] = None
+
+    return render(request, "pawbook/petPediaPage.html", context = context_dict)
 
 
 def register(request):
@@ -114,52 +136,18 @@ def login(request):
         return render(request, "pawbook/login.html")
 
 
-def home(request):
-    context_dict = {
-        "trendingPosts":    Post.objects.order_by("-likes")[:6],
-        "latestListings":   Listing.objects.order_by("-datePosted")[:6],
-        "allPosts":         PetPedia.objects.all(),
-    }
-
-    return render(request, "pawbook/home.html", context = context_dict)
-
-
-def pet_pedia(request):
-    context_dict = {
-        "allPosts": PetPedia.objects.all(),
-    }
-
-    return render(request, "pawbook/pet-o-pedia.html", context = context_dict)
-
-
-def show_petPedia(request, name_slug):
-    context_dict = {
-        "allPosts": PetPedia.objects.all(),
-    }
-
-    try:
-        page = PetPedia.objects.get(slug = name_slug)
-        context_dict["page"] = page
-
-    except PetPedia.DoesNotExist:
-        context_dict["page"] = None
-
-    return render(request, "pawbook/petPediaPage.html", context = context_dict)
-
-
 def about(request):
-
     return render(request, "pawbook/about.html")
 
 
 def faq(request):
-
     return render(request, "pawbook/faq.html")
 
 
 def contact(request):
-
-    return render(request, "pawbook/contact.html", context = {"allPosts": PetPedia.objects.all()})
+    return render(request, "pawbook/contact.html", context = {
+        "allPosts": PetPedia.objects.all()
+    })
 
 
 @login_required
@@ -173,7 +161,6 @@ def add_post(request):
             form.save(commit = True)
 
             return redirect("/pawbook/")
-
         else:
             print(form.errors)
 
@@ -189,7 +176,6 @@ def add_listing(request):
             form.save(commit = True)
 
             return redirect("/pawbook/")
-
         else:
             print(form.errors)
 
