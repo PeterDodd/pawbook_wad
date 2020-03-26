@@ -23,18 +23,6 @@
 	<hr>
 	
 	<div class="sub_holder">
-		<div class="side_bar">
-			<h3>pet info</h3>
-			<p>A list of quick links to find out keeping information for the following pets:</p>
-			<ul>
-				{% if allPosts %}
-					{% for post in allPosts %}
-						<li><a href='{% url "pawbook:show_petPedia" post.slug %}'>{{ post.breed }}</a></li>
-					{% endfor %}
-				{% endif %}
-			</ul>
-		</div>
-		
 		<div class="posts_column">
 			<h3>trending posts</h3>
 			<div class="post">

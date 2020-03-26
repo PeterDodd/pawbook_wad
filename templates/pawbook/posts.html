@@ -10,31 +10,23 @@
 {% endblock %}
 
 {% block body_block %}
-	<div class="pets_new">
-		{% if pets_new %}
-			{% for pet in pets_new %}
-				<div class="pet_box"> 
-					{{ pet.url }}
-				</div>
-			{% endfor %}
-		{% else %}
-			<strong>There are no new pets!</strong>
-		{% endif %}
+	<div class="sub_holder">
+		<div class="pets_info_column">
+			<h3>POSTS</h3>
+			{% if newest_posts %}
+			<ul>
+				{% for post in newest_posts %}
+				<li><a href='{% url "pawbook:show_post" post.slug %}'>{{ post.postTitle }}</a></li>
+				{% endfor %}
+			</ul>
+
+			{% else %}
+				<strong>There are no new pets!</strong>
+			{% endif %}
+		</div>
 	</div>
 
 	<div class="sub_holder">
-		<div class="pet_info_column">
-			<h3>PET INFO</h3>
-			<p>A list of quick links to find out keeping information for the following pets:</p>
-			<ul>
-				{% if allPosts %}
-					{% for post in allPosts %}
-						<li><a href='{% url "pawbook:show_petPedia" post.slug %}'>{{ post.breed }}</a></li>
-					{% endfor %}
-				{% endif %}
-			</ul>
-		</div>
-		
 		<div class="posts_column">
 			<h3>TRENDING POSTS</h3>
 		</div>

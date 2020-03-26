@@ -31,6 +31,12 @@ class Post(models.Model):           # Image posts model
     likes = models.IntegerField(default = 0)
     dislikes = models.IntegerField(default = 0)
 
+    slug = models.SlugField(unique = True, default = "")
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.postTitle)
+        super(Post, self).save(*args, **kwargs)
+
     postImage = models.ImageField(upload_to = "post_image", default = None, blank = True)
 
 

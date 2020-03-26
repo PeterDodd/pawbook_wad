@@ -13,11 +13,11 @@
 {% block body_block %}
     <div class="sub_holder">
 		<div class="pet_info_column">
-            {% if listing %}
-			    <h3>{{ listing.petName }} - {{ listing.age }} Years Old - £{{ listing.cost }}</h3>
-                <h4>Pet Information:</h4>
-                <h5>{{ listing.breed }}</h5>
-                <p>{{ listing.description }}</p>
+            {% if post %}
+			    <h3>{{ post.title }}</h3>
+                <h4>By {{ post.poster.user.username }} on {{ post.datePosted }}</h4>
+                <p>{{ post.postDescription }}</p>
+                <p>Likes: {{ post.likes }} - Dislikes: {{ post.dislikes }}</p>
             {% endif %}
 		</div>
     </div>

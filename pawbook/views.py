@@ -11,11 +11,24 @@ from django.contrib.auth import authenticate, login, logout
 
 def posts(request):
     context_dict = {
-        "newest_posts": Post.objects.order_by("datePosted"),
+        "newest_posts": Post.objects.all(),
         "allPosts":     PetPedia.objects.all(),
     }
 
     return render(request, "pawbook/posts.html", context = context_dict)
+
+
+def show_post(request, name_slug):
+    context_dict = {}
+
+    try:
+        post = Post.objects.get(slug = name_slug)
+        context_dict["post"] = post
+
+    except Post.DoesNotExist:
+        context_dict["post"] = None
+
+    return render(request, "pawbook/postPage.html", context = context_dict)
 
 
 def listings(request):
@@ -34,7 +47,7 @@ def show_listing(request, name_slug):
         listing = Listing.objects.get(slug = name_slug)
         context_dict["listing"] = listing
 
-    except PetPedia.DoesNotExist:
+    except Listing.DoesNotExist:
         context_dict["listing"] = None
 
     return render(request, "pawbook/listingPage.html", context = context_dict)
@@ -146,7 +159,7 @@ def faq(request):
 
 def contact(request):
 
-    return render(request, "pawbook/contact.html")
+    return render(request, "pawbook/contact.html", context = {"allPosts": PetPedia.objects.all()})
 
 
 @login_required
