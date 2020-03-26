@@ -11,27 +11,61 @@
 
 {% block body_block %}
 	<div class="sub_holder">
-		<div class="pets_info_column">
-			<h3>POSTS</h3>
-			{% if newest_posts %}
-			<ul>
-				{% for post in newest_posts %}
-				<li><a href='{% url "pawbook:show_post" post.slug %}'>{{ post.postTitle }}</a></li>
-				{% endfor %}
-			</ul>
 
-			{% else %}
-				<strong>There are no new pets!</strong>
-			{% endif %}
+		<div class = "content_holder">
+			<div class="pets_info_column">
+				<h3>POSTS</h3>
+				{% if newest_posts %}
+					{% for post in newest_posts %}
+
+						<div class="post">
+							<div>
+								<img src={{ post.postImage }} alt="Post Image">
+							</div>
+
+								<div class="post_content">
+									<a href = '{% url "pawbook:show_post" post.slug %}'><h2>{{ post.postTitle }}</h2></a>
+									<h4>By {{ post.poster.user.username }} on {{ post.datePosted }}</h4>
+									<p>{{ post.postDescription  }}</p>
+									<p>Likes: {{ post.likes }}, Dislikes: {{ post.dislikes }}</p>
+								</div>
+						</div>
+
+					{% endfor %}
+				{% else %}
+					<strong>There are no new pets!</strong>
+				{% endif %}
+			</div>
 		</div>
 
-		<div class="posts_column">
-			<h3>TRENDING POSTS</h3>
+
+		<div class = "content_holder">
+			<div class="pets_info_column">
+				<h3>TRENDING</h3>
+				{% if trending %}
+					{% for post in trending %}
+
+						<div class="post">
+							<div>
+								<img src="{{ post.postImage }}" alt="Post Image">
+							</div>
+
+							<div class="post_content">
+								<a href = '{% url "pawbook:show_post" post.slug %}'><h2>{{ post.postTitle }}</h2></a>
+								<h4>By {{ post.poster.user.username }} on {{ post.datePosted }}</h4>
+								<p>{{ post.postDescription }}</p>
+								<p>Likes: {{ post.likes }}, Dislikes: {{ post.dislikes }}</p>
+							</div>
+						</div>
+
+					{% endfor %}
+				{% else %}
+					<strong>There are no new pets!</strong>
+				{% endif %}
+			</div>
 		</div>
 
 	</div>
 
-	<div class="spacer">
-
-	</div>
+	<div class="spacer"></div>
 {% endblock %}

@@ -19,7 +19,8 @@ def home(request):
 
 def posts(request):
     return render(request, "pawbook/posts.html", context = {
-        "newest_posts": Post.objects.all(),
+        "newest_posts": Post.objects.order_by("-datePosted"),
+        "trending": Post.objects.order_by("-likes")[:6],
         "allPosts": PetPedia.objects.all(),
     })
 
