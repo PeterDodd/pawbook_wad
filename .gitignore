@@ -4,7 +4,3 @@ __pycache__/
 db.sqlite3
 *.key
 thumbs.db
-profile_image
-petPedia_image
-post_image
-listing_image

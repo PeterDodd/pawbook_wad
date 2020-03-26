@@ -19,9 +19,7 @@
 					{% for post in newest_posts %}
 
 						<div class="post">
-							<div>
-								<img src={{ post.postImage }} alt="Post Image">
-							</div>
+							<div><img src="{{ post.postImage.url }}" alt="Post Image"></div>
 
 								<div class="post_content">
 									<a href = '{% url "pawbook:show_post" post.slug %}'><h2>{{ post.postTitle }}</h2></a>
@@ -46,9 +44,7 @@
 					{% for post in trending %}
 
 						<div class="post">
-							<div>
-								<img src="{{ post.postImage }}" alt="Post Image">
-							</div>
+							<div><img src="{{ post.postImage.url }}" alt="Post Image"></div>
 
 							<div class="post_content">
 								<a href = '{% url "pawbook:show_post" post.slug %}'><h2>{{ post.postTitle }}</h2></a>
