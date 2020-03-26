@@ -5,12 +5,19 @@ app_name = "pawbook"
 
 urlpatterns = [
     path('', views.home, name='home'),
+
     path('marketplace/', views.listings, name='marketplace'),
+    path("marketplace/<slug:name_slug>/", views.show_listing, name = "show_listing"),
+
+    path('posts/', views.posts, name='posts'),
+
+    path('pet-o-pedia/', views.pet_pedia, name='pet-o-pedia'),
+    path("pet-o-pedia/<slug:name_slug>/", views.show_petPedia, name = "show_petPedia"),
+
     path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
     path('faq/', views.faq, name='faq'),
-    path('posts/', views.posts, name='posts'),
-    path('pet-o-pedia/', views.pet_pedia, name='pet-o-pedia'),
+
     path('register/', views.register, name='register'),
     path('login/', views.login, name='login'),
 ]

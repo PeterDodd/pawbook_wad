@@ -13,7 +13,7 @@
 	<div class="pets_new">
 		{% if pets_new %}
 			{% for pet in pets_new %}
-				<div class="pet_box"> 
+				<div class="pet_box">
 					{{ pet.url }}
 				</div>
 			{% endfor %}
@@ -27,12 +27,11 @@
 			<h3>PET INFO</h3>
 			<p>A list of quick links to find out keeping information for the following pets:</p>
 			<ul>
-				<li><a>Dogs</a></li>
-				<li><a>Cats</a></li>
-				<li><a>Lizards</a></li>
-				<li><a>Hamsters</a></li>
-				<li><a>Rabbits</a></li>
-				<li><a>Ferrets</a></li>
+				{% if allPosts %}
+					{% for post in allPosts %}
+						<li><a href='{% url "pawbook:show_petPedia" post.slug %}'>{{ post.breed }}</a></li>
+					{% endfor %}
+				{% endif %}
 			</ul>
 		</div>
 		

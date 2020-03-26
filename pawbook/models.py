@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
 
 
 class UserProfile(models.Model):   # User model
@@ -38,6 +39,12 @@ class PetPedia(models.Model):       # Pet-O-Pedia model
     breed = models.CharField(max_length = 128)
     info = models.CharField(max_length = 128)
 
+    slug = models.SlugField(unique = True, default = "")
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.breed)
+        super(PetPedia, self).save(*args, **kwargs)
+
     picture = models.ImageField(upload_to = "petPedia_image", default = None, blank = True)
 
 
@@ -52,5 +59,11 @@ class Listing(models.Model):        # Listing model
     petAge = models.IntegerField(default = 0)
 
     cost = models.IntegerField(default = 0)
+
+    slug = models.SlugField(unique = True, default = "")
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.petName)
+        super(Listing, self).save(*args, **kwargs)
 
     petImage = models.ImageField(upload_to = "listing_image", default = None, blank = True)

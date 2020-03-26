@@ -12,6 +12,7 @@ from django.contrib.auth import authenticate, login, logout
 def posts(request):
     context_dict = {
         "newest_posts": Post.objects.order_by("datePosted"),
+        "allPosts":     PetPedia.objects.all(),
     }
 
     return render(request, "pawbook/posts.html", context = context_dict)
@@ -19,10 +20,24 @@ def posts(request):
 
 def listings(request):
     context_dict = {
-        "newest_listings": Listing.objects.order_by("datePosted"),
+        "newest_listings": Listing.objects.all(),
+        "allPosts":        PetPedia.objects.all(),
     }
 
     return render(request, "pawbook/marketplace.html", context = context_dict)
+
+
+def show_listing(request, name_slug):
+    context_dict = {}
+
+    try:
+        listing = Listing.objects.get(slug = name_slug)
+        context_dict["listing"] = listing
+
+    except PetPedia.DoesNotExist:
+        context_dict["listing"] = None
+
+    return render(request, "pawbook/listingPage.html", context = context_dict)
 
 
 def register(request):
@@ -89,7 +104,8 @@ def login(request):
 def home(request):
     context_dict = {
         "trendingPosts":    Post.objects.order_by("-likes")[:6],
-        "latestListings":   Listing.objects.order_by("-datePosted")[:6]
+        "latestListings":   Listing.objects.order_by("-datePosted")[:6],
+        "allPosts":         PetPedia.objects.all(),
     }
 
     return render(request, "pawbook/home.html", context = context_dict)
@@ -101,6 +117,21 @@ def pet_pedia(request):
     }
 
     return render(request, "pawbook/pet-o-pedia.html", context = context_dict)
+
+
+def show_petPedia(request, name_slug):
+    context_dict = {
+        "allPosts": PetPedia.objects.all(),
+    }
+
+    try:
+        page = PetPedia.objects.get(slug = name_slug)
+        context_dict["page"] = page
+
+    except PetPedia.DoesNotExist:
+        context_dict["page"] = None
+
+    return render(request, "pawbook/petPediaPage.html", context = context_dict)
 
 
 def about(request):

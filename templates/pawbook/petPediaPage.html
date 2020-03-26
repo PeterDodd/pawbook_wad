@@ -1,0 +1,36 @@
+{% extends 'pawbook/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	Home
+{% endblock %}
+
+{% block css_block %}
+	<link rel="stylesheet" href="{% static 'css/home.css' %}" />
+{% endblock %}
+
+{% block body_block %}
+    <div class="sub_holder">
+		<div class="pet_info_column">
+            {% if page %}
+			    <h3>{{ page.breed }} - {{ page.species }}</h3>
+                <h4>General Information:</h4>
+                {{ page.info }}
+            {% endif %}
+		</div>
+    </div>
+
+    <div class="sub_holder">
+        <div class="pet_info_column">
+			<h3>PET INFO</h3>
+			<p>A list of quick links to find out keeping information for the following pets:</p>
+			<ul>
+				{% if allPosts %}
+					{% for post in allPosts %}
+						<li><a href='{% url "pawbook:show_petPedia" post.slug %}'>{{ post.breed }}</a></li>
+					{% endfor %}
+				{% endif %}
+			</ul>
+		</div>
+    </div>
+{% endblock %}

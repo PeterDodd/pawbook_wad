@@ -29,9 +29,9 @@ def populate():
     ]
 
     testListings = [
-        ("Fluffs", "We are moving so we need to find her a new home"),
-        ("N/A", "Looking to sell lab puppies locally"),
-        ("ExoticFish", "Selling fish")
+        ("Fluffs", "We are moving so we need to find her a new home", "Cat"),
+        ("N/A", "Looking to sell lab puppies locally", "Dog"),
+        ("ExoticFish", "Selling fish", "Fish")
     ]
 
     testPets = [
@@ -46,7 +46,7 @@ def populate():
     petPages = [add_pet(pet[0], pet[1], pet[2])
                 for pet in testPets]
 
-    listings = [add_listing(userList, petPages, listing[0], listing[1])
+    listings = [add_listing(userList, listing[2], listing[0], listing[1])
                 for listing in testListings]
 
     posts = [add_post(userList, post[0], post[1])
@@ -103,10 +103,10 @@ def add_post(allUsers, title, description):
     return newPost
 
 
-def add_listing(allUsers, allBreeds, name, description):
+def add_listing(allUsers, breed, name, description):
     newListing = Listing.objects.get_or_create(
         poster = random.choice(allUsers),
-        breed = random.choice(allBreeds).breed,
+        breed = breed,
         petName = name,
         description = description,
         petAge = random.randint(0, 10),

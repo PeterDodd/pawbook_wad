@@ -1,0 +1,24 @@
+{% extends 'pawbook/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	Home
+{% endblock %}
+
+{% block css_block %}
+	<link rel="stylesheet" href="{% static 'css/home.css' %}" />
+{% endblock %}
+
+
+{% block body_block %}
+    <div class="sub_holder">
+		<div class="pet_info_column">
+            {% if listing %}
+			    <h3>{{ listing.petName }} - {{ listing.age }} Years Old - £{{ listing.cost }}</h3>
+                <h4>Pet Information:</h4>
+                <h5>{{ listing.breed }}</h5>
+                {{ listing.description }}
+            {% endif %}
+		</div>
+    </div>
+{% endblock %}
