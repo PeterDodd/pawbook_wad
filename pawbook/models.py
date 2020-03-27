@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+from django.conf import settings
 
 
 class UserProfile(models.Model):   # User model
@@ -37,7 +38,7 @@ class Post(models.Model):           # Image posts model
         self.slug = slugify(self.postTitle)
         super(Post, self).save(*args, **kwargs)
 
-    postImage = models.ImageField(upload_to = "post_image", default = None, blank = True)
+    postImage = models.ImageField(upload_to = "post_image", storage = settings.MEDIA_ROOT + "/post_image/")
 
 
 class PetPedia(models.Model):       # Pet-O-Pedia model
@@ -71,4 +72,4 @@ class Listing(models.Model):        # Listing model
         self.slug = slugify(self.petName)
         super(Listing, self).save(*args, **kwargs)
 
-    petImage = models.ImageField(upload_to = "listing_image", default = None, blank = True)
+    petImage = models.ImageField(upload_to = "listing_image", storage = settings.MEDIA_ROOT + "/listing_image/")

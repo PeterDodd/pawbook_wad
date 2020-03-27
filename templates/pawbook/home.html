@@ -17,7 +17,7 @@
 			{% if latestListings %}
 				{% for pet in latestListings %}
 					<div class="pet_box">
-						<a><img src={{ pet.petImage }} alt={{ pet.petName }}></a>
+						<a><img src="{{ pet.petImage }}" alt="{{ pet.petName }}" style="width:100px;height:100px;" /></a>
 						<div class="pet_box_overlay">
 							<div class="pet_box_text"><h3>{{ pet.cost }}</h3></div>
 						</div>
@@ -32,9 +32,7 @@
 			{%  if trendingPosts %}
 				{% for post in trendingPosts %}
 					<div class="post">
-						<div>
-							<img src={{ post.postImage }} alt="Post Image">
-						</div>
+						<img src="{{ post.postImage }}" alt="Post Image" style="width:250px;height:250px;" />
 
 						<div class="post_content">
 							<h2>{{ post.postTitle }}</h2>

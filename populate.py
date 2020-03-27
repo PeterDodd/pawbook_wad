@@ -18,20 +18,20 @@ def populate():
     ]
 
     testPosts = [
-        ("My first post", "Here are some pictures of my cats"),
-        ("Looking after fish", "Incredibly relevant question about caring for fish"),
-        ("Looking to sell [Is this the right section?]", "Looking to sell my cat"),
-        ("Subscribe to my insta", "I post cat videos on it"),
-        ("Find us on facebook", "Search for us"),
-        ("Find us on Twitter", "Search for us"),
-        ("Find us on BeBo", "Search for us"),
-        ("First post", "This is a test post")
+        ("My first post", "Here are some pictures of my cats", "media/post_image/CatPost.png"),
+        ("Looking after fish", "Incredibly relevant question about caring for fish", "media/post_image/fishPost.jpg"),
+        ("Looking to sell [Is this the right section?]", "Looking to sell my cat", "media/post_image/catSale.jpg"),
+        ("Subscribe to my insta", "I post cat videos on it", "media/post_image/insta.jpeg"),
+        ("Find us on facebook", "Search for us", "media/post_image/facebook.png"),
+        ("Find us on Twitter", "Search for us", "media/post_image/twitter.png"),
+        ("Find us on BeBo", "Search for us", "media/post_image/bebo.jpg"),
+        ("First post", "This is a test post", "media/post_image/pufferFish.jpeg")
     ]
 
     testListings = [
-        ("Fluffs", "We are moving so we need to find her a new home", "Cat"),
-        ("N/A", "Looking to sell lab puppies locally", "Dog"),
-        ("ExoticFish", "Selling fish", "Fish")
+        ("Fluffs", "We are moving so we need to find her a new home", "Cat", "media/listing_image/cat.jpg"),
+        ("N/A", "Looking to sell lab puppies locally", "Dog", "media/listing_image/lab.jpg"),
+        ("ExoticFish", "Selling fish", "Fish", "media/listing_image/fish.jpeg")
     ]
 
     testPets = [
@@ -46,10 +46,10 @@ def populate():
     petPages = [add_pet(pet[0], pet[1], pet[2])
                 for pet in testPets]
 
-    listings = [add_listing(userList, listing[2], listing[0], listing[1])
+    listings = [add_listing(userList, listing[2], listing[0], listing[1], listing[3])
                 for listing in testListings]
 
-    posts = [add_post(userList, post[0], post[1])
+    posts = [add_post(userList, post[0], post[1], post[2])
              for post in testPosts]
 
 
@@ -89,13 +89,14 @@ def add_pet(species, breed, info):
     return newPage
 
 
-def add_post(allUsers, title, description):
+def add_post(allUsers, title, description, image):
     newPost = Post.objects.get_or_create(
         poster = random.choice(allUsers),
         postTitle = title,
         postDescription = description,
         likes = random.randint(0, 1000),
-        dislikes = random.randint(0, 1000)
+        dislikes = random.randint(0, 1000),
+        postImage = image
     )[0]
 
     newPost.save()
@@ -103,14 +104,15 @@ def add_post(allUsers, title, description):
     return newPost
 
 
-def add_listing(allUsers, breed, name, description):
+def add_listing(allUsers, breed, name, description, image):
     newListing = Listing.objects.get_or_create(
         poster = random.choice(allUsers),
         breed = breed,
         petName = name,
         description = description,
         petAge = random.randint(0, 10),
-        cost = random.randint(0, 150)
+        cost = random.randint(0, 150),
+        petImage = image
     )[0]
 
     newListing.save()
