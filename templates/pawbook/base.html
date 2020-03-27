@@ -14,7 +14,8 @@
 		{% endblock %}
 	</head>
 	
-	<body>	
+	<body>
+
 		<div class="top_bar">
 			<div class="top_bar_content">
 				<div href="/pawbook/" class="element">
@@ -38,7 +39,7 @@
 				</div>
 				{% if user.is_authenticated %}
 				<div class="element">
-					<a><img src="{% static 'images/dog smiling.jpg' %}" alt="User's Profile Picture" class="porfile_image"></a>
+					<a><img src="{{ user.UserProfile.profilePicture.url }}" alt="User's Profile Picture" class="profile_image"></a>
 				</div>
 				
 				<div class="element">
@@ -62,50 +63,48 @@
 		</div>
 
 		<div class="content_body">
-			<div class="content_holder">
+			<div class = "sub_holder">
 
-				<div class = "sub_holder">
-					<div class="side_bar">
-						<h3>PET INFO</h3>
-						<p>A list of quick links to find out keeping information for the following pets:</p>
-						<ul>
-							{% if allPosts %}
-								{% for post in allPosts %}
+				<div class="side_bar">
+					<h3>PET INFO</h3>
+					<p>A list of quick links to find out keeping information for the following pets:</p>
+					<ul>
+						{% if allPosts %}
+							{% for post in allPosts %}
 								<li><a href='{% url "pawbook:show_petPedia" post.slug %}'>{{ post.breed }}</a></li>
-								{% endfor %}
-							{% endif %}
-						</ul>
-					</div>
+							{% endfor %}
+						{% endif %}
+					</ul>
+				</div>
 
-					{% block body_block %}
-					{% endblock %}
+				{% block body_block %}
+				{% endblock %}
 
-					<div class="market_column">
-						<h3>MARKET SEARCH</h3>
-						<form>
-							<input type="number" name="quantity" min="1" max="10000">
-							<input type="number" name="quantity" min="1" max="10000">
-							<input type="text" placeholder="SEARCH">
-						</form>
-					</div>
-
+				<div class="market_column">
+					<h3>MARKET SEARCH</h3>
+					<form>
+						<input type="number" name="quantity" min="1" max="10000">
+						<input type="number" name="quantity" min="1" max="10000">
+						<input type="text" placeholder="SEARCH">
+					</form>
 				</div>
 
 			</div>
 		</div>
 
 		<div class="footer_bar">
-			<div class="element"> 
+			<div class="element">
 				<a href="/pawbook/contact/">CONTACT</a>
 			</div>
-			
-			<div class="element"> 
+
+			<div class="element">
 				<a href="/pawbook/faq/">FAQ</a>
 			</div>
-			
-			<div class="element"> 
+
+			<div class="element">
 				<a href="/pawbook/about/">ABOUT</a>
 			</div>
 		</div>
+
 	</body>
 </html>

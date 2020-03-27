@@ -103,6 +103,7 @@ a:hover {
 
 .top_bar h1:hover {
 	color: black;
+	display: flex;
 }
 
 .element {
@@ -131,11 +132,13 @@ a:hover {
 
 .footer_bar { 
 	display: flex;
-	position: absolute;
+	position: fixed;
+	bottom:0
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 	background-color: grey;
+	flex: 0 0 100px
 	height: 100px;
 	width: 100%;
 	bottom: 0px;
