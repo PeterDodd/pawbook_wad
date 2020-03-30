@@ -12,25 +12,24 @@
 {% block body_block %}
 	<div class="sub_holder">
 
-		<div class="pets_info_column">
+		<div class = "content_holder">
+			<div class="posts_column">
 			<h3>LISTINGS</h3>
-			{% if newest_listings %}
-			<ul>
+			{%  if newest_listings %}
 				{% for listing in newest_listings %}
-				<li><a href='{% url "pawbook:show_listing" listing.slug %}'>{{ listing.petName }}</a></li>
+					<div class="post">
+						<img src="{{ listing.petImage }}" alt="Listing Image" style="width:200px;height:200px;" />
+
+						<div class="post_content">
+							<h2>{{ listing.petName }} - {{ listing.breed }} - {{ listing.petAge }} years old - {{ listing.cost }}</h2>
+							<h4>By {{ listing.poster.user.username }} on {{ listing.datePosted }}</h4>
+							<p>{{ listing.description  }}</p>
+						</div>
+					</div>
 				{% endfor %}
-			</ul>
-
-			{% else %}
-				<strong>There are no new pets!</strong>
 			{% endif %}
+			</div>
 		</div>
 
-		<div class="posts_column">
-			<h3>TRENDING POSTS</h3>
-		</div>
 	</div>
-
-	<div class="spacer"></div>
-
 {% endblock %}

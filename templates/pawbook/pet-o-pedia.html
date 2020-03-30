@@ -1,4 +1,4 @@
-{% extends 'pawbook/base.html' %}
+{% extends 'pawbook/baseNoPetInfo.html' %}
 {% load staticfiles %}
 
 {% block title_block %}
@@ -10,25 +10,23 @@
 {% endblock %}
 
 {% block body_block %}
-	<div class="sub_holder">
-		<div class = "pets_info_column">
-			<h3>PET-O-PEDIA</h3>
-			{% if allPosts %}
-				<ul>
+		<div class = "content_holder">
+			<div class="posts_column">
+			<h3>PET-o-PEDIA</h3>
+
+			{%  if allPosts %}
 				{% for post in allPosts %}
-					<li><a href='{% url "pawbook:show_petPedia" post.slug %}'>{{ post.breed }}</a></li>
+					<div class="post">
+						<img src="{{ post.picture }}" alt="Post Image" style="width:200px;height:200px;" />
+
+						<div class="post_content">
+							<h2>{{ post.breed }}</h2>
+							<h4>{{ post.species }}</h4>
+							<p>{{ post.info  }}</p>
+						</div>
+					</div>
 				{% endfor %}
-				</ul>
-			{% else %}
-				<strong>There are no new pets!</strong>
 			{% endif %}
+			</div>
 		</div>
-
-		<div class="posts_column">
-			<h3>TRENDING POSTS</h3>
-		</div>
-
-	</div>
-
-	<div class="spacer"></div>
 {% endblock %}
