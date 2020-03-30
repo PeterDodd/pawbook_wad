@@ -24,6 +24,8 @@ urlpatterns = [
     path('faq/', views.faq, name='faq'),
 
     path('register/', views.register, name='register'),
+    path("editProfile", views.edit_profile, name="editProfile"),
+
     path('login/', views.login, name='login'),
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

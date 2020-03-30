@@ -82,16 +82,33 @@ def register(request):
     if request.method == "POST":
         # Get raw form info
         user_form = UserForm(request.POST)
-        profile_form = UserProfileForm(request.POST)
 
         # Check forms are valid
-        if user_form.is_valid() and profile_form.is_valid():
+        if user_form.is_valid():
             user = user_form.save()
 
             user.set_password(user.password)
             user.save()
 
-            profile = profile_form.save(commit = False)
+            registered = True
+        else:
+            print(user_form.errors)
+
+    else:
+        user_form = UserForm()
+
+    return render(request, "pawbook/register.html", context = {
+        "userForm": user_form,
+        "registered": registered
+    })
+
+
+def edit_profile(request, user):
+    if request.method == "POST":
+        profile_form = UserProfileForm(request.POST)
+
+        if profile_form.is_valid():
+            profile = profile_form.save(commit=False)
             profile.user = user
 
             if "profilePicture" in request.FILES:
@@ -99,21 +116,15 @@ def register(request):
 
             profile.save()
 
-            registered = True
-
         else:
-            print(user_form.errors, profile_form.errors)
+            print(profile_form.errors)
 
     else:
-        user_form = UserForm()
         profile_form = UserProfileForm
 
-    context_dict = {
-        "userForm": user_form,
+    return render(request, "pawbook/editProfile.html", context={
         "profileForm": profile_form
-    }
-
-    return render(request, "pawbook/register.html", context = context_dict)
+    })
 
 
 def login(request):

@@ -9,18 +9,16 @@
 {% endblock %}
 
 {% block body_block %}
-	<h2>register</h2>
-	<div class="sub_holder">
-		<form>
-			<input type="text" placeholder="USERNAME">
-			<input type="password" placeholder="PASSWORD">
-			<input type="password" placeholder="PASSWORD REPEAT">
-			<input type="email" placeholder="EMAIL">
-			<input type="submit" value="SUBMIT">
+	<h2>REGISTER</h2>
+	{% if registered %}
+		Thank you for registering with Pawbook
+	{% else %}
+	<div class="content_holder">
+		<form id="user_form" method="post" action="{% url 'pawbook:register' %}" enctype="multipart/form-data">
+			{% csrf_token %}
+			{{ userForm.as_p }}
+			<input type="submit" name="submit" value="Register" />
 		</form>
 	</div>
-
-	<div class="spacer">
-
-	</div>
+	{% endif %}
 {% endblock %}

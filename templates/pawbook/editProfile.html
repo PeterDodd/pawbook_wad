@@ -1,0 +1,20 @@
+{% extends 'pawbook/baseNoPetOrMarket.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	Register
+{% endblock %}
+
+{% block css_block %}
+{% endblock %}
+
+{% block body_block %}
+	<h2>EDIT PROFILE</h2>
+	<div class="content_holder">
+		<form id="profile_form" method="post" action="{% url 'pawbook:editProfile' %}" enctype="multipart/form-data">
+			{% csrf_token %}
+			{{ profileForm.as_p }}
+            <input type="submit" name="submit" value="Done" />
+		</form>
+	</div>
+{% endblock %}
