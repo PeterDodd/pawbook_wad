@@ -24,11 +24,11 @@ urlpatterns = [
     path('faq/', views.faq, name='faq'),
 
     path('register/', views.register, name='register'),
-    path("editProfile", views.edit_profile, name="editProfile"),
-
     path('login/', views.userLogin, name='login'),
     path("logout/", views.userLogout, name = "logout"),
+
     path("userProfile/", views.show_profile, name = "show_profile"),
+    path("editProfile", views.edit_profile, name="editProfile"),
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 

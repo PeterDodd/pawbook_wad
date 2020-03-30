@@ -114,7 +114,28 @@ def register(request):
     })
 
 
-@login_required
+def userLogin(request):
+    if request.method == "POST":
+        username = request.POST.get("username")  # Retrieve username
+        password = request.POST.get("password")  # and password
+
+        user = authenticate(username = username, password = password)   # Check all is well with authentication
+
+        if user:
+            if user.is_active:
+                login(request, user)
+                return redirect(reverse("pawbook:home"))
+
+            else:
+                return HttpResponse("Account disabled.")
+        else:
+            print("Invalid login details: {username}, {password}")
+            return HttpResponse("Invalid login details supplied.")
+
+    else:
+        return render(request, "pawbook/login.html")
+
+
 def show_profile(request):
     return render(request, "pawbook/userProfile.html", context = {
         "user": request.user,
@@ -143,42 +164,6 @@ def edit_profile(request):
 
     return render(request, "pawbook/editProfile.html", context={
         "profileForm": profile_form
-    })
-
-
-def userLogin(request):
-    if request.method == "POST":
-        username = request.POST.get("username")  # Retrieve username
-        password = request.POST.get("password")  # and password
-
-        user = authenticate(username = username, password = password)   # Check all is well with authentication
-
-        if user:
-            if user.is_active:
-                login(request, user)
-                return redirect(reverse("pawbook:home"))
-
-            else:
-                return HttpResponse("Account disabled.")
-        else:
-            print("Invalid login details: {username}, {password}")
-            return HttpResponse("Invalid login details supplied.")
-
-    else:
-        return render(request, "pawbook/login.html")
-
-
-def about(request):
-    return render(request, "pawbook/about.html")
-
-
-def faq(request):
-    return render(request, "pawbook/faq.html")
-
-
-def contact(request):
-    return render(request, "pawbook/contact.html", context = {
-        "allPosts": PetPedia.objects.all()
     })
 
 
@@ -220,7 +205,13 @@ def userLogout(request):
     return redirect(reverse("pawbook:home"))
 
 
-@login_required
-def profile(request):
-    return
+def about(request):
+    return render(request, "pawbook/about.html")
 
+
+def faq(request):
+    return render(request, "pawbook/faq.html")
+
+
+def contact(request):
+    return render(request, "pawbook/contact.html")

@@ -21,6 +21,12 @@ class UserProfile(models.Model):   # User model
     def __str__(self):
         return self.user.username
 
+    slug = models.SlugField(unique = True, default = "")
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.user.username)
+        super(UserProfile, self).save(*args, **kwargs)
+
 
 class Post(models.Model):           # Image posts model
     poster = models.ForeignKey(UserProfile, on_delete = models.CASCADE)     # Foreign key for user profile
@@ -32,7 +38,7 @@ class Post(models.Model):           # Image posts model
     likes = models.IntegerField(default = 0)
     dislikes = models.IntegerField(default = 0)
 
-    slug = models.SlugField(unique = True, default = "")
+    slug = models.SlugField(default = "")
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.postTitle)

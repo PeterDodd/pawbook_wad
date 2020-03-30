@@ -1,4 +1,4 @@
-{% extends 'pawbook/baseNoPetInfo.html' %}
+{% extends 'pawbook/bases/baseNoPetInfo.html' %}
 {% load staticfiles %}
 
 {% block title_block %}
@@ -20,7 +20,7 @@
 						<img src="{{ post.picture }}" alt="Post Image" style="width:200px;height:200px;" />
 
 						<div class="post_content">
-							<h2>{{ post.breed }}</h2>
+							<h2><a href="{% url 'pawbook:show_petPedia' post.slug %}">{{ post.breed }}</a></h2>
 							<h4>{{ post.species }}</h4>
 							<p>{{ post.info  }}</p>
 						</div>

@@ -1,4 +1,4 @@
-{% extends 'pawbook/baseNoPetInfo.html' %}
+{% extends 'pawbook/bases/baseNoPetInfo.html' %}
 {% load staticfiles %}
 
 {% block title_block %}
@@ -17,10 +17,10 @@
 			{% if latestListings %}
 				{% for pet in latestListings %}
 					<div class="pet_box">
-						<a><img src="{{ pet.petImage }}" alt="{{ pet.petName }}" style="width:100px;height:100px;" /></a>
-						<div class="pet_box_overlay">
+						<img src="{{ pet.petImage }}" alt="{{ pet.petName }}" style="width:100px;height:100px;" />
+						<a href="{% url 'pawbook:show_listing' pet.slug %}"><div class="pet_box_overlay">
 							<div class="pet_box_text"><h3>{{ pet.cost }}</h3></div>
-						</div>
+						</div></a>
 					</div>
 				{% endfor %}
 			{% endif %}
@@ -35,7 +35,7 @@
 						<img src="{{ post.postImage }}" alt="Post Image" style="width:250px;height:250px;" />
 
 						<div class="post_content">
-							<h2>{{ post.postTitle }}</h2>
+							<h2><a href="{% url 'pawbook:show_post' post.slug %}"> {{ post.postTitle }} </a> </h2>
 							<h4>By {{ post.poster.user.username }} on {{ post.datePosted }}</h4>
 							<p>{{ post.postDescription  }}</p>
 							<p>Likes: {{ post.likes }}, Dislikes: {{ post.dislikes }}</p>

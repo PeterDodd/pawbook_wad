@@ -1,4 +1,4 @@
-{% extends 'pawbook/base.html' %}
+{% extends 'pawbook/bases/base.html' %}
 {% load staticfiles %}
 
 {% block title_block %}
@@ -21,7 +21,7 @@
 						<img src="{{ listing.petImage }}" alt="Listing Image" style="width:200px;height:200px;" />
 
 						<div class="post_content">
-							<h2>{{ listing.petName }} - {{ listing.breed }} - {{ listing.petAge }} years old - {{ listing.cost }}</h2>
+							<h2><a href="{% url 'pawbook:show_listing' listing.slug %}">{{ listing.petName }} - {{ listing.breed }} - {{ listing.petAge }} years old - {{ listing.cost }}</a></h2>
 							<h4>By {{ listing.poster.user.username }} on {{ listing.datePosted }}</h4>
 							<p>{{ listing.description  }}</p>
 						</div>

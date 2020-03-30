@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from pawbook.models import UserProfile, PetPedia, Post, Listing
 
 
-class UserForm(forms.ModelForm):
+class UserForm(forms.ModelForm):        # Form for User objects
     password = forms.CharField(widget = forms.PasswordInput())
 
     class Meta:
@@ -11,13 +11,13 @@ class UserForm(forms.ModelForm):
         fields = ("username", "email", "password")
 
 
-class UserProfileForm(forms.ModelForm):
+class UserProfileForm(forms.ModelForm): # Form for UserProfile objects
     class Meta:
         model = UserProfile
         fields = ("firstName", "lastName", "age", "bio", "location", "profilePicture")
 
 
-class PostForm(forms.ModelForm):
+class PostForm(forms.ModelForm):        # Form for new posts
     postTitle = forms.CharField(max_length = 128, help_text = "Enter post title")
     postDescription = forms.CharField(max_length = 128, help_text = "Enter post description")
 
@@ -31,7 +31,7 @@ class PostForm(forms.ModelForm):
         fields = ("postTitle", "postDescription", "postImage")
 
 
-class ListingForm(forms.ModelForm):
+class ListingForm(forms.ModelForm):     # Form for new listings
     breed = forms.CharField(max_length = 128, help_text = "Enter the breed of the animal")
     petName = forms.CharField(max_length = 128, help_text = "Enter the name of the pet for sale")
     description = forms.CharField(max_length = 500, help_text = "Enter a description")
