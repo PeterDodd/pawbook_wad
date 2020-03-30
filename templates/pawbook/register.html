@@ -17,6 +17,8 @@
 		<form id="user_form" method="post" action="{% url 'pawbook:register' %}" enctype="multipart/form-data">
 			{% csrf_token %}
 			{{ userForm.as_p }}
+			<h3>Optional:</h3>
+			{{ profileForm.as_p }}
 			<input type="submit" name="submit" value="Register" />
 		</form>
 	</div>

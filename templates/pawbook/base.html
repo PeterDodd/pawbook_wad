@@ -34,25 +34,25 @@
 					<a href="/pawbook/pet-o-pedia/">PET-O-PEDIA</a>
 				</div>
 				
-				<div class="spacer">
-				
-				</div>
+				<div class="spacer"></div>
+
 				{% if user.is_authenticated %}
-				<div class="element">
-					<a><img src="{{ user.UserProfile.profilePicture.url }}" alt="User's Profile Picture" class="profile_image"></a>
-				</div>
+					<div class="element">
+						Signed in as: {{ user.username }} <br />
+						<a href="{% url 'pawbook:logout' %}">>Logout<</a>
+					</div>
 				
-				<div class="element">
-					<a href="/pawbook/register/">USER'S PROFILE</a>
-				</div>
+					<div class="element">
+						<a href="/pawbook/userProfile">MY PROFILE</a>
+					</div>
 				{% else %}
-				<div class="element">
-					<a href="/pawbook/login/">LOGIN</a>
-				</div>
+					<div class="element">
+						<a href="/pawbook/login/">LOGIN</a>
+					</div>
 				
-				<div class="element">
-					<a href="/pawbook/register/">REGISTER</a>
-				</div>
+					<div class="element">
+						<a href="/pawbook/register/">REGISTER</a>
+					</div>
 				{% endif %}
 				
 				

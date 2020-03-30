@@ -10,16 +10,13 @@
 {% endblock %}
 
 {% block body_block %}
-	<h2>login</h2>
-	<div class="sub_holder">
-		<form>
-			<input type="text" placeholder="USERNAME">
-			<input type="password" placeholder="PASSWORD">
-			<input type="submit" value="SUBMIT">
+	<h2>LOGIN</h2>
+	<div class="content_holder">
+		<form id="login_form" method="post" action="{% url 'pawbook:login' %}">
+			{% csrf_token %}
+			Username: <input type="text" name="username" value="" size = 50 />
+			Password: <input type="password" name="password" value="" size = 50 />
+			<input type="submit" value="Login" />
 		</form>
-	</div>
-
-	<div class="spacer">
-
 	</div>
 {% endblock %}

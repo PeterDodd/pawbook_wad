@@ -1,0 +1,32 @@
+{% extends 'pawbook/baseNoPetOrMarket.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	{{ user.username }}
+{% endblock %}
+
+
+{% block css_block %}
+	<link rel="stylesheet" href="{% static 'css/home.css' %}" />
+{% endblock %}
+
+
+{% block body_block %}
+	<div class = "content_holder">
+		<div class="posts_column">
+			<h3>{{ user.username }}</h3>
+
+			<div class="post">
+				<img src="{{ userProfile.profilePicture }}" alt="Profile Picture" />
+				<div class="post_content">
+					Name: {{ userProfile.firstName }} {{ userProfile.lastName }} <br />
+					Location: {{ userProfile.location }} <br />
+					Age: {{ userProfile.age }} <br />
+					Pets sold: {{ userProfile.sellCount }} <br />
+					Bio: {{ userProfile.bio }} <br />
+				</div>
+			</div>
+
+		</div>
+	</div>
+{% endblock %}

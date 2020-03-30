@@ -16,7 +16,7 @@ class UserProfile(models.Model):   # User model
     age = models.IntegerField(default = 0, blank = True)
     sellCount = models.IntegerField(default = 0, blank = True)
 
-    profilePicture = models.ImageField(upload_to = "profile_image", default = None, blank = True)
+    profilePicture = models.ImageField(upload_to = "profile_image", storage = settings.MEDIA_ROOT + "/profile_image/", default = None, blank = True)
 
     def __str__(self):
         return self.user.username
@@ -52,7 +52,7 @@ class PetPedia(models.Model):       # Pet-O-Pedia model
         self.slug = slugify(self.breed)
         super(PetPedia, self).save(*args, **kwargs)
 
-    picture = models.ImageField(upload_to = "petPedia_image", default = None, blank = True)
+    picture = models.ImageField(upload_to = "petPedia_image", storage = settings.MEDIA_ROOT + "/petPedia_image/", default = None, blank = True)
 
 
 class Listing(models.Model):        # Listing model

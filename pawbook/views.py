@@ -82,34 +82,53 @@ def register(request):
     if request.method == "POST":
         # Get raw form info
         user_form = UserForm(request.POST)
+        profile_form = UserProfileForm(request.POST)
 
         # Check forms are valid
-        if user_form.is_valid():
+        if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
 
             user.set_password(user.password)
             user.save()
 
+            p = profile_form.save(commit = False)
+            p.user = user
+
+            if "picture" in request.FILES:
+                p.picture = request.FILES["picture"]
+
+            p.save()
+
             registered = True
         else:
-            print(user_form.errors)
+            print(user_form.errors, profile_form.errors)
 
     else:
         user_form = UserForm()
+        profile_form = UserProfileForm()
 
     return render(request, "pawbook/register.html", context = {
         "userForm": user_form,
+        "profileForm": profile_form,
         "registered": registered
     })
 
 
-def edit_profile(request, user):
+@login_required
+def show_profile(request):
+    return render(request, "pawbook/userProfile.html", context = {
+        "user": request.user,
+        "userProfile": UserProfile.objects.filter(user = request.user)
+    })
+
+
+@login_required
+def edit_profile(request):
     if request.method == "POST":
         profile_form = UserProfileForm(request.POST)
 
         if profile_form.is_valid():
             profile = profile_form.save(commit=False)
-            profile.user = user
 
             if "profilePicture" in request.FILES:
                 profile.profilePicture = request.FILES["profilePicture"]
@@ -127,7 +146,7 @@ def edit_profile(request, user):
     })
 
 
-def login(request):
+def userLogin(request):
     if request.method == "POST":
         username = request.POST.get("username")  # Retrieve username
         password = request.POST.get("password")  # and password
@@ -143,6 +162,7 @@ def login(request):
                 return HttpResponse("Account disabled.")
         else:
             print("Invalid login details: {username}, {password}")
+            return HttpResponse("Invalid login details supplied.")
 
     else:
         return render(request, "pawbook/login.html")
@@ -195,7 +215,7 @@ def add_listing(request):
 
 
 @login_required
-def logout(request):
+def userLogout(request):
     logout(request)
     return redirect(reverse("pawbook:home"))
 
