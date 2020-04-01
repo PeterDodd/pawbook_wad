@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load static %}
+{% load staticfiles %}
 <html>
 	<head>
 		<title>
@@ -74,19 +74,21 @@
 						<!--<input type="number" name="quantity" min="1" max="10000">-->
 						<!--<input type="number" name="quantity" min="1" max="10000">-->
 						<!--<input type="text" placeholder="SEARCH">-->
-						<input type = 'text' name="query" placeholder ='Search posts'/>
+						<input type = 'text' name="query" placeholder ='Search posts' value ='{{request.GET.query}}'/>
 						<input type ='submit' value = 'Search' />
 					</form>
 					<div class = "pagination">
 	<span class = "step-links">
 		{% if object_list.has_previous %}
-			<a href="?page={{object_list.previous_page_number}}">previous</a>
+			<a href="?page={{object_list.previous_page_number}}{% if request.GET.query %}
+			 &query ={{request.GET.query}}{% endif %}">previous</a>
 		{% endif %}
 		<span class = "current">
 			Page {{object_list.number }} of {{object_list.paginator.num_pages}},
 		</span>
 		{% if object_list.has_next %}
-			<a href="?page={{ object_list.next_page_number }}">next</a>
+			<a href="?page={{ object_list.next_page_number }}{% if request.GET.query %}
+			 &query ={{request.GET.query}}{% endif %}">next</a>
 		{% endif %}
 	</span>
 </div>

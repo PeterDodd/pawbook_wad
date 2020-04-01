@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.core.paginator import  Paginator, EmptyPage,PageNotAnInteger
+from django.db.models import Q
 
 from pawbook.models import Post, Listing, PetPedia, UserProfile
 from pawbook.forms import UserProfileForm, UserForm, PostForm, ListingForm
@@ -12,8 +13,15 @@ from django.contrib.auth import authenticate, login, logout
 
 def home(request):
     queryset_list = Post.objects.all()
-    paginator = Paginator(queryset_list, 3)
 
+    query = request.GET.get("query")
+    if query:
+        queryset_list = queryset_list.filter(
+            Q(postTitle__icontains=query) |
+            Q(postDescription__icontains=query) |
+            Q(poster__user__username__icontains=query)).distinct()
+
+    paginator = Paginator(queryset_list, 5)
     page = request.GET.get('page')
     try:
         queryset = paginator.page(page)
@@ -31,6 +39,12 @@ def home(request):
 
 def posts(request):
     queryset_list = Post.objects.all()
+    query = request.GET.get("query")
+    if query:
+        queryset_list = queryset_list.filter(
+            Q(postTitle__icontains=query) |
+            Q(postDescription__icontains=query) |
+            Q(poster__user__username__icontains=query)).distinct()
     paginator = Paginator(queryset_list, 2)
 
     page = request.GET.get('page')
@@ -63,6 +77,15 @@ def show_post(request, name_slug):
 
 def listings(request):
     queryset_list = Listing.objects.all()
+    query = request.GET.get("query")
+    if query:
+        queryset_list = queryset_list.filter(
+            Q(breed__icontains=query) |
+            Q(description__icontains=query) |
+            Q(petName__icontains=query) |
+            Q(petAge__icontains=query) |
+            Q(cost__icontains=query) |
+            Q(poster__user__username__icontains=query)).distinct()
     paginator = Paginator(queryset_list, 2)
 
     page = request.GET.get('page')
@@ -93,6 +116,12 @@ def show_listing(request, name_slug):
 
 def pet_pedia(request):
     queryset_list = PetPedia.objects.all()
+    query = request.GET.get("query")
+    if query:
+        queryset_list = queryset_list.filter(
+            Q(species__icontains=query) |
+            Q(breed__icontains=query) |
+            Q(info__icontains=query)).distinct()
     paginator = Paginator(queryset_list, 2)
 
     page = request.GET.get('page')
