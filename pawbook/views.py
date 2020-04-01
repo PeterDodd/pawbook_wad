@@ -4,9 +4,11 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.core.paginator import  Paginator, EmptyPage,PageNotAnInteger
 from django.db.models import Q
+from django.contrib import messages
+
 
 from pawbook.models import Post, Listing, PetPedia, UserProfile
-from pawbook.forms import UserProfileForm, UserForm, PostForm, ListingForm
+from pawbook.forms import UserProfileForm, UserForm, PostForm, ListingForm, ContactForm
 
 from django.contrib.auth import authenticate, login, logout
 
@@ -290,4 +292,19 @@ def faq(request):
 
 
 def contact(request):
-    return render(request, "pawbook/contact.html")
+    if request.method =="POST":
+        form = ContactForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Form submission successful")
+
+    else:
+        form = ContactForm()
+
+
+
+    return render(request, "pawbook/contact.html", {'form':form})
+
+
+

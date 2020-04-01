@@ -4,6 +4,7 @@ from django.template.defaultfilters import slugify
 from django.conf import settings
 
 
+
 class UserProfile(models.Model):   # User model
     user = models.OneToOneField(User, on_delete = models.CASCADE)   # Link UserProfile to User model instance
     dateJoined = models.DateField(auto_now_add = True)
@@ -79,3 +80,13 @@ class Listing(models.Model):        # Listing model
         super(Listing, self).save(*args, **kwargs)
 
     petImage = models.ImageField(upload_to = "listing_image", storage = settings.MEDIA_ROOT + "/listing_image/")
+
+
+class Contact(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    email = models.EmailField()
+    message = models.TextField()
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'

@@ -11,5 +11,49 @@
 
 
 {% block body_block %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <h2 class=" text-white" >Contact Us</h2>
+            <hr></br>
+
+            <div class="panel-group" >
+                <div class="panel panel-default">
+
+                    <div class="panel-heading"  >
+                        <h3 class="panel-title">
+                                Having Issues?
+                                <span> </span>
+                            </a>
+                        </h3>
+                    </div>
+                        <div class="panel-body">
+                            <p> We take your feedback or questions seriously. Feel free to ask away anything for any
+								enquiries and we will get back to you as soon as possible</p>
+                        </div>
+                    </div>
+                </div>
+		</div>
+		<div>
+			<form method="post">
+				{% csrf_token %}
+				{{form.as_p }}
+				<div class="form-actions">
+					<button type="submit">Send</button>
+				</div>
+			</form>
+					{% if messages %}
+		<ul class = 'messages'>
+			{% for message in messages %}
+			<li {% if message.tags %} class ="{{ message.tags }}"{% endif %}>{{message}}</li>
+			{% endfor %}
+		</ul>
+		{% endif %}
+		</div>
+	</div>
+		</div>
+
+
+
 
 {% endblock %}
