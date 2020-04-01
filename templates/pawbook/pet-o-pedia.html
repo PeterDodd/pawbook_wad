@@ -1,5 +1,5 @@
 {% extends 'pawbook/bases/baseNoPetInfo.html' %}
-{% load staticfiles %}
+{% load static %}
 
 {% block title_block %}
 	Pet-O-Pedia
@@ -15,7 +15,7 @@
 			<h3>PET-o-PEDIA</h3>
 
 			{%  if allPosts %}
-				{% for post in allPosts %}
+				{% for post in object_list %}
 					<div class="post">
 						<img src="{{ post.picture }}" alt="Post Image" style="width:200px;height:200px;" />
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load staticfiles %}
+{% load static %}
 <html>
 	<head>
 		<title>
@@ -69,13 +69,29 @@
 				{% endblock %}
 
 				<div class="market_column">
-					<h3>MARKET SEARCH</h3>
-					<form>
-						<input type="number" name="quantity" min="1" max="10000">
-						<input type="number" name="quantity" min="1" max="10000">
-						<input type="text" placeholder="SEARCH">
+					<h3>FIND A PET</h3>
+					<form method ='GET' action="">
+						<!--<input type="number" name="quantity" min="1" max="10000">-->
+						<!--<input type="number" name="quantity" min="1" max="10000">-->
+						<!--<input type="text" placeholder="SEARCH">-->
+						<input type = 'text' name="query" placeholder ='Search posts'/>
+						<input type ='submit' value = 'Search' />
 					</form>
+					<div class = "pagination">
+	<span class = "step-links">
+		{% if object_list.has_previous %}
+			<a href="?page={{object_list.previous_page_number}}">previous</a>
+		{% endif %}
+		<span class = "current">
+			Page {{object_list.number }} of {{object_list.paginator.num_pages}},
+		</span>
+		{% if object_list.has_next %}
+			<a href="?page={{ object_list.next_page_number }}">next</a>
+		{% endif %}
+	</span>
+</div>
 				</div>
+
 
 			</div>
 		</div>

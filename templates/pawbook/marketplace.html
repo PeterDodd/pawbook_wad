@@ -1,5 +1,5 @@
 {% extends 'pawbook/bases/base.html' %}
-{% load staticfiles %}
+{% load static%}
 
 {% block title_block %}
 	Marketplace
@@ -16,7 +16,7 @@
 			<div class="posts_column">
 			<h3>LISTINGS</h3>
 			{%  if newest_listings %}
-				{% for listing in newest_listings %}
+				{% for listing in object_list %}
 					<div class="post">
 						<img src="{{ listing.petImage }}" alt="Listing Image" style="width:200px;height:200px;" />
 

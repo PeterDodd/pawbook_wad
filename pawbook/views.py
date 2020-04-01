@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.core.paginator import  Paginator, EmptyPage,PageNotAnInteger
 
 from pawbook.models import Post, Listing, PetPedia, UserProfile
 from pawbook.forms import UserProfileForm, UserForm, PostForm, ListingForm
@@ -10,18 +11,41 @@ from django.contrib.auth import authenticate, login, logout
 
 
 def home(request):
+    queryset_list = Post.objects.all()
+    paginator = Paginator(queryset_list, 3)
+
+    page = request.GET.get('page')
+    try:
+        queryset = paginator.page(page)
+    except PageNotAnInteger:
+        queryset = paginator.page(1)
+    except EmptyPage:
+        queryset = paginator.page(paginator.num_pages)
     return render(request, "pawbook/home.html", context = {
         "trendingPosts": Post.objects.order_by("-likes")[:6],
         "latestListings": Listing.objects.order_by("-datePosted")[:6],
         "allPosts": PetPedia.objects.all(),
+        "object_list": queryset,
     })
 
 
 def posts(request):
+    queryset_list = Post.objects.all()
+    paginator = Paginator(queryset_list, 2)
+
+    page = request.GET.get('page')
+    try:
+        queryset = paginator.page(page)
+    except PageNotAnInteger:
+        queryset = paginator.page(1)
+    except EmptyPage:
+        queryset = paginator.page(paginator.num_pages)
+
     return render(request, "pawbook/posts.html", context = {
         "newest_posts": Post.objects.order_by("-datePosted"),
         "trending": Post.objects.order_by("-likes")[:6],
         "allPosts": PetPedia.objects.all(),
+        "object_list": queryset,
     })
 
 
@@ -38,9 +62,20 @@ def show_post(request, name_slug):
 
 
 def listings(request):
+    queryset_list = Listing.objects.all()
+    paginator = Paginator(queryset_list, 2)
+
+    page = request.GET.get('page')
+    try:
+        queryset = paginator.page(page)
+    except PageNotAnInteger:
+        queryset = paginator.page(1)
+    except EmptyPage:
+        queryset = paginator.page(paginator.num_pages)
     return render(request, "pawbook/marketplace.html", context = {
         "newest_listings": Listing.objects.all(),
         "allPosts": PetPedia.objects.all(),
+        "object_list": queryset,
     })
 
 
@@ -57,8 +92,20 @@ def show_listing(request, name_slug):
 
 
 def pet_pedia(request):
+    queryset_list = PetPedia.objects.all()
+    paginator = Paginator(queryset_list, 2)
+
+    page = request.GET.get('page')
+    try:
+        queryset = paginator.page(page)
+    except PageNotAnInteger:
+        queryset = paginator.page(1)
+    except EmptyPage:
+        queryset = paginator.page(paginator.num_pages)
+
     return render(request, "pawbook/pet-o-pedia.html", context = {
         "allPosts": PetPedia.objects.all(),
+        "object_list": queryset,
     })
 
 

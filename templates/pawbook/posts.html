@@ -1,5 +1,5 @@
 {% extends 'pawbook/bases/base.html' %}
-{% load staticfiles %}
+{% load static %}
 
 {% block title_block %}
 	Posts
@@ -17,7 +17,7 @@
 			<h3>POSTS</h3>
 
 			{%  if newest_posts %}
-				{% for post in newest_posts %}
+				{% for post in object_list %}
 					<div class="post">
 						<img src="{{ post.postImage }}" alt="Post Image" style="width:200px;height:200px;" />
 
