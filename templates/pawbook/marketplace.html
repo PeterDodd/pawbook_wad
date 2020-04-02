@@ -22,7 +22,7 @@
 
 						<div class="post_content">
 							<h2><a href="{% url 'pawbook:show_listing' listing.slug %}">{{ listing.petName }} - {{ listing.breed }} - {{ listing.petAge }} years old - {{ listing.cost }}</a></h2>
-							<h4>By {{ listing.poster.user.username }} on {{ listing.datePosted }}</h4>
+							<h4>By <a href="{% url 'pawbook:show_profile' listing.poster.user.username %}">{{ listing.poster.user.username }}</a> on {{ listing.datePosted }}</h4>
 							<p>{{ listing.description  }}</p>
 						</div>
 					</div>

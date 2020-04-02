@@ -36,7 +36,7 @@
 
 						<div class="post_content">
 							<h2><a href="{% url 'pawbook:show_post' post.slug %}"> {{ post.postTitle }} </a> </h2>
-							<h4>By {{ post.poster.user.username }} on {{ post.datePosted }}</h4>
+							<h4>By <a href="{% url 'pawbook:show_profile' post.poster.user.username %}">{{ post.poster.user.username }}</a> on {{ post.datePosted }}</h4>
 							<p>{{ post.postDescription  }}</p>
 							<p>Likes: {{ post.likes }}, Dislikes: {{ post.dislikes }}</p>
 						</div>

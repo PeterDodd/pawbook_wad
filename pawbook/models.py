@@ -4,7 +4,6 @@ from django.template.defaultfilters import slugify
 from django.conf import settings
 
 
-
 class UserProfile(models.Model):   # User model
     user = models.OneToOneField(User, on_delete = models.CASCADE)   # Link UserProfile to User model instance
     dateJoined = models.DateField(auto_now_add = True)

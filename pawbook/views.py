@@ -228,11 +228,10 @@ def userLogin(request):
     else:
         return render(request, "pawbook/login.html")
 
-
-def show_profile(request):
+@login_required
+def show_profile(request, name_slug):
     return render(request, "pawbook/userProfile.html", context = {
-        "user": request.user,
-        "userProfile": UserProfile.objects.filter(user = request.user)
+        "userProfile": UserProfile.objects.get(slug = name_slug),
     })
 
 
