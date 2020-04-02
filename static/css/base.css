@@ -168,3 +168,47 @@ navbar input {
     margin: auto;
     border-radius: 10px;
 }
+
+main.wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1400px;
+    padding: 80px 10px;
+
+    height: 1vh;
+}
+
+.col-2 {
+    display: grid;
+    grid-gap: 15px;
+    grid-template-columns:  1fr 1fr 200px;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+        "t t t"
+        "c c s"
+}
+
+.col-3 {
+    display: grid;
+    grid-template-columns: 200px 1fr 200px;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+        "t t t"
+        "l c s"
+}
+
+.sidebar-r {
+    grid-area: s;
+}
+
+.main-area {
+    grid-area: c;
+}
+
+.top-area {
+    grid-area: t;
+}
+
+.sidebar-l {
+    grid-area: l;
+}

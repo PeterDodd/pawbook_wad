@@ -40,12 +40,12 @@
             </navbar>
         </header>
 
-		<div class="content_body">
-			<div class = "sub_holder">
-				{% block body_block %}
-				{% endblock %}
-			</div>
-		</div>
+        <main class="wrapper col-3">
+            <div class="main-area">
+                {% block body_block %}
+                {% endblock %}
+            </div>
+		</main>
 
         <footer>
             <a href="/pawbook/contact/">CONTACT</a>
@@ -55,16 +55,16 @@
 
         <script>
             var prevScrollpos = window.pageYOffset;
+            var $header = $("header");
             window.onscroll = function() {
                 var currentScrollPos = window.pageYOffset;
                 if (prevScrollpos > currentScrollPos || currentScrollPos < 50) {
-                    $("header").css("top", "0");
+                    $header.css("top", "0");
                 } else {
-                    $("header").css("top", "-70px");
+                    $header.css("top", "-70px");
                 }
                 prevScrollpos = currentScrollPos;
             }
-
         </script>
 
 	</body>

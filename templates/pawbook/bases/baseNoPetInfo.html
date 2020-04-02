@@ -40,40 +40,38 @@
             </navbar>
         </header>
 
-		<div class="content_body">
-			<div class = "sub_holder">
-				{% block body_block %}
-				{% endblock %}
+        <main class="wrapper col-2">
+            <div class="main-area">
+                {% block body_block %}
+                {% endblock %}
+            </div>
 
-				<div class="market_column">
-					<h3>FIND A PET</h3>
-					<form method ='GET' action="">
-						<!--<input type="number" name="quantity" min="1" max="10000">-->
-						<!--<input type="number" name="quantity" min="1" max="10000">-->
-						<!--<input type="text" placeholder="SEARCH">-->
-						<input type = 'text' name="query" placeholder ='Search posts' value ='{{request.GET.query}}'/>
-						<input type ='submit' value = 'Search' />
-					</form>
-					<div class = "pagination">
-	<span class = "step-links">
-		{% if object_list.has_previous %}
-			<a href="?page={{object_list.previous_page_number}}{% if request.GET.query %}
-			 &query ={{request.GET.query}}{% endif %}">previous</a>
-		{% endif %}
-		<span class = "current">
-			Page {{object_list.number }} of {{object_list.paginator.num_pages}},
-		</span>
-		{% if object_list.has_next %}
-			<a href="?page={{ object_list.next_page_number }}{% if request.GET.query %}
-			 &query ={{request.GET.query}}{% endif %}">next</a>
-		{% endif %}
-	</span>
-</div>
-				</div>
-
-
-			</div>
-		</div>
+            <div class="market_column sidebar-r">
+                <h3>FIND A PET</h3>
+                <form method ='GET' action="">
+                    <!--<input type="number" name="quantity" min="1" max="10000">-->
+                    <!--<input type="number" name="quantity" min="1" max="10000">-->
+                    <!--<input type="text" placeholder="SEARCH">-->
+                    <input type = 'text' name="query" placeholder ='Search posts' value ='{{request.GET.query}}'/>
+                    <input type ='submit' value = 'Search' />
+                </form>
+                <div class = "pagination">
+                    <span class = "step-links">
+                        {% if object_list.has_previous %}
+                            <a href="?page={{object_list.previous_page_number}}{% if request.GET.query %}
+                             &query ={{request.GET.query}}{% endif %}">previous</a>
+                        {% endif %}
+                        <span class = "current">
+                            Page {{object_list.number }} of {{object_list.paginator.num_pages}},
+                        </span>
+                        {% if object_list.has_next %}
+                            <a href="?page={{ object_list.next_page_number }}{% if request.GET.query %}
+                             &query ={{request.GET.query}}{% endif %}">next</a>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+		</main>
 
         <footer>
             <a href="/pawbook/contact/">CONTACT</a>
@@ -83,16 +81,16 @@
 
         <script>
             var prevScrollpos = window.pageYOffset;
+            var $header = $("header");
             window.onscroll = function() {
                 var currentScrollPos = window.pageYOffset;
                 if (prevScrollpos > currentScrollPos || currentScrollPos < 50) {
-                    $("header").css("top", "0");
+                    $header.css("top", "0");
                 } else {
-                    $("header").css("top", "-70px");
+                    $header.css("top", "-70px");
                 }
                 prevScrollpos = currentScrollPos;
             }
-
         </script>
 
 	</body>

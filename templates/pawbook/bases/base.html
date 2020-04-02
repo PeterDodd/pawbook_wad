@@ -39,73 +39,70 @@
                 </form>
             </navbar>
         </header>
-        
-        <div class="content_body">
-			<div class = "sub_holder">
 
-				<div class="side_bar">
-					<h3>PET INFO</h3>
-					<p>A list of quick links to find out keeping information for the following pets:</p>
-					<ul>
-						{% if allPosts %}
-							{% for post in allPosts %}
-								<li><a href='{% url "pawbook:show_petPedia" post.slug %}'>{{ post.breed }}</a></li>
-							{% endfor %}
-						{% endif %}
-					</ul>
-				</div>
+        <main class="wrapper col-3">
+            <div class="sidebar-l">
+                <h3>PET INFO</h3>
+                <p>A list of quick links to find out keeping information for the following pets:</p>
+                <ul>
+                    {% if allPosts %}
+                        {% for post in allPosts %}
+                            <li><a href='{% url "pawbook:show_petPedia" post.slug %}'>{{ post.breed }}</a></li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+            
+            <div class="main-area">
+                {% block body_block %}
+                {% endblock %}
+            </div>
 
-				{% block body_block %}
-				{% endblock %}
+            <div class="market_column sidebar-r">
+                <h3>MARKET SEARCH</h3>
+                <form method = 'GET' action = "">
+                    <!--<input type="number" name="quantity" min="1" max="10000">-->
+                    <!--<input type="number" name="quantity" min="1" max="10000">-->
+                    <!--<input type="text" placeholder="SEARCH">-->
+                    <input type = 'text' name = "query" placeholder = 'Search posts' />
+                    <input type = 'submit' value = 'Search' />
+                </form>
+                <div class = "pagination">
+                    <span class = "step-links">
+                        {% if object_list.has_previous %}
+                            <a href="?page={{object_list.previous_page_number}}{% if request.GET.query %}
+                                 &query ={{request.GET.query}}{% endif %}">previous</a>
+                        {% endif %}
+                        <span class = "current">
+                            Page {{object_list.number }} of {{object_list.paginator.num_pages}},
+                        </span>
+                        {% if object_list.has_next %}
+                            <a href="?page={{ object_list.next_page_number }} {% if request.GET.query %}
+                                &query ={{request.GET.query}}{% endif %}">next</a>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </main>
 
-				<div class="market_column">
-					<h3>MARKET SEARCH</h3>
-					<form method = 'GET' action = "">
-						<!--<input type="number" name="quantity" min="1" max="10000">-->
-						<!--<input type="number" name="quantity" min="1" max="10000">-->
-						<!--<input type="text" placeholder="SEARCH">-->
-						<input type = 'text' name = "query" placeholder = 'Search posts' />
-						<input type = 'submit' value = 'Search' />
-					</form>
-					<div class = "pagination">
-	<span class = "step-links">
-		{% if object_list.has_previous %}
-			<a href="?page={{object_list.previous_page_number}}{% if request.GET.query %}
-			 &query ={{request.GET.query}}{% endif %}">previous</a>
-		{% endif %}
-		<span class = "current">
-			Page {{object_list.number }} of {{object_list.paginator.num_pages}},
-		</span>
-		{% if object_list.has_next %}
-			<a href="?page={{ object_list.next_page_number }} {% if request.GET.query %}
-			 &query ={{request.GET.query}}{% endif %}">next</a>
-		{% endif %}
-	</span>
-				</div>
+        <footer>
+            <a href="/pawbook/contact/">CONTACT</a>
+            <a href="/pawbook/faq/">FAQ</a>
+            <a href="/pawbook/about/">ABOUT</a>
+        </footer>
 
-			</div>
-		</div>
-        </div>
-
-            <footer>
-                <a href="/pawbook/contact/">CONTACT</a>
-                <a href="/pawbook/faq/">FAQ</a>
-                <a href="/pawbook/about/">ABOUT</a>
-            </footer>
-
-            <script>
-                var prevScrollpos = window.pageYOffset;
-                window.onscroll = function() {
-                    var currentScrollPos = window.pageYOffset;
-                    if (prevScrollpos > currentScrollPos || currentScrollPos < 50) {
-                        $("header").css("top", "0");
-                    } else {
-                        $("header").css("top", "-70px");
-                    }
-                    prevScrollpos = currentScrollPos;
+        <script>
+            var prevScrollpos = window.pageYOffset;
+            var $header = $("header");
+            window.onscroll = function() {
+                var currentScrollPos = window.pageYOffset;
+                if (prevScrollpos > currentScrollPos || currentScrollPos < 50) {
+                    $header.css("top", "0");
+                } else {
+                    $header.css("top", "-70px");
                 }
-
-            </script>
-
+                prevScrollpos = currentScrollPos;
+            }
+        </script>
 	</body>
 </html>
