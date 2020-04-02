@@ -2,6 +2,7 @@
 {% load staticfiles %}
 
 {% block title_block %}
+	{{ userProfile.user.username }}
 {% endblock %}
 
 
@@ -13,7 +14,7 @@
 {% block body_block %}
 	<div class = "content_holder">
 		<div class="posts_column">
-			<h2></h2>
+			<h2>{{ userProfile.user.username }}</h2>
 
 			<div class="post">
 				<img src="{{ userProfile.profilePicture }}" alt="Profile Picture" />
@@ -23,10 +24,12 @@
 					Age: {{ userProfile.age }} <br />
 					Pets sold: {{ userProfile.sellCount }} <br />
 					Bio: {{ userProfile.bio }} <br />
+					<br />
 				</div>
-
+				{% if user %}
+					<a href="{% url 'pawbook:editProfile' userProfile.user.username %}">EDIT PROFILE</a>
+				{% endif %}
 			</div>
-			<a href="/pawbook/editProfile/">Edit Profile</a>
 		</div>
 	</div>
 
