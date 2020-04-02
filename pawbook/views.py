@@ -230,16 +230,9 @@ def userLogin(request):
 
 
 def show_profile(request, name_slug):
-    context_dict = {}
-    try:
-        if UserProfile.objects.get(slug = name_slug).user == request.user:
-            context_dict["user"] = True
-    except:
-        context_dict["user"] = False
-
-    context_dict["userProfile"] = UserProfile.objects.get(slug = name_slug)
-
-    return render(request, "pawbook/userProfile.html", context = context_dict)
+    return render(request, "pawbook/userProfile.html", context = {
+        "userProfile": UserProfile.objects.get(slug = name_slug)
+    })
 
 
 @login_required
