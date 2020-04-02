@@ -181,7 +181,7 @@ main.wrapper {
 .col-2 {
     display: grid;
     grid-gap: 15px;
-    grid-template-columns:  1fr 1fr 200px;
+    grid-template-columns:  minmax(200px, 1fr) 5fr minmax(200px, auto);
     grid-template-rows: auto 1fr;
     grid-template-areas:
         "t t t"
@@ -190,7 +190,8 @@ main.wrapper {
 
 .col-3 {
     display: grid;
-    grid-template-columns: 200px 1fr 200px;
+    grid-gap: 15px;
+    grid-template-columns: minmax(200px, 1fr) 5fr minmax(200px, auto);
     grid-template-rows: auto 1fr;
     grid-template-areas:
         "t t t"
@@ -211,4 +212,9 @@ main.wrapper {
 
 .sidebar-l {
     grid-area: l;
+}
+
+.wrapper > * {
+    background-color: white;
+    padding: 20px;
 }
