@@ -10,6 +10,17 @@
 {% endblock %}
 
 {% block body_block %}
+	<div class="side_bar">
+		<h3>TRENDING POSTS:</h3>
+		<ul>
+			{% if trending %}
+				{% for post in trending %}
+					<li><a href="{% url 'pawbook:show_post' post.slug %}"> {{ post.postTitle }} </a></li>
+				{% endfor %}
+			{% endif %}
+		</ul>
+	</div>
+
 	<div class="sub_holder">
 
 		<div class = "content_holder">
@@ -18,27 +29,6 @@
 
 			{%  if newest_posts %}
 				{% for post in object_list %}
-					<div class="post">
-						<img src="{{ post.postImage }}" alt="Post Image" style="width:200px;height:200px;" />
-
-						<div class="post_content">
-							<h2><a href="{% url 'pawbook:show_post' post.slug %}"> {{ post.postTitle }} </a> </h2>
-							<h4>By {{ post.poster.user.username }} on {{ post.datePosted }}</h4>
-							<p>{{ post.postDescription  }}</p>
-							<p>Likes: {{ post.likes }}, Dislikes: {{ post.dislikes }}</p>
-						</div>
-					</div>
-				{% endfor %}
-			{% endif %}
-			</div>
-		</div>
-
-		<div class = "content_holder">
-			<div class="posts_column">
-			<h3>TRENDING</h3>
-
-			{%  if trending %}
-				{% for post in trending %}
 					<div class="post">
 						<img src="{{ post.postImage }}" alt="Post Image" style="width:200px;height:200px;" />
 
