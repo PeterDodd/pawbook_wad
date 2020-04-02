@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 from django.contrib import admin
-from pawbook.models import UserProfile, Post, PetPedia, Listing, Contact
+from pawbook.models import UserProfile, Post, PetPedia, Listing, Contact, Comment
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -22,3 +22,4 @@ admin.site.register(Post, PostAdmin)
 admin.site.register(PetPedia, PetPediaAdmin)
 admin.site.register(Listing, ListingAdmin)
 admin.site.register(Contact)
+admin.site.register(Comment)

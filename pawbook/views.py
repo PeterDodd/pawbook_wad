@@ -1,14 +1,14 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core.paginator import  Paginator, EmptyPage,PageNotAnInteger
 from django.db.models import Q
 from django.contrib import messages
 
 
-from pawbook.models import Post, Listing, PetPedia, UserProfile
-from pawbook.forms import UserProfileForm, UserForm, PostForm, ListingForm, ContactForm
+from pawbook.models import Post, Listing, PetPedia, UserProfile, Comment
+from pawbook.forms import UserProfileForm, UserForm, PostForm, ListingForm, ContactForm, CommentForm
 
 from django.contrib.auth import authenticate, login, logout
 
@@ -66,13 +66,28 @@ def posts(request):
 
 
 def show_post(request, name_slug):
+    comments = Comment.objects.all()
     context_dict = {}
     try:
         post = Post.objects.get(slug = name_slug)
         context_dict["post"] = post
+        context_dict["comments"] = comments
 
     except Post.DoesNotExist:
         context_dict["post"] = None
+
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST or None)
+        if comment_form .is_valid():
+            content = request.POST.get('content')
+            comment =Comment.objects.create(post=post,user=request.user,content=content)
+            comment.save()
+            return HttpResponseRedirect(request.path_info)
+
+
+    else:
+        comment_form=CommentForm()
+        context_dict['comment_form']=comment_form
 
     return render(request, "pawbook/postPage.html", context = context_dict)
 

@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from pawbook.models import UserProfile, PetPedia, Post, Listing, Contact
+from pawbook.models import UserProfile, PetPedia, Post, Listing, Contact,Comment
 
 
 class UserForm(forms.ModelForm):        # Form for User objects
@@ -49,4 +49,8 @@ class ContactForm(forms.ModelForm):
         model = Contact
         fields = ('first_name','last_name','email','message')
 
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = {'content',}
 

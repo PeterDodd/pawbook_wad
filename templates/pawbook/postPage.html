@@ -26,7 +26,44 @@
                 <p>{{ post.postDescription }}</p>
                 <p>Likes: {{ post.likes }} - Dislikes: {{ post.dislikes }}</p>
             {% endif %}
+
+            <br>
+            <hr>
+
+            <form method="POST">
+                {% csrf_token %}
+                {{comment_form.as_p}}
+                {% if user.is_authenticated %}
+                <imput type = "submit" value = "Submit"> </imput>
+                <button class ="btn btn-outline-success"> Submit</button>
+                {% else %}
+                <imput type = "submit" value = "Submit" ></imput>
+                <button class ="btn btn-outline-success" disabled> Submit</button>
+                {% endif %}
+            </form>
+
+            <br><br>
+
+
+
+
+
+    <div class="main_comment_section">
+            {{ comments.count}} Comment{{comments|pluralize}}
+            {% for comment in comments %}
+            <blockquote class ="blockquote">
+                <p class="mb-0"> {{comment.content}}</p>
+                <footer class="blockquote-footer">by  <cite title="Source Title">{{ comment.user |capfirst}}</cite></footer>
+            </blockquote>
+            {% endfor %}
+        </div>
 		</div>
+
     </div>
+
+
+
+
+
 
 {% endblock %}
