@@ -1,153 +1,170 @@
-html {
-	height: 100%;
+:root {
+    --color-background: rgb(255, 217, 138);
+    --color-main-accent: rgba(255, 178, 18, 1);
+    --color-main-contrast: rgba(255, 94, 34, 1);
+    --font-headline: 'Roboto';
+    --font-textblock: 'Montserrat';
+}
+body {
+    margin: 0;
+    background-color: var(--color-background);
 }
 
-body {
-	margin: 0px;
-	padding: 0px;
-	min-height: 100%;
-	background-color: white;
-	display: flex;
-	flex-direction: column;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--headline-font);
 }
 
 h1 {
-	margin: 0;
-	font-family: 'Roboto';
+    margin: 0;
+    font-size: 2em;
 }
 
 h2 {
-	margin: 5px;
-	font-family: 'Roboto';
-	font-size: 30px;
+    margin: 5px;
+    font-size: 1.8em;
 }
 
 h3 {
-	margin: 0;
-	font-family: 'Roboto';
-	font-size: 20px;
+    margin: 0;
+    font-size: 1.5em;
 }
 
 h4 {
-	margin: 5px 0px 5px 0px;
-	font-family: 'Roboto';
-	font-size: 12px;
+    margin: 5px 0px 5px 0px;
+    font-size: 12px;
 }
 
 p {
-	font-family: 'Montserrat';
-	font-size: 12px;
-	margin: 5px 0px 5px 0px;
+    font-family: var(--font-textblock);
+    font-size: 1em;
+    margin: 20px 0px 5px 0px;
 }
 
 ul {
-	margin: 0px;
+    margin: 0px;
 }
 
 img {
-	border: 2px solid black;
+    padding: 10px;
 }
 
-.top_bar {
-	background-color: grey;
-	height: 100px;
-	display: flex;
-	justify-content: center;
-	position: fixed;
-	width: 100%;
-}
 
 input {
-	padding: 6px;
-	font-size: 15px;
-	width: 215px;
-	border: 1px solid black;
+    padding: 6px;
+    font-size: 15px;
+    width: 215px;
+    border: 1px solid black;
 }
 
 form {
-	display: flex;
-	flex-direction: column;
-	margin: 5px;
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
 }
 
 form input {
-	margin-top: 10px;
+    margin-top: 10px;
 }
 
 ul {
-	font-size: 12px;
+    font-size: 12px;
 }
 
 a {
-	font-family: 'Montserrat';
-	text-decoration: none;
-	color: black;
+    font-family: 'Montserrat';
+    text-decoration: none;
+    color: black;
 }
 
 a:hover {
-	color: white;
+    color: white;
 }
 
-.top_bar a {
-	font-size: 15px;
+header,
+footer {
+    background-color: var(--color-main-accent);
+    position: fixed;
+    width: 100%;
+    justify-content: center;
+    left: 0;
 }
 
-.top_bar_content {
-	display: flex;
-	flex-grow: 1;
-	align-items: center;
-	max-width: 1500px;
-	flex-direction: row;
+header {
+    top: 0;
+    height: 70px;
+    transition: .3s;
+}
+
+footer {
+    bottom: 0;
+    height: 2em;
+    display: flex;
+}
+
+navbar > a,
+footer > a {
+    padding: 10px 20px;
+    height: 100%;
+    box-sizing: border-box;
+    border-bottom: 3px solid transparent;
+    display: flex;
+
+    flex-flow: row;
+    align-items: center;
+}
+
+navbar > a:hover,
+footer > a:hover {
+    color: white;
+    background-color: var(--color-main-contrast);
+    border-bottom-color: white;
+}
+
+navbar {
+    display: flex;
+    margin: 0 50px;
+    height: 100%;
+    padding: 0;
+}
+
+navbar img.profile_image {
+    padding: 0;
+    border: 1px solid black;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+    box-sizing: border-box;
+    border-radius: 50%;
+
 }
 
 
-.top_bar h1:hover {
-	color: black;
-	display: flex;
+
+navbar > *:nth-child(1) {
+    margin-right: 50px;
+
 }
 
-.element {
-	margin: 5px;
+navbar > *:nth-child(5) {
+    margin-left: auto;
 }
 
-.spacer {
-	flex-grow: 1;
+
+navbar > *:nth-last-child(1) {
+    margin: 0;
+    margin-left: 20px;
+    align-self: center;
 }
 
-.content_body {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	height: 100%;
-	margin-top: 100px;
-}
-
-.content_holder {
-	display: flex;
-	flex-direction: column;
-	max-width: 1500px;
-	width: 1000%;
-	margin: 5px;
-}
-
-.footer_bar { 
-	display: flex;
-	position: fixed;
-	bottom:0
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	background-color: grey;
-	flex: 0 0 100px
-	height: 100px;
-	width: 100%;
-	bottom: 0px;
-}
-
-.profile_image img {
-	clip: rect(0px,100px,100px,0px);
-	border: 1px solid black;
-	height: 50px;
-	object-fit: cover;
-	border-radius:50%;
+navbar input {
+    padding: 13px;
+    margin: auto;
+    border-radius: 10px;
 }

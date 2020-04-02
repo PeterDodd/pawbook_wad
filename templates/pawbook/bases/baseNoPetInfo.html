@@ -9,61 +9,36 @@
 		{% endblock %}
 		</title>
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Roboto:300,400,500,700&display=swap" rel="stylesheet">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<link rel="stylesheet" href="{% static 'css/base.css' %}" />
 		{% block css_block %}
 		{% endblock %}
 	</head>
 
 	<body>
+        <header>
+            <navbar>
+                <a href="/pawbook/" class="highlight-box">
+                    <h1>pawbook</h1>
+                </a>
+                <a href="/pawbook/marketplace/">MARKETPLACE</a>
+                <a href="/pawbook/posts/">POSTS</a>
+                <a href="/pawbook/pet-o-pedia/">PET-O-PEDIA</a>
 
-		<div class="top_bar">
-			<div class="top_bar_content">
-				<div href="/pawbook/" class="element">
-					<a href="/pawbook/"><h1>pawbook</h1></a>
-				</div>
+                {% if user.is_authenticated %}
+                <a href="/pawbook/pet-o-pedia/"><img src="dog smiling.jpg" alt="User's Profile Picture" class="profile_image">
+                    {{ user.username }}</a>
+                <a href="{% url 'pawbook:logout' %}">Logout</a>
 
-				<div class="element">
-					<a href="/pawbook/marketplace/">MARKETPLACE</a>
-				</div>
-
-				<div class="element">
-					<a href="/pawbook/posts/">POSTS</a>
-				</div>
-
-				<div class="element">
-					<a href="/pawbook/pet-o-pedia/">PET-O-PEDIA</a>
-				</div>
-
-				<div class="spacer">
-
-				</div>
-				{% if user.is_authenticated %}
-					<div class="element">
-						Signed in as: {{ user.username }} <br />
-						<a href="{% url 'pawbook:logout' %}">>Logout<</a>
-					</div>
-
-					<div class="element">
-						<a href="/pawbook/userProfile">MY PROFILE</a>
-					</div>
-				{% else %}
-					<div class="element">
-						<a href="/pawbook/login/">LOGIN</a>
-					</div>
-
-					<div class="element">
-						<a href="/pawbook/register/">REGISTER</a>
-					</div>
-				{% endif %}
-
-
-				<div class="element">
-					<form method = "GET" action = ''>
-                        <input type = 'text' name = 'query' placeholder = 'SEARCH'/>
-                    </form>
-				</div>
-			</div>
-		</div>
+                {% else %}
+                <a href="/pawbook/login/">LOGIN</a>
+                <a href="/pawbook/register/">REGISTER</a>
+                {% endif %}
+                <form method = "GET" action = ''>
+                    <input type = 'text' name = 'query' placeholder = 'SEARCH'/>
+                </form>
+            </navbar>
+        </header>
 
 		<div class="content_body">
 			<div class = "sub_holder">
@@ -100,19 +75,25 @@
 			</div>
 		</div>
 
-		<div class="footer_bar">
-			<div class="element">
-				<a href="/pawbook/contact/">CONTACT</a>
-			</div>
+        <footer>
+            <a href="/pawbook/contact/">CONTACT</a>
+            <a href="/pawbook/faq/">FAQ</a>
+            <a href="/pawbook/about/">ABOUT</a>
+        </footer>
 
-			<div class="element">
-				<a href="/pawbook/faq/">FAQ</a>
-			</div>
+        <script>
+            var prevScrollpos = window.pageYOffset;
+            window.onscroll = function() {
+                var currentScrollPos = window.pageYOffset;
+                if (prevScrollpos > currentScrollPos || currentScrollPos < 50) {
+                    $("header").css("top", "0");
+                } else {
+                    $("header").css("top", "-70px");
+                }
+                prevScrollpos = currentScrollPos;
+            }
 
-			<div class="element">
-				<a href="/pawbook/about/">ABOUT</a>
-			</div>
-		</div>
+        </script>
 
 	</body>
 </html>
