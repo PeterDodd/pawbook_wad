@@ -44,10 +44,12 @@ class ListingForm(forms.ModelForm):     # Form for new listings
         model = Listing
         fields = ("breed", "petName", "description", "petAge", "cost", "petImage")
 
+
 class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
         fields = ('first_name','last_name','email','message')
+
 
 class CommentForm(forms.ModelForm):
     class Meta:

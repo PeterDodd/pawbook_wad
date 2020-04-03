@@ -29,7 +29,7 @@ urlpatterns = [
     path("logout/", views.userLogout, name = "logout"),
 
     path("<slug:name_slug>/", views.show_profile, name = "show_profile"),
-    path("editProfile", views.edit_profile, name="editProfile"),
+    path("editProfile/<slug:name_slug>", views.edit_profile, name="editProfile"),
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 

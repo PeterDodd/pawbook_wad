@@ -26,12 +26,12 @@
                 <a href="/pawbook/pet-o-pedia/">PET-O-PEDIA</a>
 
                 {% if user.is_authenticated %}
-                <a href="{% url 'pawbook:show_profile' user.username %}"><img src="dog smiling.jpg" alt="User's Profile Picture" class="profile_image">{{ user.username }}</a>
-                <a href="{% url 'pawbook:logout' %}">Logout</a>
+                	<a href="{% url 'pawbook:show_profile' user.username %}"><img src="dog smiling.jpg" alt="User's Profile Picture" class="profile_image">{{ user.username }}</a>
+                	<a href="{% url 'pawbook:logout' %}">Logout</a>
 
                 {% else %}
-                <a href="/pawbook/login/">LOGIN</a>
-                <a href="/pawbook/register/">REGISTER</a>
+                	<a href="/pawbook/login/">LOGIN</a>
+                	<a href="/pawbook/register/">REGISTER</a>
                 {% endif %}
                 <form method = "GET" action = ''>
                     <input type = 'text' name = 'query' placeholder = 'SEARCH'/>

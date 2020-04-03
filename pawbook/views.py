@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, render_to_response
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
@@ -228,31 +228,48 @@ def userLogin(request):
     else:
         return render(request, "pawbook/login.html")
 
-@login_required
+
 def show_profile(request, name_slug):
     return render(request, "pawbook/userProfile.html", context = {
-        "userProfile": UserProfile.objects.get(slug = name_slug),
+        "userProfile": UserProfile.objects.get(slug = name_slug)
     })
 
 
 @login_required
-def edit_profile(request):
+def edit_profile(request, name_slug):
+    profile = UserProfile.objects.get(slug = name_slug)
+
     if request.method == "POST":
-        profile_form = UserProfileForm(request.POST)
+        profile_form = UserProfileForm(request.POST, initial = {
+            "firstName":    profile.firstName,
+            "lastName":     profile.lastName,
+            "age":          profile.age,
+            "bio":          profile.bio,
+            "location":     profile.location,
+        }, instance = profile)
 
         if profile_form.is_valid():
-            profile = profile_form.save(commit=False)
+            # profile = profile_form.save(commit=False)
 
             if "profilePicture" in request.FILES:
                 profile.profilePicture = request.FILES["profilePicture"]
 
+            profile.user = request.user
             profile.save()
+
+            return HttpResponseRedirect(reverse('pawbook:show_profile', kwargs={"name_slug": name_slug}))
 
         else:
             print(profile_form.errors)
 
     else:
-        profile_form = UserProfileForm
+        profile_form = UserProfileForm(initial = {
+            "firstName":    profile.firstName,
+            "lastName":     profile.lastName,
+            "age":          profile.age,
+            "bio":          profile.bio,
+            "location":     profile.location,
+        }, instance = profile)
 
     return render(request, "pawbook/editProfile.html", context={
         "profileForm": profile_form
