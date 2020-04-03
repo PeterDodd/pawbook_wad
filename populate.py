@@ -97,8 +97,6 @@ def add_post(allUsers, title, description, image):
         poster = random.choice(allUsers),
         postTitle = title,
         postDescription = description,
-        likes = random.randint(0, 1000),
-        dislikes = random.randint(0, 1000),
     )[0]
 
     newPost.postImage.save(image, ImageFile(open(settings.MEDIA_ROOT + "/post_image/" + image, 'rb')))
