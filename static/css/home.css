@@ -1,8 +1,8 @@
 .pets_new {
 	display: flex;
 	flex-grow: 1;
-	max-height: 100px;
-	margin: 5px;
+    max-height: 100px;
+    margin: 5px;
 	align-items: center;
 	justify-content: space-between;
 }
@@ -24,7 +24,7 @@
 	width: 100%;
 	opacity: 0;
 	transition: .5s ease;
-	background-color: #008CBA;
+	background-color: var(--color-main-contrast);
 }
 
 .pet_box:hover .pet_box_overlay{
@@ -51,26 +51,22 @@
 	text-align: center;
 }
 
-.side_bar {
-	width: 230px;
-	background-color: grey;
-	margin: 5px;
-	padding: 10px;
-}
 
 .posts_column {
-	display: flex;
-	flex-direction: column;
+    
+    display: flex;
+    flex-direction: column;
 	flex-grow: 1;
-	height: 100px;
 	min-width:300px;
 	margin: 5px;
+    margin-top: 20px;
 }
 
 .post {
 	display: flex;
 	flex-direction: row;
-	background-color: grey;
+    background-color: var(--color-main-postelement);
+    border-radius: 6px 6px 40px 6px;
 	width: 100%;
 	margin: 5px 0px 5px 0px;
 }
@@ -87,17 +83,4 @@
 	margin: 5px;
 }
 
-.sub_holder {
-	display: flex;
-	flex-direction: row;
-	max-width: 1500px;
-	width: 100%;
-}
-
-
-/*
-
-    CSS Makeover WIP below
-
-*/
 

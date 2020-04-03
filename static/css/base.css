@@ -2,6 +2,7 @@
     --color-background: rgb(255, 217, 138);
     --color-main-accent: rgba(255, 178, 18, 1);
     --color-main-contrast: rgba(255, 94, 34, 1);
+    --color-main-postelement: hsl(51, 100%, 73%);
     --font-headline: 'Roboto';
     --font-textblock: 'Montserrat';
 }
@@ -173,9 +174,7 @@ main.wrapper {
     margin-left: auto;
     margin-right: auto;
     max-width: 1400px;
-    padding: 80px 10px;
-
-    height: 1vh;
+    padding: 70px 10px;
 }
 
 .col-2 {
@@ -217,4 +216,8 @@ main.wrapper {
 .wrapper > * {
     background-color: white;
     padding: 20px;
+}
+
+.pets_new {
+    grid-area: t;
 }
