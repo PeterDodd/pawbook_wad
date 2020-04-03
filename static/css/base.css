@@ -8,9 +8,15 @@
     --font-textblock: 'Montserrat';
 }
 
+html,
+body {
+    min-height: 100%;
+}
+
 body {
     margin: 0;
     background-image: linear-gradient(var(--color-background), var(--color2-background));
+    height:100%;
 }
 
 h1,
