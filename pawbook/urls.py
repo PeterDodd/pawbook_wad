@@ -11,10 +11,13 @@ urlpatterns = [
     path('', views.home, name='home'),
 
     path('marketplace/', views.listings, name='marketplace'),
+    path('add_listing/', views.add_listing, name='addListing'),
     path("marketplace/<slug:name_slug>/", views.show_listing, name = "show_listing"),
 
     path('posts/', views.posts, name='posts'),
+    path('add_post/', views.add_post, name='addPost'),
     path("posts/<slug:name_slug>/", views.show_post, name = "show_post"),
+    path("like/", views.like_post, name = 'like_post'),
 
     path('pet-o-pedia/', views.pet_pedia, name='pet-o-pedia'),
     path("pet-o-pedia/<slug:name_slug>/", views.show_petPedia, name = "show_petPedia"),

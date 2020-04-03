@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, render_to_response
+from django.shortcuts import render, redirect, render_to_response ,get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
@@ -59,16 +59,6 @@ def posts(request):
 
     postForm = PostForm()
 
-    if request.method == "POST":
-        form = PostForm(request.POST)
-
-        if form.is_valid():
-            form.save(commit=True)
-
-            return redirect("/pawbook/")
-        else:
-            print(form.errors)
-
     return render(request, "pawbook/posts.html", context = {
         "newest_posts": Post.objects.order_by("-datePosted"),
         "trending": Post.objects.order_by("-likes")[:6],
@@ -104,6 +94,10 @@ def show_post(request, name_slug):
 
     return render(request, "pawbook/postPage.html", context = context_dict)
 
+def like_post(request):
+    post = get_object_or_404(Post,id=request.POST.get('post_id'))
+    post.likes.add(request.user)
+    return HttpResponseRedirect(request.path_info)
 
 def listings(request):
     queryset_list = Listing.objects.all()
@@ -127,16 +121,6 @@ def listings(request):
         queryset = paginator.page(paginator.num_pages)
 
     listingForm = ListingForm()
-
-    if request.method == "POST":
-        form = ListingForm(request.POST)
-
-        if form.is_valid():
-            form.save(commit=True)
-
-            return redirect("/pawbook/")
-        else:
-            print(form.errors)
 
     return render(request, "pawbook/marketplace.html", context = {
         "newest_listings": Listing.objects.all(),
@@ -316,6 +300,7 @@ def add_post(request):
             return redirect("/pawbook/")
         else:
             print(form.errors)
+            return redirect("/pawbook/")
 
 
 @login_required
