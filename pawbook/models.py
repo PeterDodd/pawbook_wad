@@ -16,7 +16,7 @@ class UserProfile(models.Model):   # User model
     age = models.IntegerField(default = 0, blank = True)
     sellCount = models.IntegerField(default = 0, blank = True)
 
-    profilePicture = models.ImageField(upload_to = "profile_image", blank = True, null = True)
+    profilePicture = models.ImageField(default = "profile_image/default.jpg", upload_to = "profile_image", blank = True, null = True)
 
     def __str__(self):
         return self.user.username

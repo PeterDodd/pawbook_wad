@@ -38,15 +38,15 @@ def populate():
     ]
 
     testPets = [
-        ("Dog", "Lab", "There are lots of different types of dogs"),
-        ("Cow", "Some breed of cow", "There are a few types of cow, this is where we get our milk"),
-        ("Cat", "Tabby", "Cats are made of yoghurt inside")
+        ("Dog", "Lab", "There are lots of different types of dogs", "lab.jpg"),
+        ("Cow", "Some breed of cow", "There are a few types of cow, this is where we get our milk", "cow.jpg"),
+        ("Cat", "Tabby", "Cats are made of yoghurt inside", "cat.jpg")
     ]
 
     userList = [add_user(user[0], user[1], user[2], user[3], user[4])
                 for user in testUsers]
 
-    petPages = [add_pet(pet[0], pet[1], pet[2])
+    petPages = [add_pet(pet[0], pet[1], pet[2], pet[3])
                 for pet in testPets]
 
     listings = [add_listing(userList, listing[2], listing[0], listing[1], listing[3])
@@ -80,14 +80,14 @@ def add_user(username, firstName, lastName, bio, location):
     return newUserProfile
 
 
-def add_pet(species, breed, info):
+def add_pet(species, breed, info, image):
     newPage = PetPedia.objects.get_or_create(
         species = species,
         breed = breed,
         info = info
     )[0]
 
-    newPage.save()
+    newPage.picture.save(image, ImageFile(open(settings.MEDIA_ROOT + "/petPedia_image/" + image, 'rb')))
 
     return newPage
 
@@ -101,7 +101,7 @@ def add_post(allUsers, title, description, image):
         dislikes = random.randint(0, 1000),
     )[0]
 
-    newPost.postImage.save(image, ImageFile(open((settings.MEDIA_ROOT + "/post_image/" + image), 'rb')))
+    newPost.postImage.save(image, ImageFile(open(settings.MEDIA_ROOT + "/post_image/" + image, 'rb')))
 
     return newPost
 
@@ -116,8 +116,7 @@ def add_listing(allUsers, breed, name, description, image):
         cost = random.randint(0, 150),
     )[0]
 
-    newListing.petImage.save(image, ImageFile(open((settings.MEDIA_ROOT + "/listing_image/" + image), 'rb')))
-    newListing.save()
+    newListing.petImage.save(image, ImageFile(open(settings.MEDIA_ROOT + "/listing_image/" + image, 'rb')))
 
     return newListing
 
