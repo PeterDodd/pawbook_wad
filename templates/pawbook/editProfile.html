@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block css_block %}
+	<link rel="stylesheet" href="{% static 'css/home.css' %}" />
 {% endblock %}
 
 {% block body_block %}
@@ -14,7 +15,7 @@
 		<form id="profile_form" method="post" action="{% url 'pawbook:editProfile' user.username %}" enctype="multipart/form-data">
 			{% csrf_token %}
 			{{ profileForm.as_p }}
-            <input type="submit" name="submit" onclick="location.href('{% url 'pawbook:show_profile' user.username %}');" value="Done" />
+            <input type="submit" name="submit" onclick="location.href('{% url 'pawbook:show_profile' user.username %}');" value="DONE" />
 		</form>
 	</div>
 {% endblock %}

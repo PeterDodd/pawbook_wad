@@ -2,29 +2,32 @@
 	display: flex;
 	flex-grow: 1;
 	max-height: 100px;
-	margin: 5px;
+	margin-top: 5px;
 	align-items: center;
 	justify-content: space-between;
 }
 
 .pet_box {
 	position: relative;
-	min-height: 100px;
-	min-width: 100px;
-	border: 2px solid black;
+	height: 100px;
+	width: 100px;
+	overflow: hidden;
+	box-shadow: 0px 0px 10px rgb(200, 200, 200, .5);
 }
 
 .pet_box_overlay {
 	position: absolute;
+	z-index:0;
 	top: 0;
 	bottom: 0;
 	left: 0;
 	right: 0;
-	height: 100%;
-	width: 100%;
+	height: 100px;
+	width: 100px;
 	opacity: 0;
 	transition: .5s ease;
-	background-color: #008CBA;
+	background-image: radial-gradient(circle at center, rgb(250, 250, 250, .6) 0, rgb(250, 250, 250, .2));
+	
 }
 
 .pet_box:hover .pet_box_overlay{
@@ -32,16 +35,19 @@
 }
 
 .pet_box img {
-	display: block;
-	clip: rect(0px,100px,100px,0px);
+	padding: 0px;
 	border: 0px;
 	height: 100px;
-	object-fit: cover;
+	min-width: 100px;
+	
+}
+
+.pet_box:hover img {
+	filter: blur(2px);
 }
 
 .pet_box_text {
-	color: white;
-	font-size: 20px;
+	color: rgb(50, 50, 50);
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -51,9 +57,18 @@
 	text-align: center;
 }
 
+.pet_box_text  p {
+	margin: 0px;
+	font-size: 14px;
+	cursor: inherit;
+}
+
+.pet_box_text  h3 {
+	cursor: inherit;
+}
+
 .side_bar {
 	width: 230px;
-	background-color: grey;
 	margin: 5px;
 	padding: 10px;
 }
@@ -64,19 +79,22 @@
 	flex-grow: 1;
 	height: 100px;
 	min-width:300px;
-	margin: 5px;
 }
 
 .post {
 	display: flex;
 	flex-direction: row;
-	background-color: grey;
+	background-color: rgb(200, 200, 200, .5);
 	width: 100%;
-	margin: 5px 0px 5px 0px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	position: relative;
+	box-shadow: 0px 0px 10px rgb(200, 200, 200, .5);
 }
 
 .post img {
-	height: 200px;
+	max-height: 200px;
+	max-width: 300px;
 	margin: 5px;
 }
 
@@ -92,4 +110,12 @@
 	flex-direction: row;
 	max-width: 1500px;
 	width: 100%;
+}
+
+.likes {
+	margin-top: auto;
+}
+
+#column {
+	flex-direction: column;
 }

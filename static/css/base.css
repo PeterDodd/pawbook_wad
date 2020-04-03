@@ -5,6 +5,7 @@
     --font-headline: 'Roboto';
     --font-textblock: 'Montserrat';
 }
+
 body {
     margin: 0;
     background-color: var(--color-background);
@@ -16,33 +17,35 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: var(--headline-font);
+    font-family: var(--font-headline);
+	cursor: default;
+	margin: 0;
 }
 
 h1 {
-    margin: 0;
     font-size: 2em;
 }
 
 h2 {
-    margin: 5px;
     font-size: 1.8em;
 }
 
 h3 {
-    margin: 0;
     font-size: 1.5em;
+	font-weight: normal;
 }
 
 h4 {
-    margin: 5px 0px 5px 0px;
     font-size: 12px;
+	font-weight: lighter;
+	padding-bottom: 5px;
 }
 
 p {
     font-family: var(--font-textblock);
-    font-size: 1em;
-    margin: 20px 0px 5px 0px;
+    font-size: 0.9em;
+	margin: 0;
+	cursor: default;
 }
 
 ul {
@@ -50,12 +53,12 @@ ul {
 }
 
 img {
-    padding: 10px;
+    padding: 5px;
 }
 
 
 input {
-    padding: 6px;
+    padding: 7px;
     font-size: 15px;
     width: 215px;
     border: 1px solid black;
@@ -64,15 +67,11 @@ input {
 form {
     display: flex;
     flex-direction: column;
-    margin: 5px;
 }
 
 form input {
-    margin-top: 10px;
-}
-
-ul {
-    font-size: 12px;
+	margin-top: 10px;
+	
 }
 
 a {
@@ -88,21 +87,24 @@ a:hover {
 header,
 footer {
     background-color: var(--color-main-accent);
-    position: fixed;
     width: 100%;
     justify-content: center;
     left: 0;
+	box-shadow: 0px 0px 10px rgb(200, 200, 200, .5);
 }
 
 header {
     top: 0;
     height: 70px;
     transition: .3s;
+	position: fixed;
+	z-index: 1;
 }
 
 footer {
-    bottom: 0;
-    height: 2em;
+	position: fixed;
+    bottom: 0px;
+    height: 3em;
     display: flex;
 }
 
@@ -130,6 +132,8 @@ navbar {
     margin: 0 50px;
     height: 100%;
     padding: 0;
+	position: relative;
+	
 }
 
 navbar img.profile_image {
@@ -164,17 +168,16 @@ navbar > *:nth-last-child(1) {
 }
 
 navbar input {
-    padding: 13px;
+    padding: 7px;
     margin: auto;
-    border-radius: 10px;
+
 }
 
 main.wrapper {
     margin-left: auto;
     margin-right: auto;
     max-width: 1400px;
-    padding: 80px 10px;
-
+    padding: 40px;
     height: 1vh;
 }
 
@@ -202,6 +205,10 @@ main.wrapper {
     grid-area: s;
 }
 
+#top {
+	margin-top: 0px;
+}
+
 .main-area {
     grid-area: c;
 }
@@ -215,6 +222,14 @@ main.wrapper {
 }
 
 .wrapper > * {
-    background-color: white;
+    
     padding: 20px;
+}
+
+.back-wrap {
+	background-color: var(--color-main-accent);
+	padding: 10px 10px 10px 10px;
+	margin-top: 5px;
+	text-align: center;
+	box-shadow: 0px 0px 10px rgb(200, 200, 200, .5);
 }

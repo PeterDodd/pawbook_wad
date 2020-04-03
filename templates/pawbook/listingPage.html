@@ -16,14 +16,19 @@
 {% endblock %}
 
 {% block body_block %}
-    <div class="sub_holder">
+    <div class="content_holder">
 
 		<div class="pet_info_column">
             {% if listing %}
-			    <h3>{{ listing.petName }} - {{ listing.age }} Years Old - £{{ listing.cost }}</h3>
-                <h4>Pet Information:</h4>
-                <h5>{{ listing.breed }}</h5>
-                <p>{{ listing.description }}</p>
+				<h3>{{ listing.petName }} - {{ listing.age }} Years Old - £{{ listing.cost }}</h3>
+			    <div class="post" id="column">
+					<img src="{{ post.postImage }}" alt="Post Image" style="width:100%;"/>
+
+					<div class="post_content">
+						<h4>{{ listing.breed }} uploaded by <a href="{% url 'pawbook:show_profile' listing.poster.user.username %}">{{ listing.poster.user.username }}</a> on {{ listing.datePosted }}</h4>
+						<p>{{ listing.description }}</p>
+					</div>
+				</div>
             {% endif %}
 		</div>
 
