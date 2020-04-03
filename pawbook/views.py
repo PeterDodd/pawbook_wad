@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, render_to_response
+from django.shortcuts import render, redirect, render_to_response ,get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
@@ -94,6 +94,10 @@ def show_post(request, name_slug):
 
     return render(request, "pawbook/postPage.html", context = context_dict)
 
+def like_post(request):
+    post = get_object_or_404(Post,id=request.POST.get('post_id'))
+    post.likes.add(request.user)
+    return HttpResponseRedirect(request.path_info)
 
 def listings(request):
     queryset_list = Listing.objects.all()
