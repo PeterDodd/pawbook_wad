@@ -18,12 +18,18 @@
 
 
 {% block body_block %}
-    <div class="sub_holder">
+    <div class="content_holder">
 		<div class="pet_info_column">
             {% if page %}
 			    <h3>{{ page.breed }} - {{ page.species }}</h3>
-                <h4>General Information:</h4>
-				<p>{{ page.info }}</p>
+				<div class="post" id="column">
+					<img src="{{ post.postImage }}" alt="Post Image" style="width:500px;"/>
+
+					<div class="post_content">
+						<h4>General Information:</h4>
+						<p>{{ page.info }}</p>
+					</div>
+				</div>
             {% endif %}
 		</div>
     </div>

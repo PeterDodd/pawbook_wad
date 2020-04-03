@@ -18,18 +18,25 @@
 
 
 {% block body_block %}
-    <div class="sub_holder">
+    <div class="content_holder">
 		<div class="pet_info_column">
             {% if post %}
-			    <h3>{{ post.title }}</h3>
-            <h4>By <a href="{% url 'pawbook:show_profile' post.poster.user.username %}">{{ post.poster.user.username }}</a> on {{ post.datePosted }}</h4>
-                <p>{{ post.postDescription }}</p>
-                <p>Likes: {{ post.likes }} - Dislikes: {{ post.dislikes }}</p>
+			<h3> {{ post.postTitle }} </h3>
+			    <div class="post" id="column">
+					<img src="{{ post.postImage }}" alt="Post Image" style="width:100%;"/>
+
+					<div class="post_content">
+						<h4>By <a href="{% url 'pawbook:show_profile' post.poster.user.username %}">{{ post.poster.user.username }}</a> on {{ post.datePosted }}</h4>
+						<p>{{ post.postDescription  }}</p>
+						<br>
+						<div><p>Likes: {{ post.likes }}, Dislikes: {{ post.dislikes }}</p></div>
+					</div>
+				</div>
             {% endif %}
-
-            <br>
+			<br>
             <hr>
-
+			<br>	
+				
             <form method="POST">
                 {% csrf_token %}
                 {{comment_form.as_p}}
@@ -49,12 +56,15 @@
 
 
     <div class="main_comment_section">
-            {{ comments.count}} Comment{{comments|pluralize}}
+            <h3>{{ comments.count}} Comment{{comments|pluralize}}</h3>
             {% for comment in comments %}
+			<div class="post">
             <blockquote class ="blockquote">
+				<h2>{{ comment.user |capfirst}}</h2>
                 <p class="mb-0"> {{comment.content}}</p>
                 <footer class="blockquote-footer">by  <cite title="Source Title">{{ comment.user |capfirst}}</cite></footer>
             </blockquote>
+			</div>
             {% endfor %}
         </div>
 		</div>

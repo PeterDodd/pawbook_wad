@@ -19,12 +19,14 @@
 			<div class="post">
 				<img src="{{ userProfile.profilePicture }}" alt="Profile Picture" />
 				<div class="post_content">
+				<p>
 					Name: {{ userProfile.firstName }} {{ userProfile.lastName }} <br />
 					Location: {{ userProfile.location }} <br />
 					Age: {{ userProfile.age }} <br />
 					Pets sold: {{ userProfile.sellCount }} <br />
 					Bio: {{ userProfile.bio }} <br />
 					<br />
+				</p>
 				</div>
 				{% if userProfile.user == request.user %}
 					<a href="{% url 'pawbook:editProfile' userProfile.user.username %}">EDIT PROFILE</a>

@@ -10,37 +10,37 @@
 {% endblock %}
 
 {% block body_block %}
-	<div class="side_bar">
-		<h3>TRENDING POSTS:</h3>
-		<ul>
+	<div class = "content_holder">
+		<h3>TRENDING POSTS</h3>
+		<div class="pets_new">
 			{% if trending %}
 				{% for post in trending %}
-					<li><a href="{% url 'pawbook:show_post' post.slug %}"> {{ post.postTitle }} </a></li>
-				{% endfor %}
-			{% endif %}
-		</ul>
-	</div>
-
-	<div class="sub_holder">
-		<div class = "content_holder">
-			<div class="posts_column">
-			<h3>POSTS</h3>
-
-			{%  if newest_posts %}
-				{% for post in object_list %}
-					<div class="post">
-						<img src="{{ post.postImage }}" alt="Post Image" style="width:200px;height:200px;" />
-
-						<div class="post_content">
-							<h2><a href="{% url 'pawbook:show_post' post.slug %}"> {{ post.postTitle }} </a> </h2>
-							<h4>By <a href="{% url 'pawbook:show_profile' post.poster.user.username %}">{{ post.poster.user.username }}</a> on {{ post.datePosted }}</h4>
-							<p>{{ post.postDescription  }}</p>
-							<p>Likes: {{ post.likes }}, Dislikes: {{ post.dislikes }}</p>
-						</div>
+					<div class="pet_box">
+						<img src="{{ post.postImage }}" alt="{{ post.title }}"/>
+						<a href="{% url 'pawbook:show_post' post.slug %}"><div class="pet_box_overlay">
+							<div class="pet_box_text"><p>{{ post.postTitle }}</p><h4>Likes:{{ post.likes }}</h4	></div>
+						</div></a>
 					</div>
 				{% endfor %}
 			{% endif %}
-			</div>
+		</div>
+		<br>
+		<h3>POSTS</h3>
+		<div class="posts_column">
+		{%  if newest_posts %}
+			{% for post in object_list %}
+				<div class="post">
+					<img src="{{ post.postImage }}" alt="Post Image"/>
+
+					<div class="post_content">
+						<h3><a href="{% url 'pawbook:show_post' post.slug %}"> {{ post.postTitle }} </a> </h3>
+						<h4>By <a href="{% url 'pawbook:show_profile' post.poster.user.username %}">{{ post.poster.user.username }}</a> on {{ post.datePosted }}</h4>
+						<p>{{ post.postDescription  }}</p>
+						<div class="likes"><p>Likes: {{ post.likes }}, Dislikes: {{ post.dislikes }}</p></div>
+					</div>
+				</div>
+			{% endfor %}
+		{% endif %}
 		</div>
 	</div>
 
