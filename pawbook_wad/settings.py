@@ -26,9 +26,11 @@ MEDIA_DIR = os.path.join(BASE_DIR, "media")
 SECRET_KEY = '$g5qsmy=d5%a1sn6!1#c6r3#)e01wy!iot7c(pfrnv^ve^%hx$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'ssharkk6.pythonanywhere.com',
+]
 
 
 # Application definition
