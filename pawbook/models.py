@@ -35,7 +35,7 @@ class Post(models.Model):           # Image posts model
     postTitle = models.CharField(max_length = 128)
     postDescription = models.CharField(max_length = 300, default = "", blank = True)
 
-    likes = models.IntegerField(default = 0)
+    likes = models.ManyToManyField(User,related_name='likes',blank=True)
     dislikes = models.IntegerField(default = 0)
 
     slug = models.SlugField(default = "")

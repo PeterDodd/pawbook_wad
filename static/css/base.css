@@ -2,6 +2,7 @@
     --color-background: rgb(255, 217, 138);
     --color-main-accent: rgba(255, 178, 18, 1);
     --color-main-contrast: rgba(255, 94, 34, 1);
+    --color-main-postelement: hsl(51, 100%, 73%);
     --font-headline: 'Roboto';
     --font-textblock: 'Montserrat';
 }
@@ -60,7 +61,7 @@ img {
 input {
     padding: 7px;
     font-size: 15px;
-    width: 215px;
+    min-width: 215px;
     border: 1px solid black;
 }
 
@@ -177,8 +178,7 @@ main.wrapper {
     margin-left: auto;
     margin-right: auto;
     max-width: 1400px;
-    padding: 40px;
-    height: 1vh;
+    padding: 70px 10px;
 }
 
 .col-2 {
@@ -222,8 +222,12 @@ main.wrapper {
 }
 
 .wrapper > * {
-    
+    background-color: rgba(255, 255, 255, 0.65);
     padding: 20px;
+}
+
+.pets_new {
+    grid-area: t;
 }
 
 .back-wrap {
