@@ -108,7 +108,7 @@
 
 							{% for pfield in postForm.visible_fields %}
 								{{ pfield.errors }}
-								{{ pfield.help_text }}
+								<p>{{ pfield.help_text }}</p>
 								{{ pfield }}
 							{% endfor %}
 							<input type="submit" name="submitForm" value="POST" />
@@ -126,7 +126,7 @@
 
 							{% for lfield in listingForm.visible_fields %}
 								{{ lfield.errors }}
-								{{ lfield.help_text }}
+								<p>{{ lfield.help_text }}</p>
 								{{ lfield }}
 							{% endfor %}
 							<input type="submit" name="submitListing" value="POST" />

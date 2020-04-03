@@ -44,17 +44,20 @@
 
 			<br>	
 				
+            {% if user.is_authenticated %}
+			<h3>LEAVE A COMMENT</h3>
             <form method="POST">
                 {% csrf_token %}
-                {{comment_form.as_p}}
-                {% if user.is_authenticated %}
-                <imput type = "submit" value = "Submit"> </imput>
-                <button class ="btn btn-outline-success"> Submit</button>
-                {% else %}
-                <imput type = "submit" value = "Submit" ></imput>
-                <button class ="btn btn-outline-success" disabled> Submit</button>
-                {% endif %}
+                {% for field in comment_form.visible_fields %}
+					{{ field }}
+				{% endfor %}
+				
+                <input type = "submit" value = "SUBMIT"> </imput>
+                
+            
+                
             </form>
+			{% endif %}
 
             <br><br>
 

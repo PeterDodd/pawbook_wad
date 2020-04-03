@@ -1,5 +1,6 @@
 :root {
     --color-background: rgb(255, 217, 138);
+	--color2-background: rgb(247, 201, 104);
     --color-main-accent: rgba(255, 178, 18, 1);
     --color-main-contrast: rgba(255, 94, 34, 1);
     --color-main-postelement: hsl(51, 100%, 73%);
@@ -9,7 +10,7 @@
 
 body {
     margin: 0;
-    background-color: var(--color-background);
+    background-image: linear-gradient(var(--color-background), var(--color2-background));
 }
 
 h1,
@@ -141,8 +142,8 @@ navbar img.profile_image {
     padding: 0;
     border: 1px solid black;
     display: inline-block;
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     object-fit: cover;
     margin-right: 10px;
     box-sizing: border-box;
@@ -222,8 +223,9 @@ main.wrapper {
 }
 
 .wrapper > * {
-    background-color: rgba(255, 255, 255, 0.65);
+    background-color: rgba(255, 255, 255, 0.3);
     padding: 20px;
+	box-shadow: 0px 0px 10px rgb(200, 200, 200, .5);
 }
 
 .pets_new {
