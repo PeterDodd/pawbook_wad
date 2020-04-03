@@ -99,7 +99,7 @@
 					{% if trending %}
 					<h3>ADD POST</h3>
 					<div class="back-wrap">
-						<form id="post_form" method="POST" action="{% url 'pawbook:posts' %}" enctype="multipart/form-data">
+						<form id="post_form" method="POST" action="{% url 'pawbook:addPost' %}" enctype="multipart/form-data">
 							{% csrf_token %}
 							{% for field in postForm.visible_fields %}
 								<p>{{ field.help_text }}</p>
@@ -111,7 +111,7 @@
 					{% else %}
 					<h3>ADD LISTING</h3>
 					<div class="back-wrap">
-						<form id="post_form" method="POST" action="{% url 'pawbook:marketplace' %}" enctype="multipart/form-data">
+						<form id="post_form" method="POST" action="{% url 'pawbook:addListing' %}" enctype="multipart/form-data">
 							{% csrf_token %}
 							{% for field in listingForm.visible_fields %}
 								<p>{{ field.help_text }}</p>

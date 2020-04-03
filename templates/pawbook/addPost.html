@@ -1,0 +1,34 @@
+{% extends 'pawbook/bases/baseNoPetOrMarket.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	About
+{% endblock %}
+
+{% block css_block %}
+	<link rel="stylesheet" href="{% static 'css/home.css' %}" />
+{% endblock %}
+
+{% block body_block %}
+		<div class="content_holder">
+			<h2>ABOUT</h2>
+			<div><img src="{% static 'images/dog smiling.jpg' %}" alt="Dog Smiling" style="height:300px; width: auto; margin-left: 5px;"></div>
+
+			<div style="margin:0px 0px 30px 30px;">
+				<p>
+					Hello this is the about page! This is a website about pets n stuff.
+					This is just a placeholder. None of these words really mean anything to do with the site.
+					But it makes it look more filled out!
+				</p>
+
+				</br>
+
+				<p>
+					Here are some more words and stuff. Words are great. Hopefully someone can think of something
+					better to put other than all these random words. This is reall lazy. Like, reaaaally lazy. But still.
+					Enjoy the site!
+				</p>
+			</div>
+
+		</div>
+{% endblock %}

@@ -59,16 +59,6 @@ def posts(request):
 
     postForm = PostForm()
 
-    if request.method == "POST":
-        form = PostForm(request.POST)
-
-        if form.is_valid():
-            form.save(commit=True)
-
-            return redirect("/pawbook/")
-        else:
-            print(form.errors)
-
     return render(request, "pawbook/posts.html", context = {
         "newest_posts": Post.objects.order_by("-datePosted"),
         "trending": Post.objects.order_by("-likes")[:6],
@@ -127,16 +117,6 @@ def listings(request):
         queryset = paginator.page(paginator.num_pages)
 
     listingForm = ListingForm()
-
-    if request.method == "POST":
-        form = ListingForm(request.POST)
-
-        if form.is_valid():
-            form.save(commit=True)
-
-            return redirect("/pawbook/")
-        else:
-            print(form.errors)
 
     return render(request, "pawbook/marketplace.html", context = {
         "newest_listings": Listing.objects.all(),
@@ -316,6 +296,7 @@ def add_post(request):
             return redirect("/pawbook/")
         else:
             print(form.errors)
+            return redirect("/pawbook/")
 
 
 @login_required
