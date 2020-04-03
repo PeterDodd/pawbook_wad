@@ -16,7 +16,7 @@
 			{% if trending %}
 				{% for post in trending %}
 					<div class="pet_box">
-						<img src="{{ post.postImage }}" alt="{{ post.title }}"/>
+						<img src="/pawbook{{ post.postImage.url }}" alt="{{ post.title }}"/>
 						<a href="{% url 'pawbook:show_post' post.slug %}"><div class="pet_box_overlay">
 							<div class="pet_box_text"><p>{{ post.postTitle }}</p><h4>Likes:{{ post.likes }}</h4	></div>
 						</div></a>
@@ -30,7 +30,7 @@
 		{%  if newest_posts %}
 			{% for post in object_list %}
 				<div class="post">
-					<img src="{{ post.postImage }}" alt="Post Image"/>
+					<img src="/pawbook{{ post.postImage.url }}" alt="Post Image"/>
 
 					<div class="post_content">
 						<h3><a href="{% url 'pawbook:show_post' post.slug %}"> {{ post.postTitle }} </a> </h3>
