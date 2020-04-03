@@ -24,6 +24,7 @@ class PostForm(forms.ModelForm):        # Form for new posts
     likes = forms.IntegerField(widget = forms.HiddenInput(), initial = 0)
     dislikes = forms.IntegerField(widget = forms.HiddenInput(), initial = 0)
 
+    slug = forms.CharField(widget = forms.HiddenInput(), required = False)
     postImage = forms.ImageField()
 
     class Meta:

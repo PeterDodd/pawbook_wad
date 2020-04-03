@@ -40,6 +40,8 @@ def home(request):
 
 
 def posts(request):
+    form = PostForm()
+
     queryset_list = Post.objects.all()
     query = request.GET.get("query")
     if query:
@@ -57,14 +59,37 @@ def posts(request):
     except EmptyPage:
         queryset = paginator.page(paginator.num_pages)
 
-    postForm = PostForm()
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            title = form.cleaned_data.get("postTitle")
+            desc = form.cleaned_data.get("postDescription")
+            image = form.cleaned_data.get("postImage")
+
+            newPost = Post.objects.create(
+                poster = request.user.userprofile,
+                postTitle = title,
+                postDescription = desc,
+                postImage = image
+            )
+
+            newPost.save()
+
+            return redirect("/pawbook/posts/")
+        else:
+            print(form.errors)
+            return redirect("/pawbook/")
+
+    else:
+        form = PostForm()
 
     return render(request, "pawbook/posts.html", context = {
         "newest_posts": Post.objects.order_by("-datePosted"),
         "trending": Post.objects.order_by("-likes")[:6],
         "allPosts": PetPedia.objects.all(),
         "object_list": queryset,
-        "postForm": postForm,
+        "postForm": form,
     })
 
 
@@ -116,13 +141,44 @@ def listings(request):
     except EmptyPage:
         queryset = paginator.page(paginator.num_pages)
 
-    listingForm = ListingForm()
+    form = ListingForm()
+
+    if request.method == "POST":
+        form = ListingForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            breed = form.cleaned_data.get("breed")
+            name = form.cleaned_data.get("petName")
+            desc = form.cleaned_data.get("description")
+            age = form.cleaned_data.get("petAge")
+            cost = form.cleaned_data.get("cost")
+            image = form.cleaned_data.get("petImage")
+
+            newPost = Listing.objects.create(
+                poster=request.user.userprofile,
+                breed=breed,
+                petName=name,
+                description=desc,
+                petAge = age,
+                cost = cost,
+                petImage = image
+            )
+
+            newPost.save()
+
+            return redirect("/pawbook/marketplace/")
+        else:
+            print(form.errors)
+            return redirect("/pawbook/")
+
+    else:
+        form = ListingForm()
 
     return render(request, "pawbook/marketplace.html", context = {
         "newest_listings": Listing.objects.all(),
         "allPosts": PetPedia.objects.all(),
         "object_list": queryset,
-        "listingForm": listingForm,
+        "listingForm": form,
     })
 
 
@@ -285,35 +341,49 @@ def edit_profile(request, name_slug):
 
 @login_required
 def add_post(request):
-    postForm = PostForm()
+    form = PostForm()
 
     if request.method == "POST":
         form = PostForm(request.POST)
 
         if form.is_valid():
+            form.poster = request.userprofile
+            form.postImage = request.FILES["postImage"]
             form.save(commit = True)
 
-            return redirect("/pawbook/")
+            return redirect("/pawbook/posts/")
         else:
             print(form.errors)
             return redirect("/pawbook/")
 
+    else:
+        form = PostForm()
+
+    return render(request, "pawbook/posts.html", context = {
+        "form": form
+    })
+
 
 @login_required
 def add_listing(request):
-    listingForm = ListingForm()
+    form = ListingForm()
 
     if request.method == "POST":
         form = ListingForm(request.POST)
 
         if form.is_valid():
+            form.poster = request.user.userprofile
+            form.petImage = request.FILES["petImage"]
             form.save(commit = True)
 
-            return redirect("/pawbook/")
+            return redirect("/pawbook/marketplace/")
         else:
             print(form.errors)
+            return redirect("/pawbook/")
 
-    return render(request, "pawbook/add_listing.html", {"form": form})
+    return render(request, "pawbook/marketplace.html", context = {
+        "form": form
+    })
 
 
 @login_required

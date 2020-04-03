@@ -96,28 +96,40 @@
 				{% endif %}
 				{% if user.is_authenticated %}
 					<br>
-					{% if trending %}
+					{% if request.path == "/pawbook/posts/" %}
 					<h3>ADD POST</h3>
 					<div class="back-wrap">
-						<form id="post_form" method="POST" action="{% url 'pawbook:addPost' %}" enctype="multipart/form-data">
+						<form id="post_form" method="post" action="{% url 'pawbook:addPost' %}" enctype="multipart/form-data">
 							{% csrf_token %}
-							{% for field in postForm.visible_fields %}
-								<p>{{ field.help_text }}</p>
-								{{ field }}
+
+							{% for phidden in postForm.hidden_fields %}
+								{{ phidden }}
 							{% endfor %}
-							<input type="submit" name="submit" value="POST" />
+
+							{% for pfield in postForm.visible_fields %}
+								{{ pfield.errors }}
+								{{ pfield.help_text }}
+								{{ pfield }}
+							{% endfor %}
+							<input type="submit" name="submitForm" value="POST" />
 						</form>
 					</div>
-					{% else %}
+					{% elif request.path == "/pawbook/marketplace/" %}
 					<h3>ADD LISTING</h3>
 					<div class="back-wrap">
-						<form id="post_form" method="POST" action="{% url 'pawbook:addListing' %}" enctype="multipart/form-data">
+						<form id="listing_form" method="post" action="{% url 'pawbook:addListing' %}" enctype="multipart/form-data">
 							{% csrf_token %}
-							{% for field in listingForm.visible_fields %}
-								<p>{{ field.help_text }}</p>
-								{{ field }}
+
+							{% for lhidden in listingForm.hidden_fields %}
+								{{ lhidden }}
 							{% endfor %}
-							<input type="submit" name="submit" value="POST" />
+
+							{% for lfield in listingForm.visible_fields %}
+								{{ lfield.errors }}
+								{{ lfield.help_text }}
+								{{ lfield }}
+							{% endfor %}
+							<input type="submit" name="submitListing" value="POST" />
 						</form>
 					</div>
 					{% endif %}
