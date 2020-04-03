@@ -26,7 +26,7 @@
                 <a href="/pawbook/pet-o-pedia/">PET-O-PEDIA</a>
 
                 {% if user.is_authenticated %}
-                	<a href="{% url 'pawbook:show_profile' user.username %}"><img src="/pawbook{{ user.userprofile.profilePicture.url }}" alt="User's Profile Picture" class="profile_image">{{ user.username }}</a>
+                	<a href="{% url 'pawbook:show_profile' user.username %}"><img src="dog smiling.jpg" alt="User's Profile Picture" class="profile_image">{{ user.username }}</a>
                 	<a href="{% url 'pawbook:logout' %}">LOGOUT</a>
 
                 {% else %}
@@ -93,6 +93,34 @@
 						</span>
 					</div>
                 </div>
+				{% endif %}
+				{% if user.is_authenticated %}
+					<br>
+					{% if trending %}
+					<h3>ADD POST</h3>
+					<div class="back-wrap">
+						<form id="post_form" method="POST" action="{% url 'pawbook:posts' %}" enctype="multipart/form-data">
+							{% csrf_token %}
+							{% for field in postForm.visible_fields %}
+								<p>{{ field.help_text }}</p>
+								{{ field }}
+							{% endfor %}
+							<input type="submit" name="submit" value="POST" />
+						</form>
+					</div>
+					{% else %}
+					<h3>ADD LISTING</h3>
+					<div class="back-wrap">
+						<form id="post_form" method="POST" action="{% url 'pawbook:marketplace' %}" enctype="multipart/form-data">
+							{% csrf_token %}
+							{% for field in listingForm.visible_fields %}
+								<p>{{ field.help_text }}</p>
+								{{ field }}
+							{% endfor %}
+							<input type="submit" name="submit" value="POST" />
+						</form>
+					</div>
+					{% endif %}
 				{% endif %}
             </div>
         </main>
