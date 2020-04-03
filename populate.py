@@ -3,12 +3,15 @@ import django
 import os
 import random
 
+from django.core.files import File
+from django.core.files.images import ImageFile
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pawbook_wad.settings')
 django.setup()
 
 from pawbook.models import Post, Listing, UserProfile, PetPedia
 from django.contrib.auth.models import User
-
+from django.conf import settings
 
 def populate():
     testUsers = [
@@ -18,32 +21,32 @@ def populate():
     ]
 
     testPosts = [
-        ("My first post", "Here are some pictures of my cats", "media/post_image/CatPost.png"),
-        ("Looking after fish", "Incredibly relevant question about caring for fish", "media/post_image/fishPost.jpg"),
-        ("Looking to sell [Is this the right section?]", "Looking to sell my cat", "media/post_image/catSale.jpg"),
-        ("Subscribe to my insta", "I post cat videos on it", "media/post_image/insta.jpeg"),
-        ("Find us on facebook", "Search for us", "media/post_image/facebook.png"),
-        ("Find us on Twitter", "Search for us", "media/post_image/twitter.png"),
-        ("Find us on BeBo", "Search for us", "media/post_image/bebo.jpg"),
-        ("First post", "This is a test post", "media/post_image/pufferFish.jpeg")
+        ("My first post", "Here are some pictures of my cats", "CatPost.png"),
+        ("Looking after fish", "Incredibly relevant question about caring for fish", "fishPost.jpg"),
+        ("Looking to sell [Is this the right section?]", "Looking to sell my cat", "catSale.jpg"),
+        ("Subscribe to my insta", "I post cat videos on it", "insta.jpeg"),
+        ("Find us on facebook", "Search for us", "facebook.png"),
+        ("Find us on Twitter", "Search for us", "twitter.png"),
+        ("Find us on BeBo", "Search for us", "bebo.jpg"),
+        ("First post", "This is a test post", "pufferFish.jpeg")
     ]
 
     testListings = [
-        ("Fluffs", "We are moving so we need to find her a new home", "Cat", "media/listing_image/cat.jpg"),
-        ("N/A", "Looking to sell lab puppies locally", "Dog", "media/listing_image/lab.jpg"),
-        ("ExoticFish", "Selling fish", "Fish", "media/listing_image/fish.jpeg")
+        ("Fluffs", "We are moving so we need to find her a new home", "Cat", "cat.jpg"),
+        ("N/A", "Looking to sell lab puppies locally", "Dog", "lab.jpg"),
+        ("ExoticFish", "Selling fish", "Fish", "fish.jpeg")
     ]
 
     testPets = [
-        ("Dog", "Lab", "There are lots of different types of dogs"),
-        ("Cow", "Some breed of cow", "There are a few types of cow, this is where we get our milk"),
-        ("Cat", "Tabby", "Cats are made of yoghurt inside")
+        ("Dog", "Lab", "There are lots of different types of dogs", "lab.jpg"),
+        ("Cow", "Some breed of cow", "There are a few types of cow, this is where we get our milk", "cow.jpg"),
+        ("Cat", "Tabby", "Cats are made of yoghurt inside", "cat.jpg")
     ]
 
     userList = [add_user(user[0], user[1], user[2], user[3], user[4])
                 for user in testUsers]
 
-    petPages = [add_pet(pet[0], pet[1], pet[2])
+    petPages = [add_pet(pet[0], pet[1], pet[2], pet[3])
                 for pet in testPets]
 
     listings = [add_listing(userList, listing[2], listing[0], listing[1], listing[3])
@@ -77,14 +80,14 @@ def add_user(username, firstName, lastName, bio, location):
     return newUserProfile
 
 
-def add_pet(species, breed, info):
+def add_pet(species, breed, info, image):
     newPage = PetPedia.objects.get_or_create(
         species = species,
         breed = breed,
         info = info
     )[0]
 
-    newPage.save()
+    newPage.picture.save(image, ImageFile(open(settings.MEDIA_ROOT + "/petPedia_image/" + image, 'rb')))
 
     return newPage
 
@@ -96,10 +99,9 @@ def add_post(allUsers, title, description, image):
         postDescription = description,
         likes = random.randint(0, 1000),
         dislikes = random.randint(0, 1000),
-        postImage = image
     )[0]
 
-    newPost.save()
+    newPost.postImage.save(image, ImageFile(open(settings.MEDIA_ROOT + "/post_image/" + image, 'rb')))
 
     return newPost
 
@@ -112,10 +114,9 @@ def add_listing(allUsers, breed, name, description, image):
         description = description,
         petAge = random.randint(0, 10),
         cost = random.randint(0, 150),
-        petImage = image
     )[0]
 
-    newListing.save()
+    newListing.petImage.save(image, ImageFile(open(settings.MEDIA_ROOT + "/listing_image/" + image, 'rb')))
 
     return newListing
 

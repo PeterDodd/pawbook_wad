@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
-from django.conf import settings
+from PIL import Image
 
 
 class UserProfile(models.Model):   # User model
@@ -16,7 +16,7 @@ class UserProfile(models.Model):   # User model
     age = models.IntegerField(default = 0, blank = True)
     sellCount = models.IntegerField(default = 0, blank = True)
 
-    profilePicture = models.ImageField(upload_to = "profile_image", storage = settings.MEDIA_ROOT + "/profile_image/", default = None, blank = True)
+    profilePicture = models.ImageField(default = "profile_image/default.jpg", upload_to = "profile_image", blank = True, null = True)
 
     def __str__(self):
         return self.user.username
@@ -44,7 +44,7 @@ class Post(models.Model):           # Image posts model
         self.slug = slugify(self.postTitle)
         super(Post, self).save(*args, **kwargs)
 
-    postImage = models.ImageField(upload_to = "post_image", storage = settings.MEDIA_ROOT + "/post_image/")
+    postImage = models.ImageField(upload_to = "post_image")
 
 
 class PetPedia(models.Model):       # Pet-O-Pedia model
@@ -58,7 +58,7 @@ class PetPedia(models.Model):       # Pet-O-Pedia model
         self.slug = slugify(self.breed)
         super(PetPedia, self).save(*args, **kwargs)
 
-    picture = models.ImageField(upload_to = "petPedia_image", storage = settings.MEDIA_ROOT + "/petPedia_image/", default = None, blank = True)
+    picture = models.ImageField(upload_to = "petPedia_image", blank = True, null = True)
 
 
 class Listing(models.Model):        # Listing model
@@ -78,7 +78,7 @@ class Listing(models.Model):        # Listing model
         self.slug = slugify(self.petName)
         super(Listing, self).save(*args, **kwargs)
 
-    petImage = models.ImageField(upload_to = "listing_image", storage = settings.MEDIA_ROOT + "/listing_image/")
+    petImage = models.ImageField(upload_to = "listing_image")
 
 
 class Contact(models.Model):
