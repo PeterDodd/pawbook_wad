@@ -30,6 +30,14 @@
 						<p>{{ post.postDescription  }}</p>
 						<br>
 						<div><p>Likes: {{ post.likes.count }}, Dislikes: {{ post.dislikes }}</p></div>
+                         <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
+                            Facebook
+                        </a>
+                        <br>
+
+                            <a href='https://plus.google.com/share?url={{ request.build_absolute_uri }}'>
+                                Google+
+                            </a>
 					</div>
 				</div>
             {% endif %}
