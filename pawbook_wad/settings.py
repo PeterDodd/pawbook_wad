@@ -30,6 +30,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     'ssharkk6.pythonanywhere.com',
+    '*',
 ]
 
 
