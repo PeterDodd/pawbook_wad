@@ -1,0 +1,11 @@
+<h3>PET INFO</h3>
+    <div class="back-wrap">
+    <p>A list of quick links to find out keeping information for the following pets:</p>
+    <ul>
+        {% if allPosts %}
+            {% for post in allPosts %}
+                <li><a href='{% url "pawbook:show_petPedia" post.slug %}'>{{ post.breed }}</a></li>
+            {% endfor %}
+        {% endif %}
+    </ul>
+</div>

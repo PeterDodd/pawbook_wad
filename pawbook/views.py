@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, render_to_response ,get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
@@ -280,7 +280,7 @@ def userLogin(request):
     if request.method == "POST":
         username = request.POST.get("username")  # Retrieve username
         password = request.POST.get("password")  # and password
-
+        print()
         user = authenticate(username = username, password = password)   # Check all is well with authentication
 
         if user:
@@ -291,9 +291,9 @@ def userLogin(request):
             else:
                 return HttpResponse("Account disabled.")
         else:
-            print("Invalid login details: {username}, {password}")
+            print(user)
+            print("Invalid login details: {username}, {password}".format(username=username, password=password))
             return HttpResponse("Invalid login details supplied.")
-
     else:
         return render(request, "pawbook/login.html")
 

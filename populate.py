@@ -57,12 +57,13 @@ def populate():
 
 
 def add_user(username, firstName, lastName, bio, location):
+    print("Username: " + username)
     newUser = User.objects.get_or_create(
         username = username,
         password = "Test",
         email = "test@test.com"
     )[0]
-
+    newUser.set_password(newUser.password)
     newUser.save()
 
     newUserProfile = UserProfile.objects.get_or_create(
@@ -118,5 +119,6 @@ def add_listing(allUsers, breed, name, description, image):
 
     return newListing
 
-
-populate()
+if __name__ == '__main__':
+    print('Starting population script...')
+    populate()
