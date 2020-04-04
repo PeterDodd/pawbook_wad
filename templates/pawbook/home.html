@@ -32,7 +32,7 @@
 			{%  if trendingPosts %}
 				{% for post in object_list %}
 					<div class="post">
-						<img src="/pawbook{{ post.postImage.url }}" alt="Post Image" />
+						<img src="{{ post.postImage.url }}" alt="Post Image" />
 
 						<div class="post_content">
 							<h3><a href="{% url 'pawbook:show_post' post.slug %}"> {{ post.postTitle }} </a> </h3>
