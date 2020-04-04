@@ -22,7 +22,7 @@
             {% if listing %}
 				<h3>{{ listing.petName }} - {{ listing.age }} Years Old - £{{ listing.cost }}</h3>
 			    <div class="post" id="column">
-					<img src="/pawbook{{ listing.petImage.url }}" alt="Post Image" style="width:100%;"/>
+					<img src="{{ listing.petImage.url }}" alt="Post Image" style="width:100%;"/>
 
 					<div class="post_content">
 						<h4>{{ listing.breed }} uploaded by <a href="{% url 'pawbook:show_profile' listing.poster.user.username %}">{{ listing.poster.user.username }}</a> on {{ listing.datePosted }}</h4>

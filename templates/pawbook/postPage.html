@@ -23,7 +23,7 @@
             {% if post %}
 			<h3> {{ post.postTitle }} </h3>
 			    <div class="post" id="column">
-					<img src="/pawbook{{ post.postImage.url }}" alt="Post Image" style="width:100%;"/>
+					<img src="{{ post.postImage.url }}" alt="Post Image" style="width:100%;"/>
 
 					<div class="post_content">
 						<h4>By <a href="{% url 'pawbook:show_profile' post.poster.user.username %}">{{ post.poster.user.username }}</a> on {{ post.datePosted }}</h4>
@@ -42,8 +42,8 @@
             </form>
             <hr>
 
-			<br>	
-				
+			<br>
+
             {% if user.is_authenticated %}
 			<h3>LEAVE A COMMENT</h3>
             <form method="POST">
@@ -51,11 +51,11 @@
                 {% for field in comment_form.visible_fields %}
 					{{ field }}
 				{% endfor %}
-				
+
                 <input type = "submit" value = "SUBMIT"> </imput>
-                
-            
-                
+
+
+
             </form>
 			{% endif %}
 

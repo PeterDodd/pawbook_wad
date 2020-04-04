@@ -17,7 +17,7 @@
 			<h2>{{ userProfile.user.username }}</h2>
 
 			<div class="post">
-				<img src="/pawbook{{ userProfile.profilePicture.url }}" alt="Profile Picture" />
+				<img src="{{ userProfile.profilePicture.url }}" alt="Profile Picture" />
 				<div class="post_content">
 				<p>
 					Name: {{ userProfile.firstName }} {{ userProfile.lastName }} <br />
