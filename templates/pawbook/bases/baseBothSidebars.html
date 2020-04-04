@@ -1,0 +1,19 @@
+{% extends 'pawbook/bases/base.html' %}
+{% load staticfiles %}
+
+{% block main_block %}
+    <main class="wrapper col-3">
+        <div class="sidebar-l">
+            {% include 'pawbook/modules/PetInfoPanel.html' %}
+        </div>
+
+        <div class="main-area">
+            {% block body_block %}
+            {% endblock %}
+        </div>
+
+        <div class="market_column sidebar-r">
+            {% include 'pawbook/modules/MarketNavigationPanel.html' %}
+        </div>
+    </main>
+{% endblock %}
