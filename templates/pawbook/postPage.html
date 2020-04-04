@@ -29,26 +29,23 @@
 						<h4>By <a href="{% url 'pawbook:show_profile' post.poster.user.username %}">{{ post.poster.user.username }}</a> on {{ post.datePosted }}</h4>
 						<p>{{ post.postDescription  }}</p>
 						<br>
-						<div><p>Likes: {{ post.likes.count }}, Dislikes: {{ post.dislikes }}</p></div>
-                         <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
-                            Facebook
-                        </a>
-                        <br>
-
-                            <a href='https://plus.google.com/share?url={{ request.build_absolute_uri }}'>
-                                Google+
-                            </a>
+						<div>
+							<p>
+								Likes: {{ post.likes.count }}
+								Dislikes: {{ post.dislikes }}
+								<a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">Facebook</a>
+								<a href='https://plus.google.com/share?url={{ request.build_absolute_uri }}'>Google+</a>
+							</p>
+						</div>
 					</div>
 				</div>
             {% endif %}
 			<br>
-            <hr>
-            <br>
-            <form action = "{% url 'pawbook:like_post' %}" method = "post">
+            
+			<form action = "{% url 'pawbook:like_post' %}" method = "post">
                 {% csrf_token %}
                 <button type = "submit" name = "post_id" value = "{{ post.id }}" class ="btn btn-primary">Like</button>
             </form>
-            <hr>
 
 			<br>
 

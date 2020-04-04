@@ -1,11 +1,16 @@
 :root {
-    --color-background: rgb(255, 217, 138);
-	--color2-background: rgb(247, 201, 104);
-    --color-main-accent: rgba(255, 178, 18, 1);
-    --color-main-contrast: rgba(255, 94, 34, 1);
-    --color-main-postelement: hsl(51, 100%, 73%);
-    --font-headline: 'Roboto';
+    --color-background: rgb(255, 252, 237);
+	--color2-background: rgb(255, 247, 212);
+    --color-main-accent: rgba(242, 209, 22, 1);
+    --color-main-contrast: rgba(148, 136, 41, 1);
+	--color-main-block: rgba(250, 233, 135, 1);
+	--color-dark: rgb(55, 65, 71);
+	--color-dark2: rgb(55, 65, 71, .7);
+	--shadow-main: 0px 0px 10px rgb(200, 200, 200, .2);
+	--color-border: rgba(106, 79, 160, .5);
+    --font-headline: 'Playfair Display';
     --font-textblock: 'Montserrat';
+	--font-content: 'Lato';
 }
 
 html,
@@ -28,6 +33,7 @@ h6 {
     font-family: var(--font-headline);
 	cursor: default;
 	margin: 0;
+	color: var(--color-dark);
 }
 
 h1 {
@@ -50,10 +56,11 @@ h4 {
 }
 
 p {
-    font-family: var(--font-textblock);
+    font-family: var(--font-content);
     font-size: 0.9em;
 	margin: 0;
 	cursor: default;
+	color: var(--color-dark);
 }
 
 ul {
@@ -61,7 +68,8 @@ ul {
 }
 
 img {
-    padding: 5px;
+	border: 1px solid var(--color-border);
+	margin: 5px;
 }
 
 
@@ -69,7 +77,7 @@ input {
     padding: 7px;
     font-size: 15px;
     min-width: 215px;
-    border: 1px solid black;
+    border: 1px solid var(--color-border);
 }
 
 form {
@@ -83,9 +91,8 @@ form input {
 }
 
 a {
-    font-family: 'Montserrat';
     text-decoration: none;
-    color: black;
+    color: var(--color-dark);
 }
 
 a:hover {
@@ -98,7 +105,9 @@ footer {
     width: 100%;
     justify-content: center;
     left: 0;
-	box-shadow: 0px 0px 10px rgb(200, 200, 200, .5);
+	box-shadow: var(--shadow-main);
+	border-top: 1px solid var(--color-border);
+	border-bottom: 1px solid var(--color-border);
 }
 
 header {
@@ -123,7 +132,7 @@ footer > a {
     box-sizing: border-box;
     border-bottom: 3px solid transparent;
     display: flex;
-
+	color: var(--color-dark);
     flex-flow: row;
     align-items: center;
 }
@@ -142,11 +151,12 @@ navbar {
     padding: 0;
 	position: relative;
 	
+	
 }
 
 navbar img.profile_image {
     padding: 0;
-    border: 1px solid black;
+    border: 1px solid var(--color-border);
     display: inline-block;
     width: 30px;
     height: 30px;
@@ -178,7 +188,10 @@ navbar > *:nth-last-child(1) {
 navbar input {
     padding: 7px;
     margin: auto;
+}
 
+navbar, footer a {
+	font-family: var(--font-textblock);
 }
 
 main.wrapper {
@@ -229,9 +242,7 @@ main.wrapper {
 }
 
 .wrapper > * {
-    background-color: rgba(255, 255, 255, 0.3);
-    padding: 20px;
-	box-shadow: 0px 0px 10px rgb(200, 200, 200, .5);
+    padding: 10px;
 }
 
 .pets_new {
@@ -239,9 +250,11 @@ main.wrapper {
 }
 
 .back-wrap {
-	background-color: var(--color-main-accent);
+	background-color: var(--color-main-block);
 	padding: 10px 10px 10px 10px;
 	margin-top: 5px;
 	text-align: left;
-	box-shadow: 0px 0px 10px rgb(200, 200, 200, .5);
+	box-shadow: var(--shadow-main);
+	border: 1px solid var(--color-border);
+	
 }
