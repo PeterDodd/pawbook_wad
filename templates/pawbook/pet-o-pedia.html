@@ -17,7 +17,7 @@
 			{%  if allPosts %}
 				{% for post in object_list %}
 					<div class="post">
-						<img src="/pawbook{{ post.picture.url }}" alt="Post Image" />
+						<img src="{{ post.picture.url }}" alt="Post Image" />
 
 						<div class="post_content">
 							<h2><a href="{% url 'pawbook:show_petPedia' post.slug %}">{{ post.breed }}</a></h2>

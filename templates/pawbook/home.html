@@ -17,7 +17,7 @@
 			{% if latestListings %}
 				{% for pet in latestListings %}
 					<div class="pet_box">
-						<img src="/pawbook{{ pet.petImage.url }}" alt="{{ pet.petName }}"/>
+						<img src="{{ pet.petImage.url }}" alt="{{ pet.petName }}"/>
 						<a href="{% url 'pawbook:show_listing' pet.slug %}"><div class="pet_box_overlay">
 							<div class="pet_box_text"><h3>{{ pet.breed }}</h3><p>£{{ pet.cost }}</p></div>
 						</div></a>
