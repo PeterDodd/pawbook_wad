@@ -32,7 +32,7 @@
 						<div>
 							<p>
 								Likes: {{ post.likes.count }}
-								Dislikes: {{ post.dislikes }}
+								Dislikes: {{ post.dislikes.count }}
 								<a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">Facebook</a>
 								<a href='https://plus.google.com/share?url={{ request.build_absolute_uri }}'>Google+</a>
 							</p>
@@ -41,11 +41,18 @@
 				</div>
             {% endif %}
 			<br>
-            
+
+			{% if user.is_authenticated %}
 			<form action = "{% url 'pawbook:like_post' %}" method = "post">
                 {% csrf_token %}
-                <button type = "submit" name = "post_id" value = "{{ post.id }}" class ="btn btn-primary">Like</button>
+                <button type = "submit" name = "post_slug" value = "{{ post.slug }}" class ="btn btn-primary">Like</button>
             </form>
+
+			<form action = "{% url 'pawbook:dislike_post' %}" method = "post">
+				{% csrf_token %}
+                <button type = "submit" name = "post_slug" value = "{{ post.slug }}" class ="btn btn-primary">Dislike</button>
+			</form>
+			{% endif %}
 
 			<br>
 
@@ -58,9 +65,6 @@
 				{% endfor %}
 
                 <input type = "submit" value = "SUBMIT"> </imput>
-
-
-
             </form>
 			{% endif %}
 

@@ -1,10 +1,4 @@
-# Populates the database for testing
-import django
-import os
-import random
-
-from django.core.files import File
-from django.core.files.images import ImageFile
+import django, os, random
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pawbook_wad.settings')
 django.setup()
@@ -12,6 +6,10 @@ django.setup()
 from pawbook.models import Post, Listing, UserProfile, PetPedia
 from django.contrib.auth.models import User
 from django.conf import settings
+from django.core.files.images import ImageFile
+
+
+# Populates the database for testing
 
 def populate():
     testUsers = [
@@ -45,25 +43,29 @@ def populate():
 
     userList = [add_user(user[0], user[1], user[2], user[3], user[4])
                 for user in testUsers]
+    print("\n")
 
     petPages = [add_pet(pet[0], pet[1], pet[2], pet[3])
                 for pet in testPets]
+    print("\n")
 
     listings = [add_listing(userList, listing[2], listing[0], listing[1], listing[3])
                 for listing in testListings]
+    print("\n")
 
     posts = [add_post(userList, post[0], post[1], post[2])
              for post in testPosts]
+    print("\n")
 
 
 def add_user(username, firstName, lastName, bio, location):
-    print("Username: " + username)
+    print("New user: " + username)
     newUser = User.objects.get_or_create(
         username = username,
-        password = "Test",
         email = "test@test.com"
     )[0]
-    newUser.set_password(newUser.password)
+
+    newUser.set_password("Test")
     newUser.save()
 
     newUserProfile = UserProfile.objects.get_or_create(
@@ -82,6 +84,7 @@ def add_user(username, firstName, lastName, bio, location):
 
 
 def add_pet(species, breed, info, image):
+    print("New pet-o-pedia: " + breed)
     newPage = PetPedia.objects.get_or_create(
         species = species,
         breed = breed,
@@ -94,6 +97,7 @@ def add_pet(species, breed, info, image):
 
 
 def add_post(allUsers, title, description, image):
+    print("New post: " + title)
     newPost = Post.objects.get_or_create(
         poster = random.choice(allUsers),
         postTitle = title,
@@ -106,6 +110,7 @@ def add_post(allUsers, title, description, image):
 
 
 def add_listing(allUsers, breed, name, description, image):
+    print("New listing: " + name)
     newListing = Listing.objects.get_or_create(
         poster = random.choice(allUsers),
         breed = breed,
@@ -118,6 +123,7 @@ def add_listing(allUsers, breed, name, description, image):
     newListing.petImage.save(image, ImageFile(open(settings.MEDIA_ROOT + "/listing_image/" + image, 'rb')))
 
     return newListing
+
 
 if __name__ == '__main__':
     print('Starting population script...')
