@@ -1,10 +1,4 @@
-# Populates the database for testing
-import django
-import os
-import random
-
-from django.core.files import File
-from django.core.files.images import ImageFile
+import django, os, random
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pawbook_wad.settings')
 django.setup()
@@ -12,6 +6,10 @@ django.setup()
 from pawbook.models import Post, Listing, UserProfile, PetPedia
 from django.contrib.auth.models import User
 from django.conf import settings
+from django.core.files.images import ImageFile
+
+
+# Populates the database for testing
 
 def populate():
     testUsers = [
@@ -45,15 +43,19 @@ def populate():
 
     userList = [add_user(user[0], user[1], user[2], user[3], user[4])
                 for user in testUsers]
+    print("\n")
 
     petPages = [add_pet(pet[0], pet[1], pet[2], pet[3])
                 for pet in testPets]
+    print("\n")
 
     listings = [add_listing(userList, listing[2], listing[0], listing[1], listing[3])
                 for listing in testListings]
+    print("\n")
 
     posts = [add_post(userList, post[0], post[1], post[2])
              for post in testPosts]
+    print("\n")
 
 
 def add_user(username, firstName, lastName, bio, location):
