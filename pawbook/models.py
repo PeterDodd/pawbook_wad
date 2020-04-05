@@ -35,7 +35,7 @@ class Post(models.Model):           # Image posts model
     postTitle = models.CharField(max_length = 128)
     postDescription = models.CharField(max_length = 300, default = "", blank = True)
 
-    likes = models.ManyToManyField(User,related_name='likes',blank=True)
+    likes = models.ManyToManyField(User, related_name = 'likes', blank = True)
     dislikes = models.IntegerField(default = 0)
 
     slug = models.SlugField(default = "")
@@ -92,7 +92,7 @@ class Contact(models.Model):
 
 
 class Comment(models.Model):
-    post= models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comment')
+    post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comment')
     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='comment')
     content = models.TextField(max_length=160)
     timestamp = models.DateTimeField(auto_now_add=True)

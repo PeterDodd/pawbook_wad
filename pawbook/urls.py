@@ -11,11 +11,9 @@ urlpatterns = [
     path('', views.home, name='home'),
 
     path('marketplace/', views.listings, name='marketplace'),
-    path('marketplace/', views.listings, name='addListing'),
     path("marketplace/<slug:name_slug>/", views.show_listing, name = "show_listing"),
 
     path('posts/', views.posts, name='posts'),
-    path('posts/', views.posts, name='addPost'),
     path("posts/<slug:name_slug>/", views.show_post, name = "show_post"),
     path("like/", views.like_post, name = 'like_post'),
 

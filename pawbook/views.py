@@ -346,53 +346,6 @@ def edit_profile(request, name_slug):
 
 
 @login_required
-def add_post(request):
-    form = PostForm()
-
-    if request.method == "POST":
-        form = PostForm(request.POST)
-
-        if form.is_valid():
-            form.poster = request.userprofile
-            form.postImage = request.FILES["postImage"]
-            form.save(commit = True)
-
-            return redirect("/pawbook/posts/")
-        else:
-            print(form.errors)
-            return redirect("/pawbook/")
-
-    else:
-        form = PostForm()
-
-    return render(request, "pawbook/posts.html", context = {
-        "form": form
-    })
-
-
-@login_required
-def add_listing(request):
-    form = ListingForm()
-
-    if request.method == "POST":
-        form = ListingForm(request.POST)
-
-        if form.is_valid():
-            form.poster = request.user.userprofile
-            form.petImage = request.FILES["petImage"]
-            form.save(commit = True)
-
-            return redirect("/pawbook/marketplace/")
-        else:
-            print(form.errors)
-            return redirect("/pawbook/")
-
-    return render(request, "pawbook/marketplace.html", context = {
-        "form": form
-    })
-
-
-@login_required
 def userLogout(request):
     logout(request)
     return redirect(reverse("pawbook:home"))
@@ -417,9 +370,5 @@ def contact(request):
     else:
         form = ContactForm()
 
-
-
     return render(request, "pawbook/contact.html", {'form':form})
-
-
 
