@@ -57,7 +57,7 @@ def populate():
 
 
 def add_user(username, firstName, lastName, bio, location):
-    print("Username: " + username)
+    print("New user: " + username)
     newUser = User.objects.get_or_create(
         username = username,
         email = "test@test.com"
@@ -73,7 +73,7 @@ def add_user(username, firstName, lastName, bio, location):
         bio = bio,
         location = location,
         age = random.randint(0, 80),
-        #sellCount = random.randint(0, 50)
+        sellCount = random.randint(0, 50)
     )[0]
 
     newUserProfile.save()
@@ -82,6 +82,7 @@ def add_user(username, firstName, lastName, bio, location):
 
 
 def add_pet(species, breed, info, image):
+    print("New pet-o-pedia: " + breed)
     newPage = PetPedia.objects.get_or_create(
         species = species,
         breed = breed,
@@ -94,6 +95,7 @@ def add_pet(species, breed, info, image):
 
 
 def add_post(allUsers, title, description, image):
+    print("New post: " + title)
     newPost = Post.objects.get_or_create(
         poster = random.choice(allUsers),
         postTitle = title,
@@ -106,6 +108,7 @@ def add_post(allUsers, title, description, image):
 
 
 def add_listing(allUsers, breed, name, description, image):
+    print("New listing: " + name)
     newListing = Listing.objects.get_or_create(
         poster = random.choice(allUsers),
         breed = breed,
