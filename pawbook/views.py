@@ -96,7 +96,9 @@ def posts(request):
 
 
 def show_post(request, name_slug):
-    context_dict = {}
+    context_dict = {
+        "comment_form": CommentForm()
+    }
 
     try:
         context_dict["post"] = Post.objects.get(slug = name_slug)
@@ -110,46 +112,36 @@ def show_post(request, name_slug):
     except Comment.DoesNotExist:
         context_dict["comments"] = None
 
-    if request.method == 'POST':
-        comment_form = CommentForm(request.POST, request.FILES)
+    if request.method == "POST":
+        if "comment" in request.POST:
+            comment_form = CommentForm(request.POST, request.FILES)
 
-        if comment_form .is_valid():
-            newComment = Comment.objects.create(
-                post = Post.objects.get(slug = name_slug),
-                user = request.user,
-                content = comment_form.cleaned_data.get("content")
-            )
+            if comment_form .is_valid():
+                newComment = Comment.objects.create(
+                    post = Post.objects.get(slug = name_slug),
+                    user = request.user,
+                    content = comment_form.cleaned_data.get("content")
+                )
 
-            newComment.save()
-            return HttpResponseRedirect(request.path_info)
+                newComment.save()
+
+            else:
+                print(comment_form.errors)
+                return redirect("/pawbook/")
+
+        elif "like" in request.POST:
+            post = Post.objects.get(slug = name_slug)
+            post.likes.add(request.user)
+
+        elif "dislike" in request.POST:
+            post = Post.objects.get(slug = name_slug)
+            post.dislikes.add(request.user)
 
         else:
-            print(comment_form.errors)
-            return redirect("/pawbook/")
-
-    else:
-        comment_form = CommentForm()
-        context_dict['comment_form'] = comment_form
+            comment_form = CommentForm()
+            context_dict['comment_form'] = comment_form
 
     return render(request, "pawbook/postPage.html", context = context_dict)
-
-
-def like_post(request):
-    slug = request.POST.get("post_slug")
-
-    post = get_object_or_404(Post, slug = slug)
-    post.likes.add(request.user)
-
-    return show_post(request, slug)
-
-
-def dislike_post(request):
-    slug = request.POST.get("post_slug")
-
-    post = get_object_or_404(Post, slug = slug)
-    post.dislikes.add(request.user)
-
-    return show_post(request, slug)
 
 
 def listings(request):

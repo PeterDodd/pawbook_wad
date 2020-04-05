@@ -40,31 +40,29 @@
 					</div>
 				</div>
             {% endif %}
-			<br>
+			<br />
 
 			{% if user.is_authenticated %}
-			<form action = "{% url 'pawbook:like_post' %}" method = "post">
+			<form id = "like_button" method = "POST" action = "{% url 'pawbook:show_post' post.slug %}" enctype = "multipart/form-data">
                 {% csrf_token %}
-                <button type = "submit" name = "post_slug" value = "{{ post.slug }}" class ="btn btn-primary">Like</button>
+                <input name = "like" type = "submit" class ="btn btn-primary" value = Like />
             </form>
 
-			<form action = "{% url 'pawbook:dislike_post' %}" method = "post">
+			<form id = "dislike_button" method = "POST" action = "{% url 'pawbook:show_post' post.slug %}" enctype = multipart/form-data>
 				{% csrf_token %}
-                <button type = "submit" name = "post_slug" value = "{{ post.slug }}" class ="btn btn-primary">Dislike</button>
+                <input name = "dislike" type = "submit" class ="btn btn-primary" value = Dislike />
 			</form>
-			{% endif %}
 
 			<br>
 
-            {% if user.is_authenticated %}
 			<h3>LEAVE A COMMENT</h3>
-            <form method="POST">
+            <form id = "comment_form" method="POST" action = "{% url 'pawbook:show_post' post.slug %}" enctype = "multipart/form-data">
                 {% csrf_token %}
                 {% for field in comment_form.visible_fields %}
 					{{ field }}
 				{% endfor %}
 
-                <input type = "submit" value = "SUBMIT"> </imput>
+                <input name = "comment" type = "submit" value = "Submit" />
             </form>
 			{% endif %}
 
