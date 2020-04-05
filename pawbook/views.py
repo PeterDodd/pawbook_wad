@@ -2,10 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
-from django.core.paginator import  Paginator, EmptyPage,PageNotAnInteger
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.contrib import messages
-
 
 from pawbook.models import Post, Listing, PetPedia, UserProfile, Comment
 from pawbook.forms import UserProfileForm, UserForm, PostForm, ListingForm, ContactForm, CommentForm
@@ -25,12 +24,16 @@ def home(request):
 
     paginator = Paginator(queryset_list, 5)
     page = request.GET.get('page')
+
     try:
         queryset = paginator.page(page)
+
     except PageNotAnInteger:
         queryset = paginator.page(1)
+
     except EmptyPage:
         queryset = paginator.page(paginator.num_pages)
+
     return render(request, "pawbook/home.html", context = {
         "trendingPosts": Post.objects.order_by("-likes")[:6],
         "latestListings": Listing.objects.order_by("-datePosted")[:6],
@@ -41,21 +44,24 @@ def home(request):
 
 def posts(request):
     form = PostForm()
-
     queryset_list = Post.objects.all()
     query = request.GET.get("query")
+
     if query:
         queryset_list = queryset_list.filter(
             Q(postTitle__icontains=query) |
             Q(postDescription__icontains=query) |
             Q(poster__user__username__icontains=query)).distinct()
-    paginator = Paginator(queryset_list, 2)
 
+    paginator = Paginator(queryset_list, 2)
     page = request.GET.get('page')
+
     try:
         queryset = paginator.page(page)
+
     except PageNotAnInteger:
         queryset = paginator.page(1)
+
     except EmptyPage:
         queryset = paginator.page(paginator.num_pages)
 
@@ -63,15 +69,11 @@ def posts(request):
         form = PostForm(request.POST, request.FILES)
 
         if form.is_valid():
-            title = form.cleaned_data.get("postTitle")
-            desc = form.cleaned_data.get("postDescription")
-            image = form.cleaned_data.get("postImage")
-
             newPost = Post.objects.create(
                 poster = request.user.userprofile,
-                postTitle = title,
-                postDescription = desc,
-                postImage = image
+                postTitle = form.cleaned_data.get("postTitle"),
+                postDescription = form.cleaned_data.get("postDescription"),
+                postImage = form.cleaned_data.get("postImage")
             )
 
             newPost.save()
@@ -94,28 +96,40 @@ def posts(request):
 
 
 def show_post(request, name_slug):
-    comments = Comment.objects.all()
     context_dict = {}
+
     try:
-        post = Post.objects.get(slug = name_slug)
-        context_dict["post"] = post
-        context_dict["comments"] = comments
+        context_dict["post"] = Post.objects.get(slug = name_slug)
 
     except Post.DoesNotExist:
         context_dict["post"] = None
 
+    try:
+        context_dict["comments"] = Comment.objects.filter(slug=name_slug)
+
+    except Comment.DoesNotExist:
+        context_dict["comments"] = None
+
     if request.method == 'POST':
-        comment_form = CommentForm(request.POST or None)
+        comment_form = CommentForm(request.POST, request.FILES)
+
         if comment_form .is_valid():
-            content = request.POST.get('content')
-            comment =Comment.objects.create(post=post,user=request.user,content=content)
-            comment.save()
+            newComment = Comment.objects.create(
+                post = Post.objects.get(slug = name_slug),
+                user = request.user,
+                content = comment_form.cleaned_data.get("content")
+            )
+
+            newComment.save()
             return HttpResponseRedirect(request.path_info)
 
+        else:
+            print(comment_form.errors)
+            return redirect("/pawbook/")
 
     else:
-        comment_form=CommentForm()
-        context_dict['comment_form']=comment_form
+        comment_form = CommentForm()
+        context_dict['comment_form'] = comment_form
 
     return render(request, "pawbook/postPage.html", context = context_dict)
 
@@ -139,8 +153,10 @@ def dislike_post(request):
 
 
 def listings(request):
+    form = ListingForm()
     queryset_list = Listing.objects.all()
     query = request.GET.get("query")
+
     if query:
         queryset_list = queryset_list.filter(
             Q(breed__icontains=query) |
@@ -149,42 +165,36 @@ def listings(request):
             Q(petAge__icontains=query) |
             Q(cost__icontains=query) |
             Q(poster__user__username__icontains=query)).distinct()
-    paginator = Paginator(queryset_list, 2)
 
+    paginator = Paginator(queryset_list, 2)
     page = request.GET.get('page')
+
     try:
         queryset = paginator.page(page)
+
     except PageNotAnInteger:
         queryset = paginator.page(1)
+
     except EmptyPage:
         queryset = paginator.page(paginator.num_pages)
-
-    form = ListingForm()
 
     if request.method == "POST":
         form = ListingForm(request.POST, request.FILES)
 
         if form.is_valid():
-            breed = form.cleaned_data.get("breed")
-            name = form.cleaned_data.get("petName")
-            desc = form.cleaned_data.get("description")
-            age = form.cleaned_data.get("petAge")
-            cost = form.cleaned_data.get("cost")
-            image = form.cleaned_data.get("petImage")
-
             newPost = Listing.objects.create(
                 poster=request.user.userprofile,
-                breed=breed,
-                petName=name,
-                description=desc,
-                petAge = age,
-                cost = cost,
-                petImage = image
+                breed=form.cleaned_data.get("breed"),
+                petName=form.cleaned_data.get("petName"),
+                description=form.cleaned_data.get("description"),
+                petAge = form.cleaned_data.get("petAge"),
+                cost = form.cleaned_data.get("cost"),
+                petImage = form.cleaned_data.get("petImage")
             )
 
             newPost.save()
-
             return redirect("/pawbook/marketplace/")
+
         else:
             print(form.errors)
             return redirect("/pawbook/")
@@ -202,6 +212,7 @@ def listings(request):
 
 def show_listing(request, name_slug):
     context_dict = {}
+
     try:
         listing = Listing.objects.get(slug = name_slug)
         context_dict["listing"] = listing
@@ -215,18 +226,22 @@ def show_listing(request, name_slug):
 def pet_pedia(request):
     queryset_list = PetPedia.objects.all()
     query = request.GET.get("query")
+
     if query:
         queryset_list = queryset_list.filter(
             Q(species__icontains=query) |
             Q(breed__icontains=query) |
             Q(info__icontains=query)).distinct()
-    paginator = Paginator(queryset_list, 2)
 
+    paginator = Paginator(queryset_list, 2)
     page = request.GET.get('page')
+
     try:
         queryset = paginator.page(page)
+
     except PageNotAnInteger:
         queryset = paginator.page(1)
+
     except EmptyPage:
         queryset = paginator.page(paginator.num_pages)
 
@@ -240,6 +255,7 @@ def show_petPedia(request, name_slug):
     context_dict = {
         "allPosts": PetPedia.objects.all(),
     }
+
     try:
         page = PetPedia.objects.get(slug = name_slug)
         context_dict["page"] = page
@@ -310,10 +326,10 @@ def userLogin(request):
         return render(request, "pawbook/login.html")
 
 
-def show_profile(request, name_slug):
-    return render(request, "pawbook/userProfile.html", context = {
-        "userProfile": UserProfile.objects.get(slug = name_slug)
-    })
+@login_required
+def userLogout(request):
+    logout(request)
+    return redirect(reverse("pawbook:home"))
 
 
 @login_required
@@ -357,10 +373,10 @@ def edit_profile(request, name_slug):
     })
 
 
-@login_required
-def userLogout(request):
-    logout(request)
-    return redirect(reverse("pawbook:home"))
+def show_profile(request, name_slug):
+    return render(request, "pawbook/userProfile.html", context = {
+        "userProfile": UserProfile.objects.get(slug = name_slug)
+    })
 
 
 def about(request):
