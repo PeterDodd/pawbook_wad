@@ -8,7 +8,7 @@
         <a href="/pawbook/pet-o-pedia/">PET-O-PEDIA</a>
 
         {% if user.is_authenticated %}
-            <a href="{% url 'pawbook:show_profile' user.username %}"><img src="{{ user.userprofile.profilePicture.url }}" alt="User's Profile Picture" class="profile_image">{{ user.username }}</a>
+            <a href="{% url 'pawbook:show_profile' user.userprofile.slug %}"><img src="{{ user.userprofile.profilePicture.url }}" alt="User's Profile Picture" class="profile_image">{{ user.username }}</a>
             <a href="{% url 'pawbook:logout' %}">LOGOUT</a>
 
         {% else %}

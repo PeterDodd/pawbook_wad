@@ -60,10 +60,10 @@ def add_user(username, firstName, lastName, bio, location):
     print("Username: " + username)
     newUser = User.objects.get_or_create(
         username = username,
-        password = "Test",
         email = "test@test.com"
     )[0]
-    newUser.set_password(newUser.password)
+
+    newUser.set_password("Test")
     newUser.save()
 
     newUserProfile = UserProfile.objects.get_or_create(
@@ -73,7 +73,7 @@ def add_user(username, firstName, lastName, bio, location):
         bio = bio,
         location = location,
         age = random.randint(0, 80),
-        sellCount = random.randint(0, 50)
+        #sellCount = random.randint(0, 50)
     )[0]
 
     newUserProfile.save()
@@ -118,6 +118,7 @@ def add_listing(allUsers, breed, name, description, image):
     newListing.petImage.save(image, ImageFile(open(settings.MEDIA_ROOT + "/listing_image/" + image, 'rb')))
 
     return newListing
+
 
 if __name__ == '__main__':
     print('Starting population script...')
