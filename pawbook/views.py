@@ -121,9 +121,21 @@ def show_post(request, name_slug):
 
 
 def like_post(request):
-    post = get_object_or_404(Post,id=request.POST.get('post_id'))
+    slug = request.POST.get("post_slug")
+
+    post = get_object_or_404(Post, slug = slug)
     post.likes.add(request.user)
-    return HttpResponseRedirect(request.path_info)
+
+    return show_post(request, slug)
+
+
+def dislike_post(request):
+    slug = request.POST.get("post_slug")
+
+    post = get_object_or_404(Post, slug = slug)
+    post.dislikes.add(request.user)
+
+    return show_post(request, slug)
 
 
 def listings(request):
@@ -360,12 +372,12 @@ def faq(request):
 
 
 def contact(request):
-    if request.method =="POST":
+    if request.method == "POST":
         form = ContactForm(request.POST)
 
         if form.is_valid():
             form.save()
-            messages.success(request,"Form submission successful")
+            messages.success(request, "Form submission successful")
 
     else:
         form = ContactForm()
