@@ -30,7 +30,7 @@ urlpatterns = [
     path('login/', views.userLogin, name='login'),
     path("logout/", views.userLogout, name = "logout"),
 
-    path("<slug:name_slug>/", views.show_profile, name = "show_profile"),
+    path("user/<slug:name_slug>/", views.show_profile, name = "show_profile"),
     path("editProfile/<slug:name_slug>", views.edit_profile, name="editProfile"),
 ]
 
