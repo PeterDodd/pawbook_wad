@@ -25,7 +25,7 @@
 					<img src="{{ listing.petImage.url }}" alt="Post Image" class="image-expanded"/>
 
 					<div class="post_content">
-						<h4>{{ listing.breed }} uploaded by <a href="{% url 'pawbook:show_profile' listing.poster.user.username %}">{{ listing.poster.user.username }}</a> on {{ listing.datePosted }}</h4>
+						<h4>{{ listing.breed }} uploaded by <a href="{% url 'pawbook:show_profile' listing.poster.slug %}">{{ listing.poster.user.username }}</a> on {{ listing.datePosted }}</h4>
 						<p>{{ listing.description }}</p>
 					</div>
 				</div>

@@ -26,7 +26,7 @@
 					<img src="{{ post.postImage.url }}" alt="Post Image" class="image-expanded"/>
 
 					<div class="post_content">
-						<h4>By <a href="{% url 'pawbook:show_profile' post.poster.user.username %}">{{ post.poster.user.username }}</a> on {{ post.datePosted }}</h4>
+						<h4>By <a href="{% url 'pawbook:show_profile' post.poster.slug %}">{{ post.poster.user.username }}</a> on {{ post.datePosted }}</h4>
 						<p>{{ post.postDescription  }}</p>
 						<br>
 						<div>
