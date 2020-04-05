@@ -107,10 +107,18 @@
 }
 
 .post img {
-	width: 300px;
+	min-width: 250px;
+	width: 250px;
 	height: 200px;
 	object-fit: cover;
 	margin: 5px;
+}
+
+img.image-expanded {
+    width: calc(100% - 10px);
+    padding: 0px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .post_content {
