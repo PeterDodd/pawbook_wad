@@ -105,3 +105,19 @@ class Comment(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.post.postTitle)
         super(Comment, self).save(*args, **kwargs)
+
+
+class Request(models.Model):
+    seller = models.OneToOneField(User, on_delete = models.CASCADE, related_name = "seller")
+    buyer = models.OneToOneField(User, on_delete = models.CASCADE, related_name = "buyer")
+    pet = models.OneToOneField(Listing, on_delete = models.CASCADE, related_name = "listing")
+
+    slug = models.SlugField(unique = False, default = "")
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.seller.userprofile.slug)
+        super(Request, self).save(*args, **kwargs)
+
+    accepted = models.BooleanField(default = False)
+    declined = models.BooleanField(default = False)
+

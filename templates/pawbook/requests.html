@@ -1,0 +1,70 @@
+{% extends 'pawbook/bases/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	Requests
+{% endblock %}
+
+{% block css_block %}
+	<link rel="stylesheet" href="{% static 'css/home.css' %}" />
+{% endblock %}
+
+{% block body_block %}
+<div class="sub_holder">
+
+	<div class="posts_column">
+		<h2>Active Requests</h2>
+
+        {% if requests %}
+            {% for r in requests %}
+                {% if r.accepted == False and r.declined == False %}
+		            <div class="post">
+			            <img src="{{ r.buyer.userprofile.profilePicture.url }}" alt="Profile Picture" />
+			            <div class="post_content">
+    			            <p>
+					            Name: {{ r.buyer.userprofile.firstName }} {{ r.buyer.userprofile.lastName }} <br />
+					            Location: {{ r.buyer.userprofile.location }} <br />
+					            Request for: {{ r.pet.petName }} <br />
+					            <br />
+				            </p>
+			            </div>
+
+                        <button type = acceptButton>Accept</button>
+                        <button type = declineButton>Decline</button>
+
+		            </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+
+	<div class="posts_column">
+		<h2>Active Requests</h2>
+
+        {% if requests %}
+            {% for r in requests %}
+                {% if r.accepted == True and r.declined == True %}
+		            <div class="post">
+			            <img src="{{ r.buyer.userprofile.profilePicture.url }}" alt="Profile Picture" />
+			            <div class="post_content">
+    			            <p>
+					            Name: {{ r.buyer.userprofile.firstName }} {{ r.buyer.userprofile.lastName }} <br />
+					            Location: {{ r.buyer.userprofile.location }} <br />
+					            Request for: {{ r.pet.petName }} <br />
+                                {% if r.accepted == True %}
+                                Result: {{ r.accepted }} <br />
+                                {% else %}
+                                Result: {{ r.declined }} <br />
+                                {% endif %}
+					            <br />
+				            </p>
+			            </div>
+		            </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}
+

@@ -6,7 +6,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.contrib import messages
 
-from pawbook.models import Post, Listing, PetPedia, UserProfile, Comment
+from pawbook.models import Post, Listing, PetPedia, UserProfile, Comment, Request
 from pawbook.forms import UserProfileForm, UserForm, PostForm, ListingForm, ContactForm, CommentForm
 
 from django.contrib.auth import authenticate, login, logout
@@ -212,6 +212,17 @@ def show_listing(request, name_slug):
     except Listing.DoesNotExist:
         context_dict["listing"] = None
 
+    if request.method == "POST":
+        listing = Listing.objects.get(slug=name_slug)
+
+        newRequest = Request.objects.create(
+            seller = listing.poster.user,
+            buyer = request.user,
+            pet = listing,
+        )
+
+        newRequest.save()
+
     return render(request, "pawbook/listingPage.html", context = context_dict)
 
 
@@ -256,6 +267,19 @@ def show_petPedia(request, name_slug):
         context_dict["page"] = None
 
     return render(request, "pawbook/petPediaPage.html", context = context_dict)
+
+
+@login_required
+def requests(request, name_slug):
+    context_dict = {}
+
+    try:
+        context_dict["requests"] = Request.objects.get(slug=name_slug)
+
+    except Request.DoesNotExist:
+        context_dict["requests"] = None
+
+    return render(request, "pawbook/requests.html", context = context_dict)
 
 
 def register(request):

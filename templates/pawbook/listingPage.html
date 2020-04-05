@@ -28,6 +28,13 @@
 						<h4>{{ listing.breed }} uploaded by <a href="{% url 'pawbook:show_profile' listing.poster.slug %}">{{ listing.poster.user.username }}</a> on {{ listing.datePosted }}</h4>
 						<p>{{ listing.description }}</p>
 					</div>
+
+					{% if user.is_authenticated %}
+						<form id = "request_button" method = "POST" action = "{% url 'pawbook:show_listing' listing.slug %}" enctype = "multipart/form-data">
+                			{% csrf_token %}
+                			<input name = "request_button" type = "submit" class ="btn btn-primary" value = Request />
+            			</form>
+					{% endif %}
 				</div>
             {% endif %}
 		</div>
