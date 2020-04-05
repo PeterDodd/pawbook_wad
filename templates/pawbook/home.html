@@ -9,9 +9,8 @@
 	<link rel="stylesheet" href="{% static 'css/home.css' %}" />
 {% endblock %}
 
-{% block body_block %}
-	<div class = "content_holder">
-
+{% block topbar_block %}
+	<div class="topbar">
 		<h3 class="element">NEW LISTINGS</h3>
 		<div class="pets_new">
 			{% if latestListings %}
@@ -25,31 +24,27 @@
 				{% endfor %}
 			{% endif %}
 		</div>
-		<br>
-		<h3>HOT POSTS</h3>
-		<div class="posts_column">
-
-			{%  if trendingPosts %}
-				{% for post in object_list %}
-					<div class="post">
-						<img src="{{ post.postImage.url }}" alt="Post Image" />
-
-						<div class="post_content">
-							<h3><a href="{% url 'pawbook:show_post' post.slug %}"> {{ post.postTitle }} </a> </h3>
-							<h4>By <a href="{% url 'pawbook:show_profile' post.poster.user.username %}">{{ post.poster.user.username }}</a> on {{ post.datePosted }}</h4>
-							<p>{{ post.postDescription  }}</p>
-							<div class="likes"><p>Likes: {{ post.likes.count }}, Dislikes: {{ post.dislikes }}</p></div>
-						</div>
-					</div>
-				{% endfor %}
-			{% endif %}
-
-		</div>
 	</div>
+{% endblock %}
 
-	<div class="spacer"></div>
+{% block body_block %}
+	<h3>HOT POSTS</h3>
+	<div class="posts_column">
 
+		{%  if trendingPosts %}
+			{% for post in object_list %}
+				<div class="post">
+					<img src="{{ post.postImage.url }}" alt="Post Image" />
 
+					<div class="post_content">
+						<h3><a href="{% url 'pawbook:show_post' post.slug %}"> {{ post.postTitle }} </a> </h3>
+						<h4>By <a href="{% url 'pawbook:show_profile' post.poster.user.username %}">{{ post.poster.user.username }}</a> on {{ post.datePosted }}</h4>
+						<p>{{ post.postDescription  }}</p>
+						<div class="likes"><p>Likes: {{ post.likes.count }}, Dislikes: {{ post.dislikes }}</p></div>
+					</div>
+				</div>
+			{% endfor %}
+		{% endif %}
 
-
+	</div>
 {% endblock %}

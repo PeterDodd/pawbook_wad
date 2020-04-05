@@ -7,6 +7,9 @@
             {% include 'pawbook/modules/PetInfoPanel.html' %}
         </div>
 
+        {% block topbar_block %}
+        {% endblock %}
+
         <div class="main-area">
             {% block body_block %}
             {% endblock %}

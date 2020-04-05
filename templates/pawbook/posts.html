@@ -9,8 +9,8 @@
 	<link rel="stylesheet" href="{% static 'css/home.css' %}" />
 {% endblock %}
 
-{% block body_block %}
-	<div class = "content_holder">
+{% block topbar_block %}
+	<div class="topbar">
 		<h3>TRENDING POSTS</h3>
 		<div class="pets_new">
 			{% if trending %}
@@ -24,6 +24,12 @@
 				{% endfor %}
 			{% endif %}
 		</div>
+	</div>
+{% endblock %}
+
+{% block body_block %}
+	<div class = "content_holder">
+
 		<br>
 		<h3>POSTS</h3>
 		<div class="posts_column">

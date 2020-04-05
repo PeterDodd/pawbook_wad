@@ -29,7 +29,7 @@
 	width: 100px;
 	opacity: 0;
 	transition: .5s ease;
-	background-image: radial-gradient(circle at center, rgb(250, 250, 250, .6) 0, rgb(250, 250, 250, .2));
+	background-image: radial-gradient(circle at center, rgba(90, 90, 90, 0.6) 0, rgba(219, 219, 219, 0.61));
 
 }
 
@@ -107,8 +107,9 @@
 }
 
 .post img {
-	max-height: 200px;
-	max-width: 300px;
+	width: 300px;
+	height: 200px;
+	object-fit: cover;
 	margin: 5px;
 }
 
