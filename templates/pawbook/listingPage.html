@@ -30,11 +30,24 @@
 					</div>
 
 					{% if user.is_authenticated %}
-						<form id = "request_button" method = "POST" action = "{% url 'pawbook:show_listing' listing.slug %}" enctype = "multipart/form-data">
+						<form id = "request_button" method = "POST" action = "{% url 'pawbook:show_listing' listing.slug%}" enctype = "multipart/form-data">
                 			{% csrf_token %}
                 			<input name = "request_button" type = "submit" class ="btn btn-primary" value = Request />
             			</form>
 					{% endif %}
+
+					<div class="main_comment_section">
+            			<h3>{{ requests.count}} Requests</h3>
+						{% for r in requests %}
+							<div class="post">
+            					<blockquote class ="blockquote">
+									<h5>{{ r.username }}</h5>
+									<button>Contact User</button>
+            					</blockquote>
+							</div>
+            			{% endfor %}
+        			</div>
+
 				</div>
             {% endif %}
 		</div>
