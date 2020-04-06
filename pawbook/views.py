@@ -266,6 +266,26 @@ def show_petPedia(request, name_slug):
     return render(request, "pawbook/petPediaPage.html", context = context_dict)
 
 
+@login_required
+def my_posts(request, name_slug):
+    context_dict = {}
+
+    userProfile = UserProfile.objects.get(slug = name_slug)
+    print(userProfile.firstName)
+
+    try:
+        context_dict["posts"] = Post.objects.filter(poster = userProfile)
+    except Post.DoesNotExist:
+        context_dict["posts"] = None
+
+    try:
+        context_dict["listings"] = Listing.objects.filter(poster = userProfile)
+    except Listing.DoesNotExist:
+        context_dict["listings"] = None
+
+    return render(request, "pawbook/myPosts.html", context = context_dict)
+
+
 def register(request):
     registered = False
 
