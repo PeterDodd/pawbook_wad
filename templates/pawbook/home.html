@@ -17,9 +17,13 @@
 				{% for pet in latestListings %}
 					<div class="pet_box">
 						<img src="{{ pet.petImage.url }}" alt="{{ pet.petName }}"/>
-						<a href="{% url 'pawbook:show_listing' pet.slug %}"><div class="pet_box_overlay">
-							<div class="pet_box_text"><h3>{{ pet.breed }}</h3><p>£{{ pet.cost }}</p></div>
-						</div></a>
+						<a href="{% url 'pawbook:show_listing' pet.slug %}">
+							<div class="pet_box_overlay">
+								<div class="pet_box_text">
+									<h3>{{ pet.breed }}</h3><p>£{{ pet.cost }}</p>
+								</div>
+							</div>
+						</a>
 					</div>
 				{% endfor %}
 			{% endif %}
@@ -30,7 +34,6 @@
 {% block body_block %}
 	<h3>HOT POSTS</h3>
 	<div class="posts_column">
-
 		{%  if trendingPosts %}
 			{% for post in object_list %}
 				<div class="post">
@@ -40,11 +43,12 @@
 						<h3><a href="{% url 'pawbook:show_post' post.slug %}"> {{ post.postTitle }} </a> </h3>
 						<h4>By <a href="{% url 'pawbook:show_profile' post.poster.slug %}">{{ post.poster.user.username }}</a> on {{ post.datePosted }}</h4>
 						<p>{{ post.postDescription  }}</p>
-						<div class="likes"><p>Likes: {{ post.likes.count }}, Dislikes: {{ post.dislikes.count }}</p></div>
+						<div class="likes">
+							<p>Likes: {{ post.likes.count }}, Dislikes: {{ post.dislikes.count }}</p>
+						</div>
 					</div>
 				</div>
 			{% endfor %}
 		{% endif %}
-
 	</div>
 {% endblock %}
