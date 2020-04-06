@@ -6,3 +6,8 @@ db.sqlite3
 *.key
 thumbs.db
 .idea
+media/listing_image
+media/petPedia_image
+media/post_image
+media/profile_image
+

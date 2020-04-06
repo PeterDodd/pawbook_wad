@@ -9,7 +9,7 @@ app_name = "pawbook"
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('requests/<slug:name_slug>/', views.requests, name = "show_requests"),
+    path("myPosts/<slug:name_slug>/", views.my_posts, name = "my_posts"),
 
     path('marketplace/', views.listings, name='marketplace'),
     path("marketplace/<slug:name_slug>/", views.show_listing, name = "show_listing"),

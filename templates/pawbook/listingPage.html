@@ -30,11 +30,31 @@
 					</div>
 
 					{% if user.is_authenticated %}
-						<form id = "request_button" method = "POST" action = "{% url 'pawbook:show_listing' listing.slug %}" enctype = "multipart/form-data">
-                			{% csrf_token %}
-                			<input name = "request_button" type = "submit" class ="btn btn-primary" value = Request />
-            			</form>
+						{% if user.userprofile == listing.poster %}
+							<form id = "confirm_sale" method = "POST" action = "{% url 'pawbook:show_listing' listing.slug%}" enctype = "multipart/form-data">
+            	    			{% csrf_token %}
+        	        			<input name = "sale" type = "submit" class ="btn btn-primary" value = "Confirm Sale (Delete Listing)" />
+    	        			</form>
+
+							<div class="main_comment_section">
+								<h3>{{ requests.count}} Requests</h3>
+								{% for r in requests %}
+									<div class="post">
+										<blockquote class ="blockquote">
+											<h5>{{ r.username }}</h5>
+											<p>Contact user: {{ r.email }}</p>
+										</blockquote>
+									</div>
+								{% endfor %}
+							</div>
+						{% else %}
+							<form id = "request_button" method = "POST" action = "{% url 'pawbook:show_listing' listing.slug%}" enctype = "multipart/form-data">
+            	    			{% csrf_token %}
+        	        			<input name = "request" type = "submit" class ="btn btn-primary" value = "Request" />
+    	        			</form>
+						{% endif %}
 					{% endif %}
+
 				</div>
             {% endif %}
 		</div>

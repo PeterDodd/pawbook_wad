@@ -6,7 +6,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.contrib import messages
 
-from pawbook.models import Post, Listing, PetPedia, UserProfile, Comment, Request
+from pawbook.models import Post, Listing, PetPedia, UserProfile, Comment
 from pawbook.forms import UserProfileForm, UserForm, PostForm, ListingForm, ContactForm, CommentForm
 
 from django.contrib.auth import authenticate, login, logout
@@ -36,7 +36,7 @@ def home(request):
 
     return render(request, "pawbook/home.html", context = {
         "trendingPosts": Post.objects.order_by("-likes")[:6],
-        "latestListings": Listing.objects.order_by("-datePosted")[:6],
+        "latestListings": Listing.objects.order_by("-datePosted")[:8],
         "allPosts": PetPedia.objects.all(),
         "object_list": queryset,
     })
@@ -209,19 +209,23 @@ def show_listing(request, name_slug):
         listing = Listing.objects.get(slug = name_slug)
         context_dict["listing"] = listing
 
+        if request.user.is_authenticated:
+            if request.user.userprofile == listing.poster:
+                context_dict["requests"] = listing.requests.all()
+
     except Listing.DoesNotExist:
         context_dict["listing"] = None
+        context_dict["requests"] = None
 
     if request.method == "POST":
-        listing = Listing.objects.get(slug=name_slug)
+        if "request" in request.POST:
+            userListing = Listing.objects.get(slug = name_slug)
+            userListing.requests.add(request.user)
 
-        newRequest = Request.objects.create(
-            seller = listing.poster.user,
-            buyer = request.user,
-            pet = listing,
-        )
-
-        newRequest.save()
+        elif "sale" in request.POST:
+            listing = Listing.objects.get(slug = name_slug)
+            listing.delete()
+            return redirect(reverse("pawbook:marketplace"))
 
     return render(request, "pawbook/listingPage.html", context = context_dict)
 
@@ -270,16 +274,23 @@ def show_petPedia(request, name_slug):
 
 
 @login_required
-def requests(request, name_slug):
+def my_posts(request, name_slug):
     context_dict = {}
 
+    userProfile = UserProfile.objects.get(slug = name_slug)
+    print(userProfile.firstName)
+
     try:
-        context_dict["requests"] = Request.objects.get(slug=name_slug)
+        context_dict["posts"] = Post.objects.filter(poster = userProfile)
+    except Post.DoesNotExist:
+        context_dict["posts"] = None
 
-    except Request.DoesNotExist:
-        context_dict["requests"] = None
+    try:
+        context_dict["listings"] = Listing.objects.filter(poster = userProfile)
+    except Listing.DoesNotExist:
+        context_dict["listings"] = None
 
-    return render(request, "pawbook/requests.html", context = context_dict)
+    return render(request, "pawbook/myPosts.html", context = context_dict)
 
 
 def register(request):

@@ -17,15 +17,14 @@ class UserProfile(models.Model):   # User model
     sellCount = models.IntegerField(default = 0, blank = True)
 
     profilePicture = models.ImageField(default = "profile_image/default.jpg", upload_to = "profile_image", blank = True, null = True)
-
-    def __str__(self):
-        return self.user.username
-
     slug = models.SlugField(unique = True, default = "")
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.user.username)
         super(UserProfile, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.user.username
 
 
 class Post(models.Model):           # Image posts model
@@ -34,6 +33,7 @@ class Post(models.Model):           # Image posts model
 
     postTitle = models.CharField(max_length = 128)
     postDescription = models.CharField(max_length = 300, default = "", blank = True)
+    postImage = models.ImageField(upload_to="post_image")
 
     likes = models.ManyToManyField(User, related_name = 'likes', blank = True)
     dislikes = models.ManyToManyField(User, related_name = "dislikes", blank = True)
@@ -44,13 +44,12 @@ class Post(models.Model):           # Image posts model
         self.slug = slugify(self.postTitle)
         super(Post, self).save(*args, **kwargs)
 
-    postImage = models.ImageField(upload_to = "post_image")
-
 
 class PetPedia(models.Model):       # Pet-O-Pedia model
     species = models.CharField(max_length=128)
     breed = models.CharField(max_length = 128)
     info = models.CharField(max_length = 128)
+    picture = models.ImageField(upload_to="petPedia_image", blank=True, null=True)
 
     slug = models.SlugField(unique = True, default = "")
 
@@ -58,18 +57,18 @@ class PetPedia(models.Model):       # Pet-O-Pedia model
         self.slug = slugify(self.breed)
         super(PetPedia, self).save(*args, **kwargs)
 
-    picture = models.ImageField(upload_to = "petPedia_image", blank = True, null = True)
-
 
 class Listing(models.Model):        # Listing model
     poster = models.ForeignKey(UserProfile, on_delete = models.CASCADE)
+    requests = models.ManyToManyField(User, related_name="requests", blank = True)
+
     datePosted = models.DateField(auto_now_add=True)
 
     breed = models.CharField(max_length = 128)
     petName = models.CharField(max_length = 128)
     description = models.CharField(max_length = 500, default = "", blank = True)
     petAge = models.IntegerField(default = 0)
-
+    petImage = models.ImageField(upload_to="listing_image")
     cost = models.IntegerField(default = 0)
 
     slug = models.SlugField(unique = True, default = "")
@@ -77,8 +76,6 @@ class Listing(models.Model):        # Listing model
     def save(self, *args, **kwargs):
         self.slug = slugify(self.petName)
         super(Listing, self).save(*args, **kwargs)
-
-    petImage = models.ImageField(upload_to = "listing_image")
 
 
 class Contact(models.Model):
@@ -105,19 +102,4 @@ class Comment(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.post.postTitle)
         super(Comment, self).save(*args, **kwargs)
-
-
-class Request(models.Model):
-    seller = models.OneToOneField(User, on_delete = models.CASCADE, related_name = "seller")
-    buyer = models.OneToOneField(User, on_delete = models.CASCADE, related_name = "buyer")
-    pet = models.OneToOneField(Listing, on_delete = models.CASCADE, related_name = "listing")
-
-    slug = models.SlugField(unique = False, default = "")
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.seller.userprofile.slug)
-        super(Request, self).save(*args, **kwargs)
-
-    accepted = models.BooleanField(default = False)
-    declined = models.BooleanField(default = False)
 
