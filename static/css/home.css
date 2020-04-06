@@ -2,8 +2,7 @@
 
 	display: flex;
 	flex-grow: 1;
-    max-height: 100px;
-    margin: 5px;
+	flex-wrap: wrap;
 	align-items: center;
 	justify-content: space-between;
 }
@@ -11,6 +10,7 @@
 
 .pet_box {
 	position: relative;
+	margin-top: 5px;
 	height: 100px;
 	width: 100px;
 	overflow: hidden;

@@ -1,9 +1,9 @@
 :root {
     --color-background: rgb(255, 252, 237);
-	--color2-background: rgb(255, 232, 134);
+	--color2-background: rgb(255, 247, 209);
     --color-main-accent: rgb(255, 230, 42);
     --color-main-contrast: rgb(255, 152, 49);
-    --color-element-background: rgba(244, 160, 0, 0.47);
+    --color-element-background: rgba(244, 160, 0, 0.15);
 	--color-main-block: rgba(250, 233, 135, 1);
 	--color-dark: rgb(39, 46, 51);
 	--color-dark2: rgba(55, 65, 71, .7);
@@ -260,7 +260,7 @@ main.wrapper {
 
 .wrapper > * {
     background-color: var(--color-element-background);
-    border-radius: 15px;
+    border-radius: 3px;
     margin: 5px;
     padding: 1em;
 }
