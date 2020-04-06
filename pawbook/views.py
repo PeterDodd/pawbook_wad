@@ -209,8 +209,9 @@ def show_listing(request, name_slug):
         listing = Listing.objects.get(slug = name_slug)
         context_dict["listing"] = listing
 
-        if request.user.userprofile == listing.poster:
-            context_dict["requests"] = listing.requests.all()
+        if request.user.is_authenticated:
+            if request.user.userprofile == listing.poster:
+                context_dict["requests"] = listing.requests.all()
 
     except Listing.DoesNotExist:
         context_dict["listing"] = None
