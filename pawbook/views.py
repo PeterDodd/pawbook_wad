@@ -97,7 +97,8 @@ def posts(request):
 
 def show_post(request, name_slug):
     context_dict = {
-        "comment_form": CommentForm()
+        "comment_form": CommentForm(),
+        "allPosts": PetPedia.objects.all()
     }
 
     try:
@@ -201,8 +202,10 @@ def listings(request):
 
 
 def show_listing(request, name_slug):
-    context_dict = {}
-
+    context_dict = {
+        "allPosts": PetPedia.objects.all()
+    }
+    
     try:
         listing = Listing.objects.get(slug = name_slug)
         context_dict["listing"] = listing
