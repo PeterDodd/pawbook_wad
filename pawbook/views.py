@@ -217,8 +217,14 @@ def show_listing(request, name_slug):
         context_dict["requests"] = None
 
     if request.method == "POST":
-        userListing = Listing.objects.get(slug = name_slug)
-        userListing.requests.add(request.user)
+        if "request" in request.POST:
+            userListing = Listing.objects.get(slug = name_slug)
+            userListing.requests.add(request.user)
+
+        elif "sale" in request.POST:
+            listing = Listing.objects.get(slug = name_slug)
+            listing.delete()
+            return redirect(reverse("pawbook:marketplace"))
 
     return render(request, "pawbook/listingPage.html", context = context_dict)
 
