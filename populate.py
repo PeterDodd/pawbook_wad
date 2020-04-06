@@ -118,6 +118,7 @@ def add_user(username, firstName, lastName, bio, location):
         sellCount = random.randint(0, 50)
     )[0]
 
+    newUserProfile.profilePicture.save("default", ImageFile(open(settings.MEDIA_ROOT + "/population/default.jpg", 'rb')))
     newUserProfile.save()
 
     return newUserProfile
@@ -131,7 +132,7 @@ def add_pet(species, breed, info, image):
         info = info
     )[0]
 
-    newPage.picture.save(image, ImageFile(open(settings.MEDIA_ROOT + "/petPedia_image/" + image, 'rb')))
+    newPage.picture.save(image, ImageFile(open(settings.MEDIA_ROOT + "/population/" + image, 'rb')))
 
     return newPage
 
@@ -150,7 +151,7 @@ def add_post(allUsers, title, description, image, comments):
     for i in range(0, random.randint(0, 3)):
         newPost.dislikes.add(random.choice(allUsers).user)
 
-    newPost.postImage.save(image, ImageFile(open(settings.MEDIA_ROOT + "/post_image/" + image, 'rb')))
+    newPost.postImage.save(image, ImageFile(open(settings.MEDIA_ROOT + "/population/" + image, 'rb')))
 
     for i in range(0, random.randint(0, 10)):
         randomUser = random.choice(allUsers)
@@ -177,7 +178,7 @@ def add_listing(allUsers, breed, name, description, image):
         cost = random.randint(0, 150),
     )[0]
 
-    newListing.petImage.save(image, ImageFile(open(settings.MEDIA_ROOT + "/listing_image/" + image, 'rb')))
+    newListing.petImage.save(image, ImageFile(open(settings.MEDIA_ROOT + "/population/" + image, 'rb')))
 
     return newListing
 
