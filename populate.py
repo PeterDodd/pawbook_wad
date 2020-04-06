@@ -7,6 +7,7 @@ from pawbook.models import Post, Listing, UserProfile, PetPedia, Comment
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.files.images import ImageFile
+from django.template.defaultfilters import slugify
 
 
 # Populates the database for testing
@@ -114,9 +115,9 @@ def add_user(username, firstName, lastName, bio, location):
         lastName = lastName,
         bio = bio,
         location = location,
-        age = random.randint(0, 80),
-        sellCount = random.randint(0, 50)
     )[0]
+    newUserProfile.age = random.randint(5, 80)
+    newUserProfile.sellCount = random.randint(0, 50)
 
     newUserProfile.save()
 
@@ -139,10 +140,10 @@ def add_pet(species, breed, info, image):
 def add_post(allUsers, title, description, image, comments):
     print("New post: " + title)
     newPost = Post.objects.get_or_create(
-        poster = random.choice(allUsers),
         postTitle = title,
         postDescription = description,
     )[0]
+    newPost.poster = random.choice(allUsers)
 
     for i in range(0, random.randint(0, 5)):
         newPost.likes.add(random.choice(allUsers).user)
@@ -169,13 +170,15 @@ def add_post(allUsers, title, description, image, comments):
 def add_listing(allUsers, breed, name, description, image):
     print("New listing: " + name)
     newListing = Listing.objects.get_or_create(
-        poster = random.choice(allUsers),
         breed = breed,
         petName = name,
         description = description,
-        petAge = random.randint(0, 10),
-        cost = random.randint(0, 150),
+        slug = slugify(name),
     )[0]
+
+    newListing.poster = random.choice(allUsers)
+    newListing.petAge = random.randint(0, 10)
+    newListing.cost = random.randint(0, 150)
 
     newListing.petImage.save(image, ImageFile(open(settings.MEDIA_ROOT + "/listing_image/" + image, 'rb')))
 
