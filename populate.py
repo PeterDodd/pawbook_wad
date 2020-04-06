@@ -141,10 +141,11 @@ def add_pet(species, breed, info, image):
 def add_post(allUsers, title, description, image, comments):
     print("New post: " + title)
     newPost = Post.objects.get_or_create(
+        poster=random.choice(allUsers),
         postTitle = title,
-        postDescription = description,
+        postDescription = description
+
     )[0]
-    newPost.poster = random.choice(allUsers)
 
     for i in range(0, random.randint(0, 5)):
         newPost.likes.add(random.choice(allUsers).user)
@@ -174,12 +175,15 @@ def add_listing(allUsers, breed, name, description, image):
         breed = breed,
         petName = name,
         description = description,
-        slug = slugify(name),
+        poster=random.choice(allUsers),
+        petAge=random.randint(0, 10),
+        cost=random.randint(0, 150)
+        # slug = slugify(name),
     )[0]
 
-    newListing.poster = random.choice(allUsers)
-    newListing.petAge = random.randint(0, 10)
-    newListing.cost = random.randint(0, 150)
+    #newListing.poster = random.choice(allUsers)
+    #newListing.petAge = random.randint(0, 10)
+    #newListing.cost = random.randint(0, 150)
     newListing.petImage.save(image, ImageFile(open(settings.MEDIA_ROOT + "/population/" + image, 'rb')))
 
     return newListing
