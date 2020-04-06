@@ -205,7 +205,7 @@ def show_listing(request, name_slug):
     context_dict = {
         "allPosts": PetPedia.objects.all()
     }
-    
+
     try:
         listing = Listing.objects.get(slug = name_slug)
         context_dict["listing"] = listing
@@ -223,7 +223,13 @@ def show_listing(request, name_slug):
             Listing.objects.get(slug = name_slug).requests.add(request.user)
 
         elif "sale" in request.POST:
-            Listing.objects.get(slug = name_slug).delete()
+            listing = Listing.objects.get(slug = name_slug)
+            profile = listing.poster
+
+            profile.sellCount += 1
+
+            listing.delete()
+            profile.save()
 
             return redirect(reverse("pawbook:marketplace"))
 

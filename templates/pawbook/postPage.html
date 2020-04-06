@@ -42,7 +42,7 @@
             {% endif %}
 			<br />
 
-			{% if user.is_authenticated %}
+			{% if user.is_authenticated and user.userprofile != post.poster %}
 			<form id = "like_button" method = "POST" action = "{% url 'pawbook:show_post' post.slug %}" enctype = "multipart/form-data">
                 {% csrf_token %}
                 <input name = "like" type = "submit" class ="btn btn-primary" value = Like />
