@@ -5,29 +5,27 @@
 	{{ userProfile.user.username }}
 {% endblock %}
 
-
 {% block css_block %}
 	<link rel="stylesheet" href="{% static 'css/home.css' %}" />
 {% endblock %}
-
 
 {% block body_block %}
 	<div class = "content_holder">
 		<div class="posts_column">
 			<h2>{{ userProfile.user.username }}</h2>
-
 			<div class="post">
 				<img src="{{ userProfile.profilePicture.url }}" alt="Profile Picture" />
 				<div class="post_content">
-				<p>
-					Name: {{ userProfile.firstName }} {{ userProfile.lastName }} <br />
-					Location: {{ userProfile.location }} <br />
-					Age: {{ userProfile.age }} <br />
-					Pets sold: {{ userProfile.sellCount }} <br />
-					Bio: {{ userProfile.bio }} <br />
-					<br />
-				</p>
+					<p>
+						Name: {{ userProfile.firstName }} {{ userProfile.lastName }} <br />
+						Location: {{ userProfile.location }} <br />
+						Age: {{ userProfile.age }} <br />
+						Pets sold: {{ userProfile.sellCount }} <br />
+						Bio: {{ userProfile.bio }} <br />
+						<br />
+					</p>
 				</div>
+
 				{% if userProfile.user == request.user %}
 					<a href="{% url 'pawbook:editProfile' userProfile.slug %}">EDIT PROFILE</a>
 				{% endif %}

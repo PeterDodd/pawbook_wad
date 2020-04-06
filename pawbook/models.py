@@ -6,7 +6,6 @@ from PIL import Image
 
 class UserProfile(models.Model):   # User model
     user = models.OneToOneField(User, on_delete = models.CASCADE)   # Link UserProfile to User model instance
-    dateJoined = models.DateField(auto_now_add = True)
 
     firstName = models.CharField(max_length = 32, default = "", blank = True)
     lastName = models.CharField(max_length=32, default="", blank = True)
@@ -17,6 +16,8 @@ class UserProfile(models.Model):   # User model
     sellCount = models.IntegerField(default = 0, blank = True)
 
     profilePicture = models.ImageField(default = "profile_image/default.jpg", upload_to = "profile_image", blank = True, null = True)
+
+    dateJoined = models.DateField(auto_now_add=True)
     slug = models.SlugField(unique = True, default = "")
 
     def save(self, *args, **kwargs):
@@ -29,7 +30,6 @@ class UserProfile(models.Model):   # User model
 
 class Post(models.Model):           # Image posts model
     poster = models.ForeignKey(UserProfile, on_delete = models.CASCADE)     # Foreign key for user profile
-    datePosted = models.DateField(auto_now_add = True)
 
     postTitle = models.CharField(max_length = 128)
     postDescription = models.CharField(max_length = 300, default = "", blank = True)
@@ -38,6 +38,7 @@ class Post(models.Model):           # Image posts model
     likes = models.ManyToManyField(User, related_name = 'likes', blank = True)
     dislikes = models.ManyToManyField(User, related_name = "dislikes", blank = True)
 
+    datePosted = models.DateField(auto_now_add=True)
     slug = models.SlugField(default = "")
 
     def save(self, *args, **kwargs):
@@ -62,15 +63,15 @@ class Listing(models.Model):        # Listing model
     poster = models.ForeignKey(UserProfile, on_delete = models.CASCADE)
     requests = models.ManyToManyField(User, related_name="requests", blank = True)
 
-    datePosted = models.DateField(auto_now_add=True)
-
     breed = models.CharField(max_length = 128)
     petName = models.CharField(max_length = 128)
     description = models.CharField(max_length = 500, default = "", blank = True)
-    petAge = models.IntegerField(default = 0)
     petImage = models.ImageField(upload_to="listing_image")
+
+    petAge = models.IntegerField(default=0)
     cost = models.IntegerField(default = 0)
 
+    datePosted = models.DateField(auto_now_add=True)
     slug = models.SlugField(unique = True, default = "")
 
     def save(self, *args, **kwargs):
@@ -91,6 +92,7 @@ class Contact(models.Model):
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete = models.CASCADE, related_name = 'comment')
     user = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'comment')
+
     content = models.TextField(max_length=160)
     timestamp = models.DateTimeField(auto_now_add=True)
 

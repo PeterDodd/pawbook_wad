@@ -12,6 +12,7 @@
 	<h2>REGISTER</h2>
 	{% if registered %}
 		Thank you for registering with Pawbook
+
 	{% else %}
 	<div class="content_holder">
 		<form id="user_form" method="post" action="{% url 'pawbook:register' %}" enctype="multipart/form-data">

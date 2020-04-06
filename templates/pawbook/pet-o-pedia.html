@@ -10,23 +10,23 @@
 {% endblock %}
 
 {% block body_block %}
-		<div class = "content_holder">
-			<div class="posts_column">
-			<h3>PET-o-PEDIA</h3>
+	<div class = "content_holder">
+		<div class="posts_column">
+		<h3>PET-o-PEDIA</h3>
 
-			{%  if allPosts %}
-				{% for post in object_list %}
-					<div class="post">
-						<img src="{{ post.picture.url }}" alt="Post Image" />
+		{%  if allPosts %}
+			{% for post in object_list %}
+				<div class="post">
+					<img src="{{ post.picture.url }}" alt="Post Image" />
 
-						<div class="post_content">
-							<h2><a href="{% url 'pawbook:show_petPedia' post.slug %}">{{ post.breed }}</a></h2>
-							<h4>{{ post.species }}</h4>
-							<p>{{ post.info  }}</p>
-						</div>
+					<div class="post_content">
+						<h2><a href="{% url 'pawbook:show_petPedia' post.slug %}">{{ post.breed }}</a></h2>
+						<h4>{{ post.species }}</h4>
+						<p>{{ post.info  }}</p>
 					</div>
-				{% endfor %}
-			{% endif %}
-			</div>
+				</div>
+			{% endfor %}
+		{% endif %}
 		</div>
+	</div>
 {% endblock %}

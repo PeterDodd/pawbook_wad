@@ -5,15 +5,12 @@
     {{ user.username }}'s Posts
 {% endblock %}
 
-
 {% block css_block %}
 	<link rel="stylesheet" href="{% static 'css/home.css' %}" />
 {% endblock %}
 
-
 {% block body_block %}
     <div class = "sub_holder">
-
         <div class = "content_holder">
             <h3>POSTS</h3>
             <div class="posts_column">
@@ -25,7 +22,9 @@
                             <h3><a href="{% url 'pawbook:show_post' post.slug %}"> {{ post.postTitle }} </a> </h3>
                             <h4>By <a href="{% url 'pawbook:show_profile' post.poster.slug %}">{{ post.poster.user.username }}</a> on {{ post.datePosted }}</h4>
                             <p>{{ post.postDescription  }}</p>
-                            <div class="likes"><p>Likes: {{ post.likes.count }}, Dislikes: {{ post.dislikes.count }}</p></div>
+                            <div class="likes">
+                                <p>Likes: {{ post.likes.count }}, Dislikes: {{ post.dislikes.count }}</p>
+                            </div>
                         </div>
                     </div>
                 {% endfor %}
@@ -48,6 +47,5 @@
                 {% endfor %}
             </div>
         </div>
-
     </div>
 {% endblock %}

@@ -23,3 +23,4 @@ admin.site.register(PetPedia, PetPediaAdmin)
 admin.site.register(Listing, ListingAdmin)
 admin.site.register(Contact)
 admin.site.register(Comment)
+

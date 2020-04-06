@@ -6,8 +6,8 @@ db.sqlite3
 *.key
 thumbs.db
 .idea
-media/listing_image
-media/petPedia_image
-media/post_image
-media/profile_image
+listing_image/
+petPedia_image/
+post_image/
+profile_image/
 

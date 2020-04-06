@@ -2,13 +2,11 @@
 {% load staticfiles %}
 
 {% block title_block %}
-
     {% if listing %}
         {{ listing.petName }}
     {% else %}
 	    Home
     {% endif %}
-
 {% endblock %}
 
 {% block css_block %}
@@ -17,7 +15,6 @@
 
 {% block body_block %}
     <div class="content_holder">
-
 		<div class="pet_info_column">
             {% if listing %}
 				<h3>{{ listing.petName }} - {{ listing.age }} Years Old - £{{ listing.cost }}</h3>
@@ -54,10 +51,8 @@
     	        			</form>
 						{% endif %}
 					{% endif %}
-
 				</div>
             {% endif %}
 		</div>
-
     </div>
 {% endblock %}
