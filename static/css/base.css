@@ -235,7 +235,12 @@ main.wrapper {
     .wrapper {
         min-width: 0;
     }
-    
+
+    header {
+        overflow-x: scroll;
+        overflow-y: hidden;
+    }
+
 }
 
 .sidebar-r {

@@ -37,7 +37,6 @@ def home(request):
     return render(request, "pawbook/home.html", context = {
         "trendingPosts": Post.objects.order_by("-likes")[:6],
         "latestListings": Listing.objects.order_by("-datePosted")[:8],
-        "allPosts": PetPedia.objects.all(),
         "object_list": queryset,
     })
 
@@ -53,7 +52,7 @@ def posts(request):
             Q(postDescription__icontains=query) |
             Q(poster__user__username__icontains=query)).distinct()
 
-    paginator = Paginator(queryset_list, 2)
+    paginator = Paginator(queryset_list, 4)
     page = request.GET.get('page')
 
     try:
@@ -89,7 +88,6 @@ def posts(request):
     return render(request, "pawbook/posts.html", context = {
         "newest_posts": Post.objects.order_by("-datePosted"),
         "trending": Post.objects.order_by("-likes")[:6],
-        "allPosts": PetPedia.objects.all(),
         "object_list": queryset,
         "postForm": form,
     })
@@ -158,7 +156,7 @@ def listings(request):
             Q(cost__icontains=query) |
             Q(poster__user__username__icontains=query)).distinct()
 
-    paginator = Paginator(queryset_list, 2)
+    paginator = Paginator(queryset_list, 4)
     page = request.GET.get('page')
 
     try:
@@ -196,7 +194,6 @@ def listings(request):
 
     return render(request, "pawbook/marketplace.html", context = {
         "newest_listings": Listing.objects.all(),
-        "allPosts": PetPedia.objects.all(),
         "object_list": queryset,
         "listingForm": form,
     })
@@ -240,7 +237,7 @@ def pet_pedia(request):
             Q(breed__icontains=query) |
             Q(info__icontains=query)).distinct()
 
-    paginator = Paginator(queryset_list, 2)
+    paginator = Paginator(queryset_list, 4)
     page = request.GET.get('page')
 
     try:
@@ -260,7 +257,6 @@ def pet_pedia(request):
 
 def show_petPedia(request, name_slug):
     context_dict = {
-        "allPosts": PetPedia.objects.all(),
     }
 
     try:

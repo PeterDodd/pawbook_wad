@@ -1,4 +1,5 @@
 from pawbook.tests.test_main import *
+from django.urls import reverse
 
 
 class CheckValidRegistration(TestCase):
