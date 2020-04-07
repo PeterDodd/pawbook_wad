@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
 from django.db.models import Q
+from django.views import View
+from django.utils.decorators import method_decorator
 
 
 def home(request):
@@ -36,7 +38,7 @@ def home(request):
 
     return render(request, "pawbook/home.html", context = {
         "trendingPosts": Post.objects.order_by("-likes")[:6],
-        "latestListings": Listing.objects.order_by("-datePosted")[:6],
+        "latestListings": Listing.objects.order_by("-datePosted")[:8],
         "object_list": queryset,
     })
 
@@ -76,11 +78,22 @@ def posts(request):
                 postImage = form.cleaned_data.get("postImage")
             )
             newPost.save()
-            return redirect("/pawbook/posts/")
+            return render(request, "pawbook/posts.html", context={
+                "result": "Post successfully uploaded",
+                "newest_posts": Post.objects.order_by("-datePosted"),
+                "trending": Post.objects.order_by("-likes")[:6],
+                "object_list": queryset,
+                "postForm": form,
+            })
 
         else:
             print(form.errors)
-            return redirect("/pawbook/")
+            return render(request, "pawbook/posts.html", context={
+                "newest_posts": Post.objects.order_by("-datePosted"),
+                "trending": Post.objects.order_by("-likes")[:6],
+                "object_list": queryset,
+                "postForm": form,
+            })
 
     else:
         form = PostForm()
@@ -182,11 +195,21 @@ def listings(request):
                 petImage = form.cleaned_data.get("petImage")
             )
             newPost.save()
-            return redirect("/pawbook/marketplace/")
+            return render(request, "pawbook/marketplace.html", context = {
+                "result": "Listing successfully uploaded",
+                "newest_listings": Listing.objects.all(),
+                "object_list": queryset,
+                "listingForm": form,
+            })
 
         else:
             print(form.errors)
-            return redirect("/pawbook/")
+            return render(request, "pawbook/marketplace.html", context = {
+                "error": "Please try again",
+                "newest_listings": Listing.objects.all(),
+                "object_list": queryset,
+                "listingForm": form,
+            })
 
     else:
         form = ListingForm()
@@ -218,6 +241,7 @@ def show_listing(request, name_slug):
     if request.method == "POST":
         if "request" in request.POST:
             Listing.objects.get(slug = name_slug).requests.add(request.user)
+            context_dict["result"] = "Seller notified"
 
         elif "sale" in request.POST:
             listing = Listing.objects.get(slug = name_slug)
@@ -349,7 +373,7 @@ def userLogin(request):
         else:
             print(user)
             print("Invalid login details: {username}, {password}".format(username=username, password=password))
-            return HttpResponse("Invalid login details supplied.")
+            return render(request, "pawbook/login.html", context = {"error": "Invalid Login Details"})
 
     else:
         return render(request, "pawbook/login.html")
@@ -428,3 +452,23 @@ def contact(request):
 
     return render(request, "pawbook/contact.html", {'form':form})
 
+
+class LikePostView(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        name_slug = request.GET['name_slug']
+
+        post = Post.objects.get(slug=name_slug)
+        post.likes.add(request.user)
+        print(post.likes.count)
+        return HttpResponse(post.likes.count())
+
+
+class DislikePostView(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        name_slug = request.GET['name_slug']
+
+        post = Post.objects.get(slug=name_slug)
+        post.dislikes.add(request.user)
+        return HttpResponse(post.dislikes.count())

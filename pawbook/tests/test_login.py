@@ -10,7 +10,8 @@ class CheckLoginAndLogoutFunctionality(TestCase):
         self.assertTrue(register_and_login())
 
 
-    # def test_login_with_incorrect_details(self):
+    def test_login_with_incorrect_details(self):
+        pass
 
 
     def test_logout(self):

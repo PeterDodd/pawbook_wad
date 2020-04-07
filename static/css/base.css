@@ -77,7 +77,6 @@ img {
 input {
     padding: 7px;
     font-size: 15px;
-    min-width: 215px;
     border: 1px solid var(--color-border);
 }
 
@@ -88,7 +87,18 @@ form {
 
 form input {
 	margin-top: 10px;
-	
+}
+
+#submit:hover ,#like_submit:hover ,#dislike_submit:hover {
+	background-color: var(--color-main-contrast);
+	cursor: pointer;
+	color: white;
+}
+
+#like_submit:hover {
+	background-color: var(--color-main-contrast);
+	cursor: pointer;
+	color: white;
 }
 
 a {
@@ -98,6 +108,10 @@ a {
 
 a:hover * {
     color: white;
+}
+
+a:hover {
+    color: var(--color-dark2);
 }
 
 header,
@@ -159,8 +173,8 @@ navbar img.profile_image {
     padding: 0;
     border: 1px solid var(--color-border);
     display: inline-block;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     object-fit: cover;
     margin-right: 10px;
     box-sizing: border-box;
@@ -213,7 +227,7 @@ main.wrapper {
 
 .col-3 {
     display: grid;
-    grid-template-columns: minmax(200px, 1fr) 5fr minmax(200px, auto);
+    grid-template-columns: minmax(200px, 1.5fr) 5fr minmax(200px, 2fr);
     grid-template-rows: auto 1fr;
     grid-template-areas:
         "l t s"
@@ -283,3 +297,15 @@ main.wrapper {
 	border: 1px solid var(--color-border);
 }
 
+#login_form {
+	width: 250px;
+}
+
+.error {
+	color: red;
+}
+
+#row {
+	display: flex;
+	flex-direction: row;
+}
