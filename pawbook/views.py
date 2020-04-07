@@ -461,7 +461,7 @@ class LikePostView(View):
         post = Post.objects.get(slug=name_slug)
         post.likes.add(request.user)
         print(post.likes.count)
-        return HttpResponse(post.likes.count)
+        return HttpResponse(post.likes.count())
 
 
 class DislikePostView(View):
@@ -471,4 +471,4 @@ class DislikePostView(View):
 
         post = Post.objects.get(slug=name_slug)
         post.dislikes.add(request.user)
-        return HttpResponse(post.dislikes.count)
+        return HttpResponse(post.dislikes.count())
