@@ -2,7 +2,7 @@
 <div class="back-wrap">
     <form method ='GET' action="">
         <input id="top" type = 'text' name="query" placeholder ='SEARCH POSTS' value ='{{request.GET.query}}'/>
-        <input type ='submit' value = 'GO' />
+        <input id="submit" type ='submit' value = 'GO' />
     </form>
 </div>
 <br>
@@ -47,7 +47,7 @@
                 <p>{{ pfield.help_text }}</p>
                 {{ pfield }}
             {% endfor %}
-            <input type="submit" name="submitForm" value="POST" />
+            <input type="submit" name="submitForm" value="POST" id="submit" />
         </form>
     </div>
     {% elif request.path == "/pawbook/marketplace/" %}
@@ -65,7 +65,7 @@
                 <p>{{ lfield.help_text }}</p>
                 {{ lfield }}
             {% endfor %}
-            <input type="submit" name="submitListing" value="POST" />
+            <input type="submit" name="submitListing" value="POST" id="submit" />
         </form>
     </div>
     {% endif %}

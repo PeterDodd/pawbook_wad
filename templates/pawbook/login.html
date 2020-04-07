@@ -14,9 +14,10 @@
 	<div class="content_holder">
 		<form id="login_form" method="post" action="{% url 'pawbook:login' %}">
 			{% csrf_token %}
-			Username: <input type="text" name="username" value="" size = 50 />
-			Password: <input type="password" name="password" value="" size = 50 />
-			<input type="submit" value="Login" />
+			<input type="text" name="username" placeholder="USERNAME" value="" size = 50 />
+			<input type="password" name="password" placeholder="PASSWORD" value="" size = 50 />
+			<input type="submit" id="submit" value="LOGIN" />
 		</form>
+		<p class="error">{{ error }}</p>
 	</div>
 {% endblock %}

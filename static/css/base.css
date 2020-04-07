@@ -87,7 +87,12 @@ form {
 
 form input {
 	margin-top: 10px;
-	
+}
+
+#submit:hover {
+	background-color: var(--color-main-contrast);
+	cursor: pointer;
+	color: white;
 }
 
 a {
@@ -97,6 +102,10 @@ a {
 
 a:hover * {
     color: white;
+}
+
+a:hover {
+    color: var(--color-dark2);
 }
 
 header,
@@ -282,3 +291,10 @@ main.wrapper {
 	border: 1px solid var(--color-border);
 }
 
+#login_form {
+	width: 250px;
+}
+
+.error {
+	color: red;
+}

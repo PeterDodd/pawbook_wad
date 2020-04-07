@@ -15,7 +15,7 @@
 		<h3>LISTINGS</h3>
 		{%  if newest_listings %}
 			{% for listing in object_list %}
-				<div class="post">
+				<div class="post" id="post_link">
 					<img src="{{ listing.petImage.url }}" alt="Listing Image" />
 
 					<div class="post_content">

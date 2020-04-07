@@ -104,7 +104,7 @@
 }
 
 #post_link:hover {
-	box-shadow: 0px 0px 10px rgba(30, 30, 30, .4);
+	box-shadow: 0px 0px 10px rgba(30, 30, 30, .2);
 }
 
 .post img {

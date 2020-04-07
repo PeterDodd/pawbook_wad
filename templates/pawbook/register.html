@@ -11,16 +11,24 @@
 {% block body_block %}
 	<h2>REGISTER</h2>
 	{% if registered %}
-		Thank you for registering with Pawbook
+		<p>Thank you for registering with Pawbook. <a href="pawbook/">Click here</a> to go to home.</p>
 
 	{% else %}
+	<p>Required fields marked with (*)</p>
 	<div class="content_holder">
-		<form id="user_form" method="post" action="{% url 'pawbook:register' %}" enctype="multipart/form-data">
+		<form id="login_form" method="post" action="{% url 'pawbook:register' %}" enctype="multipart/form-data" >
 			{% csrf_token %}
-			{{ userForm.as_p }}
-			<h3>Optional:</h3>
-			{{ profileForm.as_p }}
-			<input type="submit" name="submit" value="Register" />
+			<input type="text" name="username" placeholder="USERNAME*" value=""/>
+			<input type="email" name="email" placeholder="EMAIL*" value="" />
+			<input type="password" name="password" placeholder="PASSWORD*" value=""  />
+			<br>
+			<input type="text" name="firstName" placeholder="FIRST NAME" value=""  />
+			<input type="text" name="lastName" placeholder="LAST NAME" value=""/>
+			<input type="number" name="age" placeholder="AGE" value=""/>
+			<input type="text" name="bio" placeholder="BIO" value=""  />
+			<input type="text" name="location" placeholder="LOCATION" value="" />
+			<input type="file" name="profilePicture"/>
+			<input type="submit" name="submit" id="submit" value="REGISTER"/>
 		</form>
 	</div>
 	{% endif %}

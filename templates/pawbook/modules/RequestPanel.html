@@ -5,7 +5,7 @@
 		<p>Request to purchase animal from seller.</p>
 		<form id = "request_button" method = "POST" action = "{% url 'pawbook:show_listing' listing.slug %}" enctype = "multipart/form-data">
 			{% csrf_token %}
-			<input name = "request" type = "submit" class ="btn btn-primary" value = "REQUEST" />
+			<input name = "request" type = "submit" class ="btn btn-primary" value = "REQUEST"  id="submit" />
 		</form>
 	</div>
 	{% elif user.userprofile == listing.poster %}
@@ -14,7 +14,7 @@
 		<p>Close the listing if sale complete.</p>
 		<form id = "confirm_sale" method = "POST" action = "{% url 'pawbook:show_listing' listing.slug%}" enctype = "multipart/form-data">
 			{% csrf_token %}
-			<input name = "sale" type = "submit" class ="btn btn-primary" value = "CONFIRM SALE" />
+			<input name = "sale" type = "submit" class ="btn btn-primary" value = "CONFIRM SALE"  id="submit" />
 		</form>
 	</div>
 	{% endif %}

@@ -349,7 +349,7 @@ def userLogin(request):
         else:
             print(user)
             print("Invalid login details: {username}, {password}".format(username=username, password=password))
-            return HttpResponse("Invalid login details supplied.")
+            return render(request, "pawbook/login.html", context = {"error": "Invalid Login Details"})
 
     else:
         return render(request, "pawbook/login.html")
