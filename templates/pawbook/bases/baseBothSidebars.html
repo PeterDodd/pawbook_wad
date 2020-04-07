@@ -6,6 +6,10 @@
     <main class="wrapper col-3">
         <div class="sidebar-l">
             {% get_pet_info_links %}
+			<br>
+			{% if listing and request.path != 'pawbook/marketplace/' %}
+				{% include 'pawbook/modules/RequestPanel.html' %}	
+			{% endif %}
         </div>
 
         {% block topbar_block %}

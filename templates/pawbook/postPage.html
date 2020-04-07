@@ -2,16 +2,20 @@
 {% load staticfiles %}
 
 {% block title_block %}
+
 	{% if post %}
         {{ post.postTitle }}
     {% else %}
         Home
     {% endif %}
+
 {% endblock %}
+
 
 {% block css_block %}
 	<link rel="stylesheet" href="{% static 'css/home.css' %}" />
 {% endblock %}
+
 
 {% block body_block %}
     <div class="content_holder">
@@ -25,32 +29,35 @@
 						<h4>By <a href="{% url 'pawbook:show_profile' post.poster.slug %}">{{ post.poster.user.username }}</a> on {{ post.datePosted }}</h4>
 						<p>{{ post.postDescription  }}</p>
 						<br>
-						<div>
-							<p>
-								Likes: {{ post.likes.count }}
-								Dislikes: {{ post.dislikes.count }}
-								<a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">Facebook</a>
-								<a href='https://plus.google.com/share?url={{ request.build_absolute_uri }}'>Google+</a>
-							</p>
+						<div class="like_bar">							
+							<div>							
+								<p>
+									Likes: {{ post.likes.count }}
+									Dislikes: {{ post.dislikes.count }}
+									<a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">Facebook</a>
+									<a href='https://plus.google.com/share?url={{ request.build_absolute_uri }}'>Google+</a>
+								</p>
+							</div>
+							{% if user.is_authenticated %}
+								<div>
+									<form id = "like_button" method = "POST" action = "{% url 'pawbook:show_post' post.slug %}" enctype = "multipart/form-data">
+										{% csrf_token %}
+										<input name = "like" type = "submit" class ="btn btn-primary" value ="LIKE" />
+									</form>
+								</div>
+								<div>
+									<form id = "dislike_button" method = "POST" action = "{% url 'pawbook:show_post' post.slug %}" enctype = multipart/form-data>
+										{% csrf_token %}
+										<input name = "dislike" type = "submit" class ="btn btn-primary" value ="DISLIKE" />
+									</form>
+								</div>
+							{% endif %}
 						</div>
 					</div>
 				</div>
             {% endif %}
-			<br />
-
-			{% if user.is_authenticated and user.userprofile != post.poster %}
-			<form id = "like_button" method = "POST" action = "{% url 'pawbook:show_post' post.slug %}" enctype = "multipart/form-data">
-                {% csrf_token %}
-                <input name = "like" type = "submit" class ="btn btn-primary" value = Like />
-            </form>
-
-			<form id = "dislike_button" method = "POST" action = "{% url 'pawbook:show_post' post.slug %}" enctype = multipart/form-data>
-				{% csrf_token %}
-                <input name = "dislike" type = "submit" class ="btn btn-primary" value = Dislike />
-			</form>
-
-			<br>
-
+			
+			{% if user.is_authenticated %}
 			<h3>LEAVE A COMMENT</h3>
             <form id = "comment_form" method="POST" action = "{% url 'pawbook:show_post' post.slug %}" enctype = "multipart/form-data">
                 {% csrf_token %}
@@ -58,24 +65,31 @@
 					{{ field }}
 				{% endfor %}
 
-                <input name = "comment" type = "submit" value = "Submit" />
+                <input name = "comment" type = "submit" value = "SUBMIT" />
             </form>
 			{% endif %}
 
             <br><br>
 
-    		<div class="main_comment_section">
-            	<h3>{{ comments.count }} Comment{{comments|pluralize}}</h3>
-            	{% for comment in comments %}
-					<div class="post">
-            			<blockquote class ="blockquote">
-							<h2>{{ comment.user |capfirst}}</h2>
-                			<p class="mb-0"> {{comment.content}}</p>
-                			<footer class="blockquote-footer">by  <cite title="Source Title">{{ comment.user |capfirst}}</cite></footer>
-						</blockquote>
-					</div>
-            	{% endfor %}
-        	</div>
+		<div class="main_comment_section">
+            <h3>{{ comments.count }} Comment{{comments|pluralize}}</h3>
+            {% for comment in comments %}
+			<div class="post">
+            <blockquote class ="blockquote">
+				<h2>{{ comment.user |capfirst}}</h2>
+                <p class="mb-0"> {{comment.content}}</p>
+                <footer class="blockquote-footer">by  <cite title="Source Title">{{ comment.user |capfirst}}</cite></footer>
+            </blockquote>
+			</div>
+            {% endfor %}
+        </div>
 		</div>
+
     </div>
+
+
+
+
+
+
 {% endblock %}

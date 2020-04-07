@@ -14,8 +14,10 @@
             <p>
             {% if object_list.has_previous %}
                 <a href="?page={{object_list.previous_page_number}}{% if request.GET.query %}
-                 &query ={{request.GET.query}}{% endif %}">previous</a>
-            {% endif %}
+                 &query ={{request.GET.query}}{% endif %}">prev</a>
+            {% else %}
+				------
+			{% endif %}
             <span class = "current">
                 <b>{{object_list.number }} of {{object_list.paginator.num_pages}}</b>
             </span>
