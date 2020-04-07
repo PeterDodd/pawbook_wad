@@ -89,7 +89,13 @@ form input {
 	margin-top: 10px;
 }
 
-#submit:hover {
+#submit:hover ,#like_submit:hover ,#dislike_submit:hover {
+	background-color: var(--color-main-contrast);
+	cursor: pointer;
+	color: white;
+}
+
+#like_submit:hover {
 	background-color: var(--color-main-contrast);
 	cursor: pointer;
 	color: white;
@@ -297,4 +303,9 @@ main.wrapper {
 
 .error {
 	color: red;
+}
+
+#row {
+	display: flex;
+	flex-direction: row;
 }

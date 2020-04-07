@@ -14,6 +14,7 @@
 
 {% block css_block %}
 	<link rel="stylesheet" href="{% static 'css/home.css' %}" />
+	<script src="{% static "ajax/ajax.js" %}" crossorigin="anonymous"></script>
 {% endblock %}
 
 
@@ -32,24 +33,18 @@
 						<div class="like_bar">							
 							<div>							
 								<p>
-									Likes: {{ post.likes.count }}
-									Dislikes: {{ post.dislikes.count }}
+									Likes: <strong  id="like_count">{{ post.likes.count }}</strong>
+									Dislikes: <strong  id="dislike_count">{{ post.dislikes.count }}</strong>
 									<a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">Facebook</a>
 									<a href='https://plus.google.com/share?url={{ request.build_absolute_uri }}'>Google+</a>
 								</p>
 							</div>
 							{% if user.is_authenticated %}
 								<div>
-									<form id = "like_button" method = "POST" action = "{% url 'pawbook:show_post' post.slug %}" enctype = "multipart/form-data">
-										{% csrf_token %}
-										<input name = "like" type = "submit" class ="btn btn-primary" value ="LIKE" />
-									</form>
+									<input name = "{{ post.slug }}"	 type = "submit" class ="btn btn-primary" value ="LIKE" id="like_submit"/>
 								</div>
 								<div>
-									<form id = "dislike_button" method = "POST" action = "{% url 'pawbook:show_post' post.slug %}" enctype = multipart/form-data>
-										{% csrf_token %}
-										<input name = "dislike" type = "submit" class ="btn btn-primary" value ="DISLIKE" />
-									</form>
+									<input name = "{{ post.slug }}" user="{{ user }}" type = "submit" class ="btn btn-primary" value ="DISLIKE" id="dislike_submit"/>
 								</div>
 							{% endif %}
 						</div>

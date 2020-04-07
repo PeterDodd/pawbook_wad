@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
 from django.db.models import Q
+from django.views import View
+from django.utils.decorators import method_decorator
 
 
 def home(request):
@@ -240,7 +242,7 @@ def show_listing(request, name_slug):
         if "request" in request.POST:
             Listing.objects.get(slug = name_slug).requests.add(request.user)
             context_dict["result"] = "Seller notified"
-            
+
         elif "sale" in request.POST:
             listing = Listing.objects.get(slug = name_slug)
             profile = listing.poster
@@ -450,3 +452,23 @@ def contact(request):
 
     return render(request, "pawbook/contact.html", {'form':form})
 
+
+class LikePostView(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        name_slug = request.GET['name_slug']
+
+        post = Post.objects.get(slug=name_slug)
+        post.likes.add(request.user)
+        print(post.likes.count)
+        return HttpResponse(post.likes.count)
+
+
+class DislikePostView(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        name_slug = request.GET['name_slug']
+
+        post = Post.objects.get(slug=name_slug)
+        post.dislikes.add(request.user)
+        return HttpResponse(post.dislikes.count)

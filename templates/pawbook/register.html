@@ -11,7 +11,7 @@
 {% block body_block %}
 	<h2>REGISTER</h2>
 	{% if registered %}
-		<p>Thank you for registering with Pawbook. <a href="pawbook/">Click here</a> to go to home.</p>
+		<p>Thank you for registering with Pawbook. <a href="{% url 'pawbook/home' %}">Click here</a> to go to home.</p>
 
 	{% else %}
 	<p>Required fields marked with (*)</p>

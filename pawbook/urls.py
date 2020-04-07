@@ -16,6 +16,8 @@ urlpatterns = [
 
     path('posts/', views.posts, name='posts'),
     path("posts/<slug:name_slug>/", views.show_post, name = "show_post"),
+    path('like_post/', views.LikePostView.as_view(), name='like_post'),
+    path('dislike_post/', views.DislikePostView.as_view(), name='dislike_post'),
 
     path('pet-o-pedia/', views.pet_pedia, name='pet-o-pedia'),
     path("pet-o-pedia/<slug:name_slug>/", views.show_petPedia, name = "show_petPedia"),
