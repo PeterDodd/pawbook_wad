@@ -103,19 +103,19 @@ def add_user(username, firstName, lastName, bio, location):
     print("New user: " + username)
     newUser = User.objects.get_or_create(
         username = username,
+        first_name = firstName,
+        last_name = lastName,
         email = "test@test.com"
     )[0]
 
     newUser.set_password("Test")
     newUser.save()
-
     newUserProfile = UserProfile.objects.get_or_create(
         user = newUser,
-        firstName = firstName,
-        lastName = lastName,
         bio = bio,
         location = location,
     )[0]
+
     newUserProfile.age = random.randint(5, 80)
     newUserProfile.sellCount = random.randint(0, 50)
 
@@ -175,15 +175,16 @@ def add_listing(allUsers, breed, name, description, image):
         breed = breed,
         petName = name,
         description = description,
-        poster=random.choice(allUsers),
-        petAge=random.randint(0, 10),
-        cost=random.randint(0, 150)
-        # slug = slugify(name),
+#        poster=random.choice(allUsers),
+#        petAge=random.randint(0, 10),
+#        cost=random.randint(0, 150),
+        slug = slugify(name),
     )[0]
 
-    #newListing.poster = random.choice(allUsers)
-    #newListing.petAge = random.randint(0, 10)
-    #newListing.cost = random.randint(0, 150)
+    newListing.poster = random.choice(allUsers)
+    newListing.petAge = random.randint(0, 10)
+    newListing.cost = random.randint(0, 150)
+
     newListing.petImage.save(image, ImageFile(open(settings.MEDIA_ROOT + "/population/" + image, 'rb')))
 
     return newListing

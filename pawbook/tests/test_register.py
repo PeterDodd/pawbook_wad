@@ -5,7 +5,8 @@ from django.urls import reverse
 class CheckValidRegistration(TestCase):
 
     def test_no_double_users(self):
-        response = Client.post(reverse('pawbook:register'),valid_registration_details)
+        print(valid_add_listing_details)
+        response = Client.post(reverse('pawbook:register'), valid_registration_details)
         self.assertTrue(response.context==None , "Registration is malfunctioned, needs fixing")
 
         error_msg= "A user with that username already exists."
