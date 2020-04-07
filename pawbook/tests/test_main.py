@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.test import Client
 from django.urls import reverse, resolve
+from django.template.defaultfilters import slugify
 
 # Valid Registration Details
 valid_registration_details = {
@@ -53,5 +54,13 @@ def register_and_login():
     login()
 
 
+def add_contact():
+    Client.post(reverse('pawbook:contact'),valid_contact_us_detail)
+
+def add_post():
+    Client.post(reverse('pawbook:posts'),valid_post_detail)
+
+def add_listing():
+    Client.post(reverse('pawbook:listings'),valid_add_listing_details)
 
 

@@ -12,7 +12,8 @@ class CheckValidRegistration(TestCase):
         self.assertTrue(response.context!= None and response.context['registered']==True,error_msg)
 
 
-    #def test_registration_fields_not_null(self):
+    def test_registration_fields_not_null(self):
+        pass
 
 
 
