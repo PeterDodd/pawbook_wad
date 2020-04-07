@@ -4,8 +4,9 @@ from pawbook.models import Contact
 class TestContactUs(TestCase):
 
     def test_create_contact(self):
-        register_and_login()
-        response = Client.post(reverse('pawbook:listing'),valid_add_listing_details)
+        register_and_login(self)
+        response = Client.post(reverse('pawbook:marketplace'), valid_add_listing_details,
+                               content_type='application/x-www-form-urlencoded')
         self.assertTrue(response.context == None,"")
         contact_firstName = Contact.objects.filter(slug=slugify(valid_contact_us_detail['first_name'])).get()
         contact_lastName = Contact.objects.filter(slug=slugify(valid_contact_us_detail['last_name'])).get()

@@ -22,15 +22,14 @@ class UserProfileModelTest(TestCase):
 
     def test_first_name_max_length(self):
         user = UserProfile.objects.get(id=1)
-        max_length = user._meta.get_field('first_name').max_length
+        max_length = user._meta.get_field('firstName').max_length
+        self.assertEquals(max_length, 32)
+        max_length = user._meta.get_field('lastName').max_length
         self.assertEquals(max_length, 32)
 
-    def test_object_name_is_last_name_comma_first_name(self):
+    def test_object_name_is_username(self):
         user = UserProfile.objects.get(id=1)
         expected_object_name = f'{user.user.username}'
         self.assertEquals(expected_object_name, str(user))
 
-#    def test_get_absolute_url(self):
- #       author = Author.objects.get(id=1)
-  #      # This will also fail if the urlconf is not defined.
-   #     self.assertEquals(author.get_absolute_url(), '/catalog/author/1')
+

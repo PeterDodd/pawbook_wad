@@ -38,12 +38,12 @@ def populate():
     ]
 
     testListings = [
-        ("Fluffs", "We are moving so we need to find her a new home", "Cat", "cat.jpg"),
-        ("N/A", "Looking to sell lab puppies locally", "Dog", "lab.jpg"),
-        ("ExoticFish", "Selling fish", "Fish", "fish.jpeg"),
-        ("Daisy", "Cow for sale", "Cow", "cow.jpg"),
-        ("Tommy", "Selling my dog", "Dog", "dog.jpg"),
-        ("Spy", "Selling a pigeon", "Domestic pigeon", "pigeon.jpg")
+        ("Fluffs", "We are moving so we need to find her a new home", "Cat", "cat.jpg", 1),
+        ("N/A", "Looking to sell lab puppies locally", "Dog", "lab.jpg", 2),
+        ("ExoticFish", "Selling fish", "Fish", "fish.jpeg", 3),
+        ("Daisy", "Cow for sale", "Cow", "cow.jpg", 4),
+        ("Tommy", "Selling my dog", "Dog", "dog.jpg", 5),
+        ("Spy", "Selling a pigeon", "Domestic pigeon", "pigeon.jpg", 6)
     ]
 
     testPets = [
@@ -90,7 +90,7 @@ def populate():
                 for pet in testPets]
     print("\n")
 
-    listings = [add_listing(userList, listing[2], listing[0], listing[1], listing[3])
+    listings = [add_listing(userList, listing[4], listing[2], listing[0], listing[1], listing[3])
                 for listing in testListings]
     print("\n")
 
@@ -169,19 +169,16 @@ def add_post(allUsers, title, description, image, comments):
     return newPost
 
 
-def add_listing(allUsers, breed, name, description, image):
+def add_listing(allUsers, i, breed, name, description, image):
     print("New listing: " + name)
     newListing = Listing.objects.get_or_create(
         breed = breed,
         petName = name,
         description = description,
-#        poster=random.choice(allUsers),
-#        petAge=random.randint(0, 10),
-#        cost=random.randint(0, 150),
+        poster=allUsers[i % len(allUsers)],
         slug = slugify(name),
     )[0]
 
-    newListing.poster = random.choice(allUsers)
     newListing.petAge = random.randint(0, 10)
     newListing.cost = random.randint(0, 150)
 
