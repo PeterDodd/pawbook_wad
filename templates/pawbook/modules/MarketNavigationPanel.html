@@ -43,11 +43,11 @@
             {% endfor %}
 
             {% for pfield in postForm.visible_fields %}
-                {{ pfield.errors }}
-                <p>{{ pfield.help_text }}</p>
                 {{ pfield }}
             {% endfor %}
             <input type="submit" name="submitForm" value="POST" id="submit" />
+			<p>{{ result }}</p>
+			<p class="error">{{ error }}</p>
         </form>
     </div>
     {% elif request.path == "/pawbook/marketplace/" %}
@@ -61,11 +61,11 @@
             {% endfor %}
 
             {% for lfield in listingForm.visible_fields %}
-                {{ lfield.errors }}
-                <p>{{ lfield.help_text }}</p>
                 {{ lfield }}
             {% endfor %}
             <input type="submit" name="submitListing" value="POST" id="submit" />
+			<p>{{ result }}</p>
+			<p class="error">{{ error }}</p>
         </form>
     </div>
     {% endif %}

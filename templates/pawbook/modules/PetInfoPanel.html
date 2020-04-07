@@ -4,7 +4,7 @@
     <ul>
         {% if allPosts %}
             {% for post in allPosts %}
-                <li><a href='{% url "pawbook:show_petPedia" post.slug %}'>{{ post.breed }}</a></li>
+                <li><a href='{% url "pawbook:show_petPedia" post.slug %}'><p>{{ post.breed }}</p></a></li>
             {% endfor %}
         {% endif %}
     </ul>

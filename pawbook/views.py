@@ -36,7 +36,7 @@ def home(request):
 
     return render(request, "pawbook/home.html", context = {
         "trendingPosts": Post.objects.order_by("-likes")[:6],
-        "latestListings": Listing.objects.order_by("-datePosted")[:6],
+        "latestListings": Listing.objects.order_by("-datePosted")[:8],
         "object_list": queryset,
     })
 
@@ -76,11 +76,22 @@ def posts(request):
                 postImage = form.cleaned_data.get("postImage")
             )
             newPost.save()
-            return redirect("/pawbook/posts/")
+            return render(request, "pawbook/posts.html", context={
+                "result": "Post successfully uploaded",
+                "newest_posts": Post.objects.order_by("-datePosted"),
+                "trending": Post.objects.order_by("-likes")[:6],
+                "object_list": queryset,
+                "postForm": form,
+            })
 
         else:
             print(form.errors)
-            return redirect("/pawbook/")
+            return render(request, "pawbook/posts.html", context={
+                "newest_posts": Post.objects.order_by("-datePosted"),
+                "trending": Post.objects.order_by("-likes")[:6],
+                "object_list": queryset,
+                "postForm": form,
+            })
 
     else:
         form = PostForm()
@@ -182,11 +193,21 @@ def listings(request):
                 petImage = form.cleaned_data.get("petImage")
             )
             newPost.save()
-            return redirect("/pawbook/marketplace/")
+            return render(request, "pawbook/marketplace.html", context = {
+                "result": "Listing successfully uploaded",
+                "newest_listings": Listing.objects.all(),
+                "object_list": queryset,
+                "listingForm": form,
+            })
 
         else:
             print(form.errors)
-            return redirect("/pawbook/")
+            return render(request, "pawbook/marketplace.html", context = {
+                "error": "Please try again",
+                "newest_listings": Listing.objects.all(),
+                "object_list": queryset,
+                "listingForm": form,
+            })
 
     else:
         form = ListingForm()
@@ -218,7 +239,8 @@ def show_listing(request, name_slug):
     if request.method == "POST":
         if "request" in request.POST:
             Listing.objects.get(slug = name_slug).requests.add(request.user)
-
+            context_dict["result"] = "Seller notified"
+            
         elif "sale" in request.POST:
             listing = Listing.objects.get(slug = name_slug)
             profile = listing.poster
