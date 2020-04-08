@@ -301,8 +301,10 @@ main.wrapper {
 	width: 250px;
 }
 
-.error {
-	color: red;
+.errorlist {
+	color: rgb(214, 0, 0);
+	font-family: var(--font-content);
+	font-size: 0.9em;
 }
 
 #row {

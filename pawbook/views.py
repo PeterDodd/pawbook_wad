@@ -335,15 +335,20 @@ def register(request):
             p = profile_form.save(commit = False)
             p.user = user
 
-            if "picture" in request.FILES:
-                p.picture = request.FILES["picture"]
+            if "profilePicture" in request.FILES:
+                p.user.profilePicture = request.FILES["profilePicture"]
 
             p.save()
             registered = True
 
         else:
             print(user_form.errors, profile_form.errors)
-
+            return render(request, "pawbook/register.html", context={"error_user": user_form.errors,
+                                                                     "error_profile": profile_form.errors,
+                                                                     "userForm": user_form,
+                                                                     "profileForm": profile_form,
+                                                                     "registered": registered,
+                                                                     })
     else:
         user_form = UserForm()
         profile_form = UserProfileForm()

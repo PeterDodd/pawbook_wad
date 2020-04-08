@@ -12,7 +12,7 @@ class UserProfile(models.Model):   # User model
     bio = models.CharField(max_length = 500, default = "", blank = True)
     location = models.CharField(max_length = 200, default = "", blank = True)
 
-    age = models.IntegerField(default = 0, blank = True)
+    age = models.IntegerField(default = 0, blank = False)
     sellCount = models.IntegerField(default = 0, blank = True)
 
     profilePicture = models.ImageField(default = "profile_image/default.jpg", upload_to = "profile_image", blank = True, null = True)

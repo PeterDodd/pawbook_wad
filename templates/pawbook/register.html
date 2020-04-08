@@ -11,7 +11,7 @@
 {% block body_block %}
 	<h2>REGISTER</h2>
 	{% if registered %}
-		<p>Thank you for registering with Pawbook. <a href="{% url 'pawbook/home' %}">Click here</a> to go to home.</p>
+		<p>Thank you for registering with Pawbook. <a href="{% url 'pawbook:login' %}">Click here</a> to go to login.</p>
 
 	{% else %}
 	<p>Required fields marked with (*)</p>
@@ -21,13 +21,15 @@
 			<input type="text" name="username" placeholder="USERNAME*" value=""/>
 			<input type="email" name="email" placeholder="EMAIL*" value="" />
 			<input type="password" name="password" placeholder="PASSWORD*" value=""  />
+			<p class="error">{{ error_user }}</p>
 			<br>
 			<input type="text" name="firstName" placeholder="FIRST NAME" value=""  />
 			<input type="text" name="lastName" placeholder="LAST NAME" value=""/>
-			<input type="number" name="age" placeholder="AGE" value=""/>
+			<input type="number" name="age" placeholder="AGE*" value=""/>
 			<input type="text" name="bio" placeholder="BIO" value=""  />
 			<input type="text" name="location" placeholder="LOCATION" value="" />
-			<input type="file" name="profilePicture"/>
+			{{ profileForm.profilePicture }}
+			<p class="error">{{ error_profile }}</p>
 			<input type="submit" name="submit" id="submit" value="REGISTER"/>
 		</form>
 	</div>

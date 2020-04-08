@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from pawbook.models import UserProfile, PetPedia, Post, Listing, Contact,Comment
+from pawbook.models import UserProfile, PetPedia, Post, Listing, Contact, Comment
 
 
 class UserForm(forms.ModelForm):        # Form for User objects
@@ -22,7 +22,7 @@ class UserProfileForm(forms.ModelForm): # Form for UserProfile objects
         widgets = {
             "firstName": forms.TextInput(attrs={'placeholder': 'FIRST NAME', 'id': 'top'}),
             "lastName": forms.TextInput(attrs={'placeholder': 'LAST NAME'}),
-            "age": forms.TextInput(attrs={'placeholder': 'AGE'}),
+            "age": forms.NumberInput(attrs={'placeholder': 'AGE'}),
             "bio": forms.TextInput(attrs={'placeholder': 'BIO'}),
             "location": forms.TextInput(attrs={'placeholder': 'LOCATION'})}
 
