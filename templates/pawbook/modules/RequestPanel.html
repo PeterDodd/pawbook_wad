@@ -12,7 +12,7 @@
 	<h3>CONFIRM SALE</h3>
 	<div class="back-wrap">
 		<p>Close the listing if sale complete.</p>
-		<form id = "confirm_sale" method = "POST" action = "{% url 'pawbook:show_listing' listing.slug%}" enctype = "multipart/form-data">
+		<form id = "confirm_sale" method = "POST" action = "{% url 'pawbook:show_listing' listing.slug %}" enctype = "multipart/form-data">
 			{% csrf_token %}
 			<input name = "sale" type = "submit" class ="btn btn-primary" value = "CONFIRM SALE"  id="submit" />
 		</form>
