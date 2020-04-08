@@ -5,7 +5,7 @@ class TestContactUs(TestCase):
 
     def test_create_contact(self):
         register_and_login(self)
-        response = Client.post(reverse('pawbook:marketplace'), valid_add_listing_details,
+        response = Client.post(reverse('pawbook:contact'), valid_contact_us_detail,
                                content_type='application/x-www-form-urlencoded')
         self.assertTrue(response.context == None,"")
         contact_firstName = Contact.objects.filter(slug=slugify(valid_contact_us_detail['first_name'])).get()
